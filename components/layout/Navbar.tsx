@@ -34,23 +34,53 @@ export default function Navbar() {
             <Image src="/logo.jpeg" alt="SEF UNSOED" width={100} height={100} />
           </Link>
         </div>
+        <div className="hidden lg:flex lg:gap-x-12">
+          {navigation.map((item) => (
+            <Link
+              key={item.name}
+              href={item.href}
+              className={`text-sm font-semibold leading-6 ${
+                pathname === item.href ? 'text-indigo-600' : 'text-gray-900 hover:text-indigo-600'
+              } ${item.name === 'Media' ? 'mr-6' : ''}`}
+            >
+              {item.name}
+            </Link>
+          ))}
+        </div>
         <div className="flex items-center gap-4">
-          <button
-            onClick={toggleLanguage}
-            className="flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-all duration-300"
-          >
-            <div className="flex items-center gap-2 w-[50px] justify-center">
-              <Image
-                src={language === 'en' ? '/flags/uk.png' : '/flags/id.png'}
-                alt={language === 'en' ? 'English' : 'Indonesia'}
-                width={20}
-                height={20}
-                className="rounded-full"
-              />
-              <span className="text-sm font-medium text-gray-700 min-w-[20px]">{language.toUpperCase()}</span>
-            </div>
-          </button>
-          <div className="flex lg:hidden">
+          <div className="hidden lg:block">
+            <button
+              onClick={toggleLanguage}
+              className="flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-all duration-300"
+            >
+              <div className="flex items-center gap-2 w-[50px] justify-center">
+                <Image
+                  src={language === 'en' ? '/flags/uk.png' : '/flags/id.png'}
+                  alt={language === 'en' ? 'English' : 'Indonesia'}
+                  width={20}
+                  height={20}
+                  className="rounded-full"
+                />
+                <span className="text-sm font-medium text-gray-700 min-w-[20px]">{language.toUpperCase()}</span>
+              </div>
+            </button>
+          </div>
+          <div className="flex lg:hidden items-center gap-4">
+            <button
+              onClick={toggleLanguage}
+              className="flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-all duration-300"
+            >
+              <div className="flex items-center gap-2 w-[50px] justify-center">
+                <Image
+                  src={language === 'en' ? '/flags/uk.png' : '/flags/id.png'}
+                  alt={language === 'en' ? 'English' : 'Indonesia'}
+                  width={20}
+                  height={20}
+                  className="rounded-full"
+                />
+                <span className="text-sm font-medium text-gray-700 min-w-[20px]">{language.toUpperCase()}</span>
+              </div>
+            </button>
             <button
               type="button"
               className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
@@ -60,19 +90,6 @@ export default function Navbar() {
               <Bars3Icon className="h-6 w-6" aria-hidden="true" />
             </button>
           </div>
-        </div>
-        <div className="hidden lg:flex lg:gap-x-12">
-          {navigation.map((item) => (
-            <Link
-              key={item.name}
-              href={item.href}
-              className={`text-sm font-semibold leading-6 ${
-                pathname === item.href ? 'text-indigo-600' : 'text-gray-900 hover:text-indigo-600'
-              }`}
-            >
-              {item.name}
-            </Link>
-          ))}
         </div>
       </nav>
       <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
