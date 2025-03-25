@@ -3,8 +3,9 @@
 import { BookOpenIcon, EnvelopeIcon, CalendarIcon, MicrophoneIcon } from '@heroicons/react/24/outline'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { translations } from '@/translations'
+import { Suspense } from 'react'
 
-export default function Konten() {
+function ContentComponent() {
   const { language } = useLanguage()
   const t = translations[language]
 
@@ -221,5 +222,13 @@ export default function Konten() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function Konten() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ContentComponent />
+    </Suspense>
   )
 } 

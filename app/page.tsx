@@ -5,8 +5,9 @@ import Link from "next/link";
 import { useLanguage } from '@/contexts/LanguageContext'
 import { translations } from '@/translations'
 import { useSearchParams } from 'next/navigation'
+import { Suspense } from 'react'
 
-export default function Home() {
+function HomeComponent() {
   const { language } = useLanguage()
   const searchParams = useSearchParams()
 
@@ -32,12 +33,12 @@ export default function Home() {
                 </p>
                 <div className="mt-10 flex items-center gap-x-6">
                   <Link
-                    href={getLinkWithLang('/pendaftaran')}
+                    href={getLinkWithLang('/registration')}
                     className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                   >
                     {translations[language].home.hero.registerButton}
                   </Link>
-                  <Link href={getLinkWithLang('/tentang-kami')} className="text-sm font-semibold leading-6 text-gray-900">
+                  <Link href={getLinkWithLang('/about')} className="text-sm font-semibold leading-6 text-gray-900">
                     {translations[language].home.hero.learnMore} <span aria-hidden="true">→</span>
                   </Link>
                 </div>
@@ -107,6 +108,14 @@ export default function Home() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function Home() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <HomeComponent />
+    </Suspense>
   );
 }
 
