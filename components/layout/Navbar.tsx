@@ -3,34 +3,43 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { usePathname } from 'next/navigation'
+import { usePathname, useSearchParams } from 'next/navigation'
 import { Dialog } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import { useLanguage } from '@/contexts/LanguageContext'
+import { translations, type NavigationKeys } from '@/translations'
 
-const navigation = [
-  { name: 'Beranda', href: '/' },
-  { name: 'Tentang Kami', href: '/tentang-kami' },
-  { name: 'Program & Kegiatan', href: '/program-kegiatan' },
-  { name: 'Pendaftaran', href: '/pendaftaran' },
-  { name: 'Layanan', href: '/layanan' },
-  { name: 'Konten', href: '/konten' },
-  { name: 'Media', href: '/media' },
+const navigation: { name: NavigationKeys; href: string }[] = [
+  { name: 'home', href: '/' },
+  { name: 'about', href: '/about' },
+  { name: 'programs', href: '/programs' },
+  { name: 'registration', href: '/registration' },
+  { name: 'services', href: '/services' },
+  { name: 'content', href: '/content' },
+  { name: 'media', href: '/media' },
 ]
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [language, setLanguage] = useState('en')
+  const { language, setLanguage } = useLanguage()
   const pathname = usePathname()
+  const searchParams = useSearchParams()
 
   const toggleLanguage = () => {
     setLanguage(language === 'en' ? 'id' : 'en')
+  }
+
+  const getLinkWithLang = (href: string) => {
+    const params = new URLSearchParams(searchParams.toString())
+    params.set('lang', language)
+    return `${href}?${params.toString()}`
   }
 
   return (
     <header className="bg-white shadow-sm">
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 lg:px-8" aria-label="Global">
         <div className="flex lg:flex-1">
-          <Link href="/" className="-m-1.5 p-1.5">
+          <Link href={getLinkWithLang('/')} className="-m-1.5 p-1.5">
             <Image src="/logo.jpeg" alt="SEF UNSOED" width={100} height={100} />
           </Link>
         </div>
@@ -38,12 +47,12 @@ export default function Navbar() {
           {navigation.map((item) => (
             <Link
               key={item.name}
-              href={item.href}
+              href={getLinkWithLang(item.href)}
               className={`text-sm font-semibold leading-6 ${
                 pathname === item.href ? 'text-indigo-600' : 'text-gray-900 hover:text-indigo-600'
-              } ${item.name === 'Media' ? 'mr-6' : ''}`}
+              } ${item.name === 'media' ? 'mr-6' : ''}`}
             >
-              {item.name}
+              {translations[language].navigation[item.name]}
             </Link>
           ))}
         </div>
@@ -86,7 +95,7 @@ export default function Navbar() {
               className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
               onClick={() => setMobileMenuOpen(true)}
             >
-              <span className="sr-only">Buka menu utama</span>
+              <span className="sr-only">{translations[language].common.openMenu}</span>
               <Bars3Icon className="h-6 w-6" aria-hidden="true" />
             </button>
           </div>
@@ -96,7 +105,7 @@ export default function Navbar() {
         <div className="fixed inset-0 z-10" />
         <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center justify-between">
-            <Link href="/" className="-m-1.5 p-1.5">
+            <Link href={getLinkWithLang('/')} className="-m-1.5 p-1.5">
               <Image src="/logo.jpeg" alt="SEF UNSOED" width={100} height={100} />
             </Link>
             <button
@@ -104,7 +113,7 @@ export default function Navbar() {
               className="-m-2.5 rounded-md p-2.5 text-gray-700"
               onClick={() => setMobileMenuOpen(false)}
             >
-              <span className="sr-only">Tutup menu</span>
+              <span className="sr-only">{translations[language].common.closeMenu}</span>
               <XMarkIcon className="h-6 w-6" aria-hidden="true" />
             </button>
           </div>
@@ -114,13 +123,13 @@ export default function Navbar() {
                 {navigation.map((item) => (
                   <Link
                     key={item.name}
-                    href={item.href}
+                    href={getLinkWithLang(item.href)}
                     className={`-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 ${
                       pathname === item.href ? 'bg-gray-50 text-indigo-600' : 'text-gray-900 hover:bg-gray-50'
                     }`}
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    {item.name}
+                    {translations[language].navigation[item.name]}
                   </Link>
                 ))}
               </div>

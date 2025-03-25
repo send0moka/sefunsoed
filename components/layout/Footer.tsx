@@ -3,11 +3,11 @@ import { FaInstagram, FaTwitter, FaLinkedin, FaYoutube } from 'react-icons/fa'
 
 const navigation = {
   main: [
-    { name: 'Tentang Kami', href: '/tentang-kami' },
-    { name: 'Program & Kegiatan', href: '/program-kegiatan' },
-    { name: 'Pendaftaran', href: '/pendaftaran' },
-    { name: 'Layanan', href: '/layanan' },
-    { name: 'Konten', href: '/konten' },
+    { name: 'About', href: '/about' },
+    { name: 'Programs', href: '/programs' },
+    { name: 'Registration', href: '/registration' },
+    { name: 'Services', href: '/services' },
+    { name: 'Content', href: '/content' },
     { name: 'Media', href: '/media' },
   ],
   social: [
