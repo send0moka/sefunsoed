@@ -1,7 +1,21 @@
+'use client'
+
 import Image from "next/image";
 import Link from "next/link";
+import { useLanguage } from '@/contexts/LanguageContext'
+import { translations } from '@/translations'
+import { useSearchParams } from 'next/navigation'
 
 export default function Home() {
+  const { language } = useLanguage()
+  const searchParams = useSearchParams()
+
+  const getLinkWithLang = (href: string) => {
+    const params = new URLSearchParams(searchParams.toString())
+    params.set('lang', language)
+    return `${href}?${params.toString()}`
+  }
+
   return (
     <div className="bg-white">
       {/* Hero section */}
@@ -11,20 +25,20 @@ export default function Home() {
             <div className="mx-auto max-w-2xl">
               <div className="max-w-lg">
                 <h1 className="mt-10 text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-                  Student English Forum UNSOED
+                  {translations[language].home.hero.title}
                 </h1>
                 <p className="mt-6 text-lg leading-8 text-gray-600">
-                  Wadah pengembangan kemampuan bahasa Inggris dan kepemimpinan mahasiswa UNSOED.
+                  {translations[language].home.hero.description}
                 </p>
                 <div className="mt-10 flex items-center gap-x-6">
                   <Link
-                    href="/pendaftaran"
+                    href={getLinkWithLang('/pendaftaran')}
                     className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                   >
-                    Daftar Sekarang
+                    {translations[language].home.hero.registerButton}
                   </Link>
-                  <Link href="/tentang-kami" className="text-sm font-semibold leading-6 text-gray-900">
-                    Pelajari Lebih Lanjut <span aria-hidden="true">→</span>
+                  <Link href={getLinkWithLang('/tentang-kami')} className="text-sm font-semibold leading-6 text-gray-900">
+                    {translations[language].home.hero.learnMore} <span aria-hidden="true">→</span>
                   </Link>
                 </div>
               </div>
@@ -36,12 +50,12 @@ export default function Home() {
       {/* Feature section */}
       <div className="mx-auto mt-32 max-w-7xl px-6 sm:mt-56 lg:px-8">
         <div className="mx-auto max-w-2xl lg:text-center">
-          <h2 className="text-base font-semibold leading-7 text-indigo-600">Program Unggulan</h2>
+          <h2 className="text-base font-semibold leading-7 text-indigo-600">{translations[language].home.features.title}</h2>
           <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            Berbagai Program untuk Pengembangan Diri
+            {translations[language].home.features.subtitle}
           </p>
           <p className="mt-6 text-lg leading-8 text-gray-600">
-            SEF UNSOED menyediakan berbagai program untuk membantu mahasiswa mengembangkan kemampuan bahasa Inggris dan kepemimpinan mereka.
+            {translations[language].home.features.description}
           </p>
         </div>
         <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
@@ -50,10 +64,10 @@ export default function Home() {
               <div key={feature.name} className="flex flex-col">
                 <dt className="flex items-center gap-x-3 text-base font-semibold leading-7 text-gray-900">
                   <feature.icon className="h-5 w-5 flex-none text-indigo-600" aria-hidden="true" />
-                  {feature.name}
+                  {translations[language].home.features[feature.key].title}
                 </dt>
                 <dd className="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-600">
-                  <p className="flex-auto">{feature.description}</p>
+                  <p className="flex-auto">{translations[language].home.features[feature.key].description}</p>
                 </dd>
               </div>
             ))}
@@ -74,20 +88,20 @@ export default function Home() {
         </div>
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            Bergabunglah dengan SEF UNSOED
+            {translations[language].home.cta.title}
           </h2>
           <p className="mx-auto mt-6 max-w-xl text-lg leading-8 text-gray-600">
-            Jadilah bagian dari komunitas yang berfokus pada pengembangan kemampuan bahasa Inggris dan kepemimpinan.
+            {translations[language].home.cta.description}
           </p>
           <div className="mt-10 flex items-center justify-center gap-x-6">
             <Link
-              href="/pendaftaran"
+              href={getLinkWithLang('/registration')}
               className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
-              Daftar Sekarang
+              {translations[language].home.cta.registerButton}
             </Link>
-            <Link href="/tentang-kami" className="text-sm font-semibold leading-6 text-gray-900">
-              Pelajari Lebih Lanjut <span aria-hidden="true">→</span>
+            <Link href={getLinkWithLang('/about')} className="text-sm font-semibold leading-6 text-gray-900">
+              {translations[language].home.cta.learnMore} <span aria-hidden="true">→</span>
             </Link>
           </div>
         </div>
@@ -96,10 +110,18 @@ export default function Home() {
   );
 }
 
-const features = [
+type FeatureKey = 'nudc' | 'toefl' | 'translation'
+
+interface Feature {
+  key: FeatureKey
+  name: string
+  icon: (props: any) => JSX.Element
+}
+
+const features: Feature[] = [
   {
-    name: 'Program NUDC/KDMI',
-    description: 'Program persiapan untuk kompetisi debat bahasa Inggris tingkat nasional dan internasional.',
+    key: 'nudc',
+    name: 'NUDC/KDMI Program',
     icon: function Icon(props: any) {
       return (
         <svg
@@ -120,8 +142,8 @@ const features = [
     },
   },
   {
+    key: 'toefl',
     name: 'TOEFL/UEPT Preparation',
-    description: 'Program persiapan untuk tes TOEFL dan UEPT dengan materi yang terstruktur dan simulasi tes.',
     icon: function Icon(props: any) {
       return (
         <svg
@@ -142,8 +164,8 @@ const features = [
     },
   },
   {
+    key: 'translation',
     name: 'Translation & Proofreading',
-    description: 'Layanan penerjemahan dan proofreading untuk dokumen akademik dan non-akademik.',
     icon: function Icon(props: any) {
       return (
         <svg

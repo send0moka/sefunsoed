@@ -1,44 +1,42 @@
-import { UserGroupIcon, AcademicCapIcon, DocumentTextIcon, UserIcon, UsersIcon } from '@heroicons/react/24/outline'
+'use client'
 
-const registrationOptions = [
+import { UserGroupIcon, AcademicCapIcon, DocumentTextIcon, UserIcon, UsersIcon } from '@heroicons/react/24/outline'
+import { useLanguage } from '@/contexts/LanguageContext'
+import { translations } from '@/translations'
+
+const getRegistrationOptions = (t: any) => [
   {
-    name: 'NUDC/KDMI',
-    description: 'Pendaftaran untuk program persiapan kompetisi debat nasional dan internasional.',
+    ...t.registration.options.nudc,
     icon: AcademicCapIcon,
-    href: '/pendaftaran/nudc-kdmi',
-    status: 'Open',
+    href: '/registration/nudc-kdmi',
   },
   {
-    name: 'Webinar',
-    description: 'Pendaftaran untuk berbagai webinar bahasa Inggris dan pengembangan diri.',
+    ...t.registration.options.webinar,
     icon: UserGroupIcon,
-    href: '/pendaftaran/webinar',
-    status: 'Open',
+    href: '/registration/webinar',
   },
   {
-    name: 'TOEFL/UEPT',
-    description: 'Pendaftaran untuk program persiapan TOEFL dan UEPT.',
+    ...t.registration.options.toefl,
     icon: DocumentTextIcon,
-    href: '/pendaftaran/toefl-uept',
-    status: 'Open',
+    href: '/registration/toefl-uept',
   },
   {
-    name: 'Panitia',
-    description: 'Pendaftaran untuk menjadi panitia di berbagai acara SEF UNSOED.',
+    ...t.registration.options.committee,
     icon: UserIcon,
-    href: '/pendaftaran/panitia',
-    status: 'Open',
+    href: '/registration/committee',
   },
   {
-    name: 'Anggota SEF',
-    description: 'Pendaftaran untuk menjadi anggota SEF UNSOED.',
+    ...t.registration.options.member,
     icon: UsersIcon,
-    href: '/pendaftaran/anggota',
-    status: 'Open',
+    href: '/registration/member',
   },
 ]
 
 export default function Pendaftaran() {
+  const { language } = useLanguage()
+  const t = translations[language]
+  const registrationOptions = getRegistrationOptions(t)
+
   return (
     <div className="bg-white">
       {/* Hero section */}
@@ -48,10 +46,10 @@ export default function Pendaftaran() {
             <div className="mx-auto max-w-2xl">
               <div className="max-w-lg">
                 <h1 className="mt-10 text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-                  Pendaftaran
+                  {t.registration.title}
                 </h1>
                 <p className="mt-6 text-lg leading-8 text-gray-600">
-                  Pilih program yang sesuai dengan kebutuhan Anda dan daftar sekarang.
+                  {t.registration.description}
                 </p>
               </div>
             </div>
@@ -62,12 +60,12 @@ export default function Pendaftaran() {
       {/* Registration options section */}
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-24 sm:py-32">
         <div className="mx-auto max-w-2xl lg:text-center">
-          <h2 className="text-base font-semibold leading-7 text-indigo-600">Program Pendaftaran</h2>
+          <h2 className="text-base font-semibold leading-7 text-indigo-600">{t.registrationForm.title}</h2>
           <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            Pilih Program Anda
+            {t.registrationForm.selectProgram}
           </p>
           <p className="mt-6 text-lg leading-8 text-gray-600">
-            SEF UNSOED menyediakan berbagai program yang dapat Anda pilih sesuai dengan kebutuhan dan minat Anda.
+            {t.registrationForm.description}
           </p>
         </div>
         <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
@@ -85,7 +83,7 @@ export default function Pendaftaran() {
                       href={option.href}
                       className="text-sm font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
                     >
-                      Daftar sekarang <span aria-hidden="true">→</span>
+                      {t.registration.registerButton} <span aria-hidden="true">→</span>
                     </a>
                   </p>
                   <span className="mt-4 inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800">
@@ -101,71 +99,37 @@ export default function Pendaftaran() {
       {/* Requirements section */}
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-24 sm:py-32">
         <div className="mx-auto max-w-2xl lg:text-center">
-          <h2 className="text-base font-semibold leading-7 text-indigo-600">Persyaratan</h2>
+          <h2 className="text-base font-semibold leading-7 text-indigo-600">{t.registration.requirements.title}</h2>
           <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            Persyaratan Umum
+            {t.registration.requirements.subtitle}
           </p>
           <p className="mt-6 text-lg leading-8 text-gray-600">
-            Berikut adalah persyaratan umum yang harus dipenuhi untuk mendaftar di program SEF UNSOED.
+            {t.registration.requirements.description}
           </p>
         </div>
         <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24">
           <div className="flow-root">
             <ul role="list" className="-mb-8">
-              <li>
-                <div className="relative pb-8">
-                  <div className="relative flex space-x-3">
-                    <div>
-                      <span className="h-8 w-8 rounded-full bg-indigo-500 flex items-center justify-center ring-8 ring-white">
-                        <span className="text-white text-sm">1</span>
-                      </span>
-                    </div>
-                    <div className="flex min-w-0 flex-1 justify-between space-x-4 pt-1.5">
+              {t.registration.requirements.items.map((item, index) => (
+                <li key={index}>
+                  <div className="relative pb-8">
+                    <div className="relative flex space-x-3">
                       <div>
-                        <p className="text-sm text-gray-500">
-                          Mahasiswa aktif UNSOED
-                        </p>
+                        <span className="h-8 w-8 rounded-full bg-indigo-500 flex items-center justify-center ring-8 ring-white">
+                          <span className="text-white text-sm">{index + 1}</span>
+                        </span>
+                      </div>
+                      <div className="flex min-w-0 flex-1 justify-between space-x-4 pt-1.5">
+                        <div>
+                          <p className="text-sm text-gray-500">
+                            {item}
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </li>
-              <li>
-                <div className="relative pb-8">
-                  <div className="relative flex space-x-3">
-                    <div>
-                      <span className="h-8 w-8 rounded-full bg-indigo-500 flex items-center justify-center ring-8 ring-white">
-                        <span className="text-white text-sm">2</span>
-                      </span>
-                    </div>
-                    <div className="flex min-w-0 flex-1 justify-between space-x-4 pt-1.5">
-                      <div>
-                        <p className="text-sm text-gray-500">
-                          Memiliki minat dalam pengembangan bahasa Inggris
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div className="relative pb-8">
-                  <div className="relative flex space-x-3">
-                    <div>
-                      <span className="h-8 w-8 rounded-full bg-indigo-500 flex items-center justify-center ring-8 ring-white">
-                        <span className="text-white text-sm">3</span>
-                      </span>
-                    </div>
-                    <div className="flex min-w-0 flex-1 justify-between space-x-4 pt-1.5">
-                      <div>
-                        <p className="text-sm text-gray-500">
-                          Bersedia mengikuti program secara aktif
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </li>
+                </li>
+              ))}
             </ul>
           </div>
         </div>

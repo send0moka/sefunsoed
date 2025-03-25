@@ -1,6 +1,8 @@
 'use client'
 
 import { CalendarIcon, BuildingOfficeIcon, TrophyIcon } from '@heroicons/react/24/outline'
+import { useLanguage } from '@/contexts/LanguageContext'
+import { translations } from '@/translations'
 
 const events = [
   {
@@ -72,6 +74,9 @@ const sponsors = [
 ]
 
 export default function ProgramKegiatan() {
+  const { language } = useLanguage()
+  const t = translations[language].programs
+
   return (
     <div className="bg-white">
       {/* Hero section */}
@@ -81,10 +86,10 @@ export default function ProgramKegiatan() {
             <div className="mx-auto max-w-2xl">
               <div className="max-w-lg">
                 <h1 className="mt-10 text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-                  Program & Kegiatan
+                  {t.hero.title}
                 </h1>
                 <p className="mt-6 text-lg leading-8 text-gray-600">
-                  Temukan berbagai program dan kegiatan yang tersedia di SEF UNSOED.
+                  {t.hero.description}
                 </p>
               </div>
             </div>
@@ -95,21 +100,21 @@ export default function ProgramKegiatan() {
       {/* Events section */}
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-24 sm:py-32">
         <div className="mx-auto max-w-2xl lg:text-center">
-          <h2 className="text-base font-semibold leading-7 text-indigo-600">Events</h2>
+          <h2 className="text-base font-semibold leading-7 text-indigo-600">{t.events.title}</h2>
           <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            Kegiatan Mendatang
+            {t.events.subtitle}
           </p>
           <p className="mt-6 text-lg leading-8 text-gray-600">
-            Berbagai kegiatan yang akan segera dilaksanakan oleh SEF UNSOED.
+            {t.events.description}
           </p>
         </div>
         <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24">
           <div className="flow-root">
             <ul role="list" className="-mb-8">
-              {events.map((event, eventIdx) => (
-                <li key={event.id}>
+              {t.events.items.map((event, eventIdx) => (
+                <li key={event.title}>
                   <div className="relative pb-8">
-                    {eventIdx !== events.length - 1 ? (
+                    {eventIdx !== t.events.items.length - 1 ? (
                       <span className="absolute left-4 top-4 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true" />
                     ) : null}
                     <div className="relative flex space-x-3">
@@ -125,7 +130,7 @@ export default function ProgramKegiatan() {
                           </p>
                           <p className="text-sm font-medium text-gray-900">{event.title}</p>
                           <p className="mt-1 text-sm text-gray-500">{event.description}</p>
-                          <p className="mt-2 text-sm text-gray-500">Lokasi: {event.location}</p>
+                          <p className="mt-2 text-sm text-gray-500">{t.events.locationLabel}: {event.location}</p>
                           <span className="mt-2 inline-flex items-center rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
                             {event.status}
                           </span>
@@ -143,21 +148,21 @@ export default function ProgramKegiatan() {
       {/* Achievements section */}
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-24 sm:py-32">
         <div className="mx-auto max-w-2xl lg:text-center">
-          <h2 className="text-base font-semibold leading-7 text-indigo-600">Achievements</h2>
+          <h2 className="text-base font-semibold leading-7 text-indigo-600">{t.achievements.title}</h2>
           <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            Prestasi Terbaru
+            {t.achievements.subtitle}
           </p>
           <p className="mt-6 text-lg leading-8 text-gray-600">
-            Pencapaian-pencapaian terbaru dari SEF UNSOED.
+            {t.achievements.description}
           </p>
         </div>
         <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24">
           <div className="flow-root">
             <ul role="list" className="-mb-8">
-              {achievements.map((achievement, achievementIdx) => (
-                <li key={achievement.id}>
+              {t.achievements.items.map((achievement, achievementIdx) => (
+                <li key={achievement.title}>
                   <div className="relative pb-8">
-                    {achievementIdx !== achievements.length - 1 ? (
+                    {achievementIdx !== t.achievements.items.length - 1 ? (
                       <span className="absolute left-4 top-4 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true" />
                     ) : null}
                     <div className="relative flex space-x-3">
@@ -187,21 +192,21 @@ export default function ProgramKegiatan() {
       {/* Sponsors section */}
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-24 sm:py-32">
         <div className="mx-auto max-w-2xl lg:text-center">
-          <h2 className="text-base font-semibold leading-7 text-indigo-600">Sponsors</h2>
+          <h2 className="text-base font-semibold leading-7 text-indigo-600">{t.sponsors.title}</h2>
           <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            Partner Strategis
+            {t.sponsors.subtitle}
           </p>
           <p className="mt-6 text-lg leading-8 text-gray-600">
-            Partner strategis yang mendukung program dan kegiatan SEF UNSOED.
+            {t.sponsors.description}
           </p>
         </div>
         <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24">
           <div className="flow-root">
             <ul role="list" className="-mb-8">
-              {sponsors.map((sponsor, sponsorIdx) => (
-                <li key={sponsor.id}>
+              {t.sponsors.items.map((sponsor, sponsorIdx) => (
+                <li key={sponsor.name}>
                   <div className="relative pb-8">
-                    {sponsorIdx !== sponsors.length - 1 ? (
+                    {sponsorIdx !== t.sponsors.items.length - 1 ? (
                       <span className="absolute left-4 top-4 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true" />
                     ) : null}
                     <div className="relative flex space-x-3">

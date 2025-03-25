@@ -2,6 +2,8 @@
 
 import { Disclosure } from '@headlessui/react'
 import { ChevronUpIcon } from '@heroicons/react/24/outline'
+import { useLanguage } from '@/contexts/LanguageContext'
+import { translations } from '@/translations'
 
 const faqs = [
   {
@@ -53,6 +55,9 @@ const programKerja = [
 ]
 
 export default function TentangKami() {
+  const { language } = useLanguage()
+  const t = translations[language].about
+
   return (
     <div className="bg-white">
       {/* Hero section */}
@@ -62,10 +67,10 @@ export default function TentangKami() {
             <div className="mx-auto max-w-2xl">
               <div className="max-w-lg">
                 <h1 className="mt-10 text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-                  Tentang SEF UNSOED
+                  {t.hero.title}
                 </h1>
                 <p className="mt-6 text-lg leading-8 text-gray-600">
-                  Mengembangkan kemampuan bahasa Inggris dan kepemimpinan mahasiswa UNSOED.
+                  {t.hero.description}
                 </p>
               </div>
             </div>
@@ -76,33 +81,61 @@ export default function TentangKami() {
       {/* Program Kerja section */}
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-24 sm:py-32">
         <div className="mx-auto max-w-2xl lg:text-center">
-          <h2 className="text-base font-semibold leading-7 text-indigo-600">Program Kerja</h2>
+          <h2 className="text-base font-semibold leading-7 text-indigo-600">{t.programKerja.title}</h2>
           <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            Program & Kegiatan
+            {t.programKerja.subtitle}
           </p>
           <p className="mt-6 text-lg leading-8 text-gray-600">
-            Berbagai program dan kegiatan yang tersedia di SEF UNSOED.
+            {t.programKerja.description}
           </p>
         </div>
         <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
           <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
-            {programKerja.map((program) => (
-              <div key={program.name} className="flex flex-col">
-                <dt className="flex items-center gap-x-3 text-base font-semibold leading-7 text-gray-900">
-                  {program.name}
-                </dt>
-                <dd className="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-600">
-                  <ul role="list" className="flex flex-auto flex-col gap-y-4">
-                    {program.items.map((item) => (
-                      <li key={item} className="flex gap-x-3">
-                        <span className="text-indigo-600">•</span>
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </dd>
-              </div>
-            ))}
+            <div className="flex flex-col">
+              <dt className="flex items-center gap-x-3 text-base font-semibold leading-7 text-gray-900">
+                {t.programKerja.sections.pembelajaran.title}
+              </dt>
+              <dd className="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-600">
+                <ul role="list" className="flex flex-auto flex-col gap-y-4">
+                  {t.programKerja.sections.pembelajaran.items.map((item) => (
+                    <li key={item} className="flex gap-x-3">
+                      <span className="text-indigo-600">•</span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </dd>
+            </div>
+            <div className="flex flex-col">
+              <dt className="flex items-center gap-x-3 text-base font-semibold leading-7 text-gray-900">
+                {t.programKerja.sections.pengembangan.title}
+              </dt>
+              <dd className="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-600">
+                <ul role="list" className="flex flex-auto flex-col gap-y-4">
+                  {t.programKerja.sections.pengembangan.items.map((item) => (
+                    <li key={item} className="flex gap-x-3">
+                      <span className="text-indigo-600">•</span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </dd>
+            </div>
+            <div className="flex flex-col">
+              <dt className="flex items-center gap-x-3 text-base font-semibold leading-7 text-gray-900">
+                {t.programKerja.sections.layanan.title}
+              </dt>
+              <dd className="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-600">
+                <ul role="list" className="flex flex-auto flex-col gap-y-4">
+                  {t.programKerja.sections.layanan.items.map((item) => (
+                    <li key={item} className="flex gap-x-3">
+                      <span className="text-indigo-600">•</span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </dd>
+            </div>
           </dl>
         </div>
       </div>
@@ -110,17 +143,17 @@ export default function TentangKami() {
       {/* FAQ section */}
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-24 sm:py-32">
         <div className="mx-auto max-w-2xl lg:text-center">
-          <h2 className="text-base font-semibold leading-7 text-indigo-600">FAQ</h2>
+          <h2 className="text-base font-semibold leading-7 text-indigo-600">{t.faq.title}</h2>
           <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            Pertanyaan Umum
+            {t.faq.subtitle}
           </p>
           <p className="mt-6 text-lg leading-8 text-gray-600">
-            Temukan jawaban untuk pertanyaan yang sering diajukan tentang SEF UNSOED.
+            {t.faq.description}
           </p>
         </div>
         <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24">
           <div className="space-y-4">
-            {faqs.map((faq) => (
+            {t.faq.items.map((faq) => (
               <Disclosure key={faq.question} as="div" className="pt-6">
                 {({ open }) => (
                   <>
@@ -146,32 +179,39 @@ export default function TentangKami() {
       {/* Contact section */}
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-24 sm:py-32">
         <div className="mx-auto max-w-2xl lg:text-center">
-          <h2 className="text-base font-semibold leading-7 text-indigo-600">Kontak</h2>
+          <h2 className="text-base font-semibold leading-7 text-indigo-600">{t.contact.title}</h2>
           <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            Hubungi Kami
+            {t.contact.subtitle}
           </p>
           <p className="mt-6 text-lg leading-8 text-gray-600">
-            Jangan ragu untuk menghubungi kami jika Anda memiliki pertanyaan.
+            {t.contact.description}
           </p>
         </div>
         <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24">
           <div className="rounded-lg bg-gray-50 px-6 py-10">
             <div className="mx-auto max-w-xl lg:mx-0">
               <h3 className="text-lg font-medium tracking-tight text-gray-900">
-                Alamat
+                {t.contact.address.title}
               </h3>
               <p className="mt-2 text-base leading-7 text-gray-600">
-                Gedung Student Center UNSOED<br />
-                Jl. Dr. Soeparno No. 60<br />
-                Purwokerto, Jawa Tengah 53122
+                {t.contact.address.content.map((line, index) => (
+                  <span key={index}>
+                    {line}
+                    <br />
+                  </span>
+                ))}
               </p>
               <div className="mt-6">
                 <h3 className="text-lg font-medium tracking-tight text-gray-900">
-                  Kontak
+                  {t.contact.contactInfo.title}
                 </h3>
                 <p className="mt-2 text-base leading-7 text-gray-600">
-                  Email: sef@unsoed.ac.id<br />
-                  Telepon: (0281) 638795
+                  {t.contact.contactInfo.content.map((line, index) => (
+                    <span key={index}>
+                      {line}
+                      <br />
+                    </span>
+                  ))}
                 </p>
               </div>
             </div>

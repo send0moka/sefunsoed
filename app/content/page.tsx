@@ -1,111 +1,13 @@
+'use client'
+
 import { BookOpenIcon, EnvelopeIcon, CalendarIcon, MicrophoneIcon } from '@heroicons/react/24/outline'
-
-const articles = [
-  {
-    id: 1,
-    title: 'Tips Meningkatkan Kemampuan Speaking',
-    description: 'Panduan praktis untuk meningkatkan kemampuan berbicara bahasa Inggris Anda.',
-    author: 'John Doe',
-    date: '15 Maret 2024',
-    readTime: '5 min read',
-    category: 'Edukasi',
-  },
-  {
-    id: 2,
-    title: 'Strategi Menulis Essay yang Efektif',
-    description: 'Belajar teknik menulis essay yang baik dan benar dalam bahasa Inggris.',
-    author: 'Jane Smith',
-    date: '10 Maret 2024',
-    readTime: '7 min read',
-    category: 'Edukasi',
-  },
-  {
-    id: 3,
-    title: 'Grammar Tips: Present Perfect Tense',
-    description: 'Panduan lengkap penggunaan Present Perfect Tense dalam bahasa Inggris.',
-    author: 'Mike Johnson',
-    date: '5 Maret 2024',
-    readTime: '6 min read',
-    category: 'Edukasi',
-  },
-]
-
-const newsletters = [
-  {
-    id: 1,
-    title: 'SEF Newsletter #1',
-    description: 'Update terbaru tentang program dan kegiatan SEF UNSOED.',
-    date: '1 Maret 2024',
-    link: '#',
-  },
-  {
-    id: 2,
-    title: 'SEF Newsletter #2',
-    description: 'Tips dan trik belajar bahasa Inggris dari para ahli.',
-    date: '15 Februari 2024',
-    link: '#',
-  },
-  {
-    id: 3,
-    title: 'SEF Newsletter #3',
-    description: 'Kisah sukses dari alumni SEF UNSOED.',
-    date: '1 Februari 2024',
-    link: '#',
-  },
-]
-
-const specialDays = [
-  {
-    id: 1,
-    title: 'International Mother Language Day',
-    description: 'Mengenal pentingnya bahasa ibu dan keragaman bahasa di dunia.',
-    date: '21 Februari 2024',
-    link: '#',
-  },
-  {
-    id: 2,
-    title: 'World Poetry Day',
-    description: 'Merayakan keindahan puisi dalam berbagai bahasa.',
-    date: '21 Maret 2024',
-    link: '#',
-  },
-  {
-    id: 3,
-    title: 'International Literacy Day',
-    description: 'Pentingnya literasi dalam pengembangan masyarakat.',
-    date: '8 September 2024',
-    link: '#',
-  },
-]
-
-const podcasts = [
-  {
-    id: 1,
-    title: 'Episode 1: Tips Belajar Bahasa Inggris',
-    description: 'Diskusi tentang metode efektif belajar bahasa Inggris.',
-    duration: '15:30',
-    date: '1 Maret 2024',
-    link: '#',
-  },
-  {
-    id: 2,
-    title: 'Episode 2: Public Speaking Skills',
-    description: 'Cara meningkatkan kemampuan public speaking dalam bahasa Inggris.',
-    duration: '20:15',
-    date: '15 Februari 2024',
-    link: '#',
-  },
-  {
-    id: 3,
-    title: 'Episode 3: TOEFL Preparation',
-    description: 'Strategi persiapan TOEFL yang efektif.',
-    duration: '18:45',
-    date: '1 Februari 2024',
-    link: '#',
-  },
-]
+import { useLanguage } from '@/contexts/LanguageContext'
+import { translations } from '@/translations'
 
 export default function Konten() {
+  const { language } = useLanguage()
+  const t = translations[language]
+
   return (
     <div className="bg-white">
       {/* Hero section */}
@@ -115,10 +17,10 @@ export default function Konten() {
             <div className="mx-auto max-w-2xl">
               <div className="max-w-lg">
                 <h1 className="mt-10 text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-                  Konten Edukasi
+                  {t.content.hero.title}
                 </h1>
                 <p className="mt-6 text-lg leading-8 text-gray-600">
-                  Temukan berbagai konten edukasi untuk meningkatkan kemampuan bahasa Inggris Anda.
+                  {t.content.hero.description}
                 </p>
               </div>
             </div>
@@ -129,16 +31,16 @@ export default function Konten() {
       {/* Articles section */}
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-24 sm:py-32">
         <div className="mx-auto max-w-2xl lg:text-center">
-          <h2 className="text-base font-semibold leading-7 text-indigo-600">Artikel</h2>
+          <h2 className="text-base font-semibold leading-7 text-indigo-600">{t.content.articles.title}</h2>
           <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            Artikel Edukasi
+            {t.content.articles.subtitle}
           </p>
           <p className="mt-6 text-lg leading-8 text-gray-600">
-            Artikel-artikel yang dapat membantu Anda dalam belajar bahasa Inggris.
+            {t.content.articles.description}
           </p>
         </div>
         <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-          {articles.map((article) => (
+          {t.content.articles.items.map((article) => (
             <article key={article.id} className="flex flex-col items-start">
               <div className="flex items-center gap-x-4 text-xs">
                 <time dateTime={article.date} className="text-gray-500">
@@ -174,21 +76,21 @@ export default function Konten() {
       {/* Newsletter section */}
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-24 sm:py-32">
         <div className="mx-auto max-w-2xl lg:text-center">
-          <h2 className="text-base font-semibold leading-7 text-indigo-600">Newsletter</h2>
+          <h2 className="text-base font-semibold leading-7 text-indigo-600">{t.content.newsletter.title}</h2>
           <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            Newsletter SEF
+            {t.content.newsletter.subtitle}
           </p>
           <p className="mt-6 text-lg leading-8 text-gray-600">
-            Dapatkan update terbaru tentang program dan kegiatan SEF UNSOED.
+            {t.content.newsletter.description}
           </p>
         </div>
         <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24">
           <div className="flow-root">
             <ul role="list" className="-mb-8">
-              {newsletters.map((newsletter, newsletterIdx) => (
+              {t.content.newsletter.items.map((newsletter, newsletterIdx) => (
                 <li key={newsletter.id}>
                   <div className="relative pb-8">
-                    {newsletterIdx !== newsletters.length - 1 ? (
+                    {newsletterIdx !== t.content.newsletter.items.length - 1 ? (
                       <span className="absolute left-4 top-4 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true" />
                     ) : null}
                     <div className="relative flex space-x-3">
@@ -206,8 +108,8 @@ export default function Konten() {
                           <p className="mt-1 text-sm text-gray-500">{newsletter.description}</p>
                         </div>
                         <div className="whitespace-nowrap text-right text-sm text-gray-500">
-                          <a href={newsletter.link} className="text-indigo-600 hover:text-indigo-500">
-                            Baca selengkapnya <span aria-hidden="true">→</span>
+                          <a href="#" className="text-indigo-600 hover:text-indigo-500">
+                            {t.content.newsletter.readMore} <span aria-hidden="true">→</span>
                           </a>
                         </div>
                       </div>
@@ -223,21 +125,21 @@ export default function Konten() {
       {/* Special Days section */}
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-24 sm:py-32">
         <div className="mx-auto max-w-2xl lg:text-center">
-          <h2 className="text-base font-semibold leading-7 text-indigo-600">Peringatan Hari</h2>
+          <h2 className="text-base font-semibold leading-7 text-indigo-600">{t.content.specialDays.title}</h2>
           <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            Artikel Peringatan Hari
+            {t.content.specialDays.subtitle}
           </p>
           <p className="mt-6 text-lg leading-8 text-gray-600">
-            Artikel-artikel yang berkaitan dengan hari-hari penting dalam dunia bahasa dan pendidikan.
+            {t.content.specialDays.description}
           </p>
         </div>
         <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24">
           <div className="flow-root">
             <ul role="list" className="-mb-8">
-              {specialDays.map((day, dayIdx) => (
+              {t.content.specialDays.items.map((day, dayIdx) => (
                 <li key={day.id}>
                   <div className="relative pb-8">
-                    {dayIdx !== specialDays.length - 1 ? (
+                    {dayIdx !== t.content.specialDays.items.length - 1 ? (
                       <span className="absolute left-4 top-4 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true" />
                     ) : null}
                     <div className="relative flex space-x-3">
@@ -255,8 +157,8 @@ export default function Konten() {
                           <p className="mt-1 text-sm text-gray-500">{day.description}</p>
                         </div>
                         <div className="whitespace-nowrap text-right text-sm text-gray-500">
-                          <a href={day.link} className="text-indigo-600 hover:text-indigo-500">
-                            Baca selengkapnya <span aria-hidden="true">→</span>
+                          <a href="#" className="text-indigo-600 hover:text-indigo-500">
+                            {t.content.specialDays.readMore} <span aria-hidden="true">→</span>
                           </a>
                         </div>
                       </div>
@@ -272,21 +174,21 @@ export default function Konten() {
       {/* Podcast section */}
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-24 sm:py-32">
         <div className="mx-auto max-w-2xl lg:text-center">
-          <h2 className="text-base font-semibold leading-7 text-indigo-600">Podcast</h2>
+          <h2 className="text-base font-semibold leading-7 text-indigo-600">{t.content.podcast.title}</h2>
           <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            SEF Podcast
+            {t.content.podcast.subtitle}
           </p>
           <p className="mt-6 text-lg leading-8 text-gray-600">
-            Dengarkan podcast kami untuk tips dan trik belajar bahasa Inggris.
+            {t.content.podcast.description}
           </p>
         </div>
         <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24">
           <div className="flow-root">
             <ul role="list" className="-mb-8">
-              {podcasts.map((podcast, podcastIdx) => (
+              {t.content.podcast.items.map((podcast, podcastIdx) => (
                 <li key={podcast.id}>
                   <div className="relative pb-8">
-                    {podcastIdx !== podcasts.length - 1 ? (
+                    {podcastIdx !== t.content.podcast.items.length - 1 ? (
                       <span className="absolute left-4 top-4 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true" />
                     ) : null}
                     <div className="relative flex space-x-3">
@@ -302,11 +204,11 @@ export default function Konten() {
                           </p>
                           <p className="text-sm font-medium text-gray-900">{podcast.title}</p>
                           <p className="mt-1 text-sm text-gray-500">{podcast.description}</p>
-                          <p className="mt-2 text-sm text-gray-500">Durasi: {podcast.duration}</p>
+                          <p className="mt-2 text-sm text-gray-500">{t.content.podcast.duration}: {podcast.duration}</p>
                         </div>
                         <div className="whitespace-nowrap text-right text-sm text-gray-500">
-                          <a href={podcast.link} className="text-indigo-600 hover:text-indigo-500">
-                            Dengarkan <span aria-hidden="true">→</span>
+                          <a href="#" className="text-indigo-600 hover:text-indigo-500">
+                            {t.content.podcast.listen} <span aria-hidden="true">→</span>
                           </a>
                         </div>
                       </div>
