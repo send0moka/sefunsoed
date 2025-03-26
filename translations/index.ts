@@ -549,12 +549,12 @@ export const translations: Translations = {
         linkedin: 'LinkedIn',
         youtube: 'YouTube',
       },
-      copyright: 'All rights reserved.',
+      copyright: 'Be One Step Forward! All rights reserved.',
       address: {
         line1: 'Jl. Prof. Dr. HR Boenyamin No.708, Grendeng, North Purwokerto District',
         line2: 'Banyumas Regency, Central Java 53122',
-        email: 'Email: sef@unsoed.ac.id',
-        phone: 'Phone: (0281) 638491',
+        email: 'Email: sef.unsoed@gmail.com',
+        phone: 'Phone: 081316840834 (Jauza)',
       },
     },
     registration: {
