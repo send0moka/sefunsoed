@@ -81,7 +81,7 @@ export default function Footer() {
           <p>{translations[language].footer.address.phone}</p>
         </div>
         <p className="mt-10 text-center text-xs leading-5 text-gray-500">
-          &copy; {new Date().getFullYear()} SEF UNSOED. {translations[language].footer.copyright}
+          &copy; {new Date().getFullYear()} SEF UNSOED.<br/> {translations[language].footer.copyright}
         </p>
       </div>
     </footer>
