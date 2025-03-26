@@ -264,6 +264,40 @@ interface AboutContent {
       content: string[]
     }
   }
+  organizationStructure: {
+    title: string;
+    subtitle: string;
+    description: string;
+    departments: {
+      leadership: string;
+      talentDebate: string;
+      researchDevelopment: string;
+      publicRelations: string;
+      education: string;
+    };
+    roles: {
+      president: string;
+      vicePresident: string;
+      secretary: string;
+      treasurer: string;
+      coordinator: string;
+      staff: string;
+    };
+    majorNames: {
+      internationalRelations: string;
+      law: string;
+      englishLiterature: string;
+      publicAdministration: string;
+      sociology: string;
+      foodTechnology: string;
+      englishDiplomaProgram: string;
+      englishEducation: string;
+      accounting: string;
+      communicationScience: string;
+      agrotechnology: string;
+      physics: string;
+    };
+  };
 }
 
 interface ProgramsContent {
@@ -704,6 +738,40 @@ export const translations: Translations = {
             'Email: sef@unsoed.ac.id',
             'Phone: (0281) 638795'
           ]
+        }
+      },
+      organizationStructure: {
+        title: "Our Team",
+        subtitle: "Organization Structure",
+        description: "Meet the dedicated team behind SEF UNSOED who work together to deliver excellent programs and services.",
+        departments: {
+          leadership: "Leadership",
+          talentDebate: "Talent & Debate Department",
+          researchDevelopment: "Research & Development Department",
+          publicRelations: "Public Relations Department",
+          education: "Education Department",
+        },
+        roles: {
+          president: "President",
+          vicePresident: "Vice President",
+          secretary: "Secretary",
+          treasurer: "Treasurer",
+          coordinator: "Coordinator",
+          staff: "Staff",
+        },
+        majorNames: {
+          internationalRelations: "International Relations",
+          law: "Law",
+          englishLiterature: "English Literature",
+          publicAdministration: "Public Administration",
+          sociology: "Sociology",
+          foodTechnology: "Food Technology",
+          englishDiplomaProgram: "English Diploma Program",
+          englishEducation: "English Education",
+          accounting: "Accounting",
+          communicationScience: "Communication Science",
+          agrotechnology: "Agrotechnology",
+          physics: "Physics",
         }
       }
     },
@@ -1204,6 +1272,40 @@ export const translations: Translations = {
             'Telepon: (0281) 638795'
           ]
         }
+      },
+      organizationStructure: {
+        title: "Tim Kami",
+        subtitle: "Struktur Organisasi",
+        description: "Kenali tim dedikasi di balik SEF UNSOED yang bekerja sama untuk memberikan program dan layanan terbaik.",
+        departments: {
+          leadership: "Kepemimpinan",
+          talentDebate: "Departemen Talent & Debat",
+          researchDevelopment: "Departemen Penelitian & Pengembangan",
+          publicRelations: "Departemen Hubungan Masyarakat",
+          education: "Departemen Pendidikan",
+        },
+        roles: {
+          president: "Ketua",
+          vicePresident: "Wakil Ketua",
+          secretary: "Sekretaris",
+          treasurer: "Bendahara",
+          coordinator: "Koordinator",
+          staff: "Staf",
+        },
+        majorNames: {
+          internationalRelations: "Hubungan Internasional",
+          law: "Hukum",
+          englishLiterature: "Sastra Inggris",
+          publicAdministration: "Administrasi Publik",
+          sociology: "Sosiologi",
+          foodTechnology: "Teknologi Pangan",
+          englishDiplomaProgram: "Program Diploma Bahasa Inggris",
+          englishEducation: "Pendidikan Bahasa Inggris",
+          accounting: "Akuntansi",
+          communicationScience: "Ilmu Komunikasi",
+          agrotechnology: "Agroteknologi",
+          physics: "Fisika",
+        }
       }
     },
     programs: {
@@ -1351,4 +1453,4 @@ export const translations: Translations = {
       }
     }
   },
-} 
+}
