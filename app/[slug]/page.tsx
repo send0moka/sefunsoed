@@ -1,9 +1,9 @@
-'use client'
+"use client"
 
-import { useLanguage } from '@/contexts/LanguageContext'
-import { translations } from '@/translations'
-import { useSearchParams } from 'next/navigation'
-import Link from 'next/link'
+import { useLanguage } from "@/contexts/LanguageContext"
+import { translations } from "@/translations"
+import { useSearchParams } from "next/navigation"
+import Link from "next/link"
 
 export default function ContentPage({ params }: { params: { slug: string } }) {
   const { language } = useLanguage()
@@ -11,11 +11,14 @@ export default function ContentPage({ params }: { params: { slug: string } }) {
 
   const getLinkWithLang = (href: string) => {
     const params = new URLSearchParams(searchParams.toString())
-    params.set('lang', language)
+    params.set("lang", language)
     return `${href}?${params.toString()}`
   }
 
-  const content = translations[language].content[params.slug as keyof typeof translations[typeof language]['content']]
+  const content =
+    translations[language].content[
+      params.slug as keyof (typeof translations)[typeof language]["content"]
+    ]
 
   if (!content) {
     return (
@@ -29,10 +32,11 @@ export default function ContentPage({ params }: { params: { slug: string } }) {
           </p>
           <div className="mt-10">
             <Link
-              href={getLinkWithLang('/')}
+              href={getLinkWithLang("/")}
               className="text-sm font-semibold leading-6 text-indigo-600"
             >
-              {translations[language].content.notFound.backToHome} <span aria-hidden="true">→</span>
+              {translations[language].content.notFound.backToHome}{" "}
+              <span aria-hidden="true">→</span>
             </Link>
           </div>
         </div>
@@ -47,17 +51,15 @@ export default function ContentPage({ params }: { params: { slug: string } }) {
           {content.title}
         </h1>
         <div className="mt-6 space-y-6 text-gray-600">
-          {('content' in content && Array.isArray(content.content)) ? (
+          {"content" in content && Array.isArray(content.content) ? (
             content.content.map((paragraph: string, index: number) => (
               <p key={index}>{paragraph}</p>
             ))
-          ) : (
-            'description' in content ? (
-              <p>{content.description}</p>
-            ) : null
-          )}
+          ) : "description" in content ? (
+            <p>{content.description}</p>
+          ) : null}
         </div>
       </div>
     </div>
   )
-} 
+}

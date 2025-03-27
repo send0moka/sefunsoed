@@ -1,8 +1,13 @@
-'use client'
+"use client"
 
-import { DocumentTextIcon, CheckCircleIcon, ClockIcon, CurrencyDollarIcon } from '@heroicons/react/24/outline'
-import { useLanguage } from '@/contexts/LanguageContext'
-import { translations } from '@/translations'
+import {
+  DocumentTextIcon,
+  CheckCircleIcon,
+  ClockIcon,
+  CurrencyDollarIcon,
+} from "@heroicons/react/24/outline"
+import { useLanguage } from "@/contexts/LanguageContext"
+import { translations } from "@/translations"
 
 export default function Layanan() {
   const { language } = useLanguage()
@@ -31,7 +36,9 @@ export default function Layanan() {
       {/* Services section */}
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-24 sm:py-32">
         <div className="mx-auto max-w-2xl lg:text-center">
-          <h2 className="text-base font-semibold leading-7 text-indigo-600">{t.services.services.title}</h2>
+          <h2 className="text-base font-semibold leading-7 text-indigo-600">
+            {t.services.services.title}
+          </h2>
           <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
             {t.services.services.subtitle}
           </p>
@@ -45,16 +52,24 @@ export default function Layanan() {
               <div key={service.name} className="flex flex-col">
                 <dt className="flex items-center gap-x-3 text-base font-semibold leading-7 text-gray-900">
                   {index === 0 ? (
-                    <DocumentTextIcon className="h-5 w-5 flex-none text-indigo-600" aria-hidden="true" />
+                    <DocumentTextIcon
+                      className="h-5 w-5 flex-none text-indigo-600"
+                      aria-hidden="true"
+                    />
                   ) : (
-                    <CheckCircleIcon className="h-5 w-5 flex-none text-indigo-600" aria-hidden="true" />
+                    <CheckCircleIcon
+                      className="h-5 w-5 flex-none text-indigo-600"
+                      aria-hidden="true"
+                    />
                   )}
                   {service.name}
                 </dt>
                 <dd className="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-600">
                   <p className="flex-auto">{service.description}</p>
                   <div className="mt-6">
-                    <h3 className="text-sm font-semibold text-gray-900">Fitur:</h3>
+                    <h3 className="text-sm font-semibold text-gray-900">
+                      Fitur:
+                    </h3>
                     <ul className="mt-2 space-y-2">
                       {service.features.map((feature) => (
                         <li key={feature} className="flex items-center">
@@ -77,12 +92,22 @@ export default function Layanan() {
                   </div>
                   <div className="mt-6 flex items-center gap-x-4">
                     <div className="flex items-center">
-                      <CurrencyDollarIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
-                      <span className="ml-2 text-sm text-gray-500">{service.pricing}</span>
+                      <CurrencyDollarIcon
+                        className="h-5 w-5 text-gray-400"
+                        aria-hidden="true"
+                      />
+                      <span className="ml-2 text-sm text-gray-500">
+                        {service.pricing}
+                      </span>
                     </div>
                     <div className="flex items-center">
-                      <ClockIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
-                      <span className="ml-2 text-sm text-gray-500">{service.turnaround}</span>
+                      <ClockIcon
+                        className="h-5 w-5 text-gray-400"
+                        aria-hidden="true"
+                      />
+                      <span className="ml-2 text-sm text-gray-500">
+                        {service.turnaround}
+                      </span>
                     </div>
                   </div>
                 </dd>
@@ -95,7 +120,9 @@ export default function Layanan() {
       {/* Process section */}
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-24 sm:py-32">
         <div className="mx-auto max-w-2xl lg:text-center">
-          <h2 className="text-base font-semibold leading-7 text-indigo-600">{t.services.process.title}</h2>
+          <h2 className="text-base font-semibold leading-7 text-indigo-600">
+            {t.services.process.title}
+          </h2>
           <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
             {t.services.process.subtitle}
           </p>
@@ -110,20 +137,29 @@ export default function Layanan() {
                 <li key={step.name}>
                   <div className="relative pb-8">
                     {stepIdx !== t.services.process.steps.length - 1 ? (
-                      <span className="absolute left-4 top-4 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true" />
+                      <span
+                        className="absolute left-4 top-4 -ml-px h-full w-0.5 bg-gray-200"
+                        aria-hidden="true"
+                      />
                     ) : null}
                     <div className="relative flex space-x-3">
                       <div>
                         <span className="h-8 w-8 rounded-full bg-indigo-500 flex items-center justify-center ring-8 ring-white">
-                          <span className="text-white text-sm">{stepIdx + 1}</span>
+                          <span className="text-white text-sm">
+                            {stepIdx + 1}
+                          </span>
                         </span>
                       </div>
                       <div className="flex min-w-0 flex-1 justify-between space-x-4 pt-1.5">
                         <div>
                           <p className="text-sm text-gray-500">
-                            <span className="font-medium text-gray-900">{step.name}</span>
+                            <span className="font-medium text-gray-900">
+                              {step.name}
+                            </span>
                           </p>
-                          <p className="mt-1 text-sm text-gray-500">{step.description}</p>
+                          <p className="mt-1 text-sm text-gray-500">
+                            {step.description}
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -136,4 +172,4 @@ export default function Layanan() {
       </div>
     </div>
   )
-} 
+}

@@ -1,10 +1,10 @@
-'use client'
+"use client"
 
-import { Disclosure } from '@headlessui/react'
-import { ChevronUpIcon } from '@heroicons/react/24/outline'
-import { useLanguage } from '@/contexts/LanguageContext'
-import { translations } from '@/translations'
-import Image from 'next/image'
+import { Disclosure } from "@headlessui/react"
+import { ChevronUpIcon } from "@heroicons/react/24/outline"
+import { useLanguage } from "@/contexts/LanguageContext"
+import { translations } from "@/translations"
+import Image from "next/image"
 
 // Modified organization structure data to include social media links
 const organizationStructure = {
@@ -15,7 +15,7 @@ const organizationStructure = {
       department: "International Relations '22",
       image: "/images/members/dinar.png",
       instagram: "danaharii",
-      linkedin: "dinar-danahari-0767282b6"
+      linkedin: "dinar-danahari-0767282b6",
     },
     {
       name: "Atthiya Zahrah Faiha R",
@@ -312,7 +312,7 @@ const organizationStructure = {
       instagram: "leeoryy",
     },
   ],
-};
+}
 
 export default function TentangKami() {
   const { language } = useLanguage()
@@ -320,61 +320,70 @@ export default function TentangKami() {
 
   // MemberCard component
   type Member = {
-    name: string;
-    role: string;
-    department: string;
-    image: string;
-    instagram?: string;
-    linkedin?: string;
-  };
+    name: string
+    role: string
+    department: string
+    image: string
+    instagram?: string
+    linkedin?: string
+  }
 
-  const MemberCard = ({ member, languageRoles }: { 
-    member: Member; 
-    languageRoles: Record<string, string> 
+  const MemberCard = ({
+    member,
+    languageRoles,
+  }: {
+    member: Member
+    languageRoles: Record<string, string>
   }) => {
     // Map English role names to translated role keys
     const roleMapping: Record<string, keyof typeof languageRoles> = {
-      "President": "president",
+      President: "president",
       "Vice President": "vicePresident",
-      "Secretary": "secretary",
-      "Treasurer": "treasurer",
-      "Coordinator": "coordinator",
-      "Staff": "staff",
-    };
-    
-    const translatedRole = languageRoles[roleMapping[member.role] || "staff"];
-    
+      Secretary: "secretary",
+      Treasurer: "treasurer",
+      Coordinator: "coordinator",
+      Staff: "staff",
+    }
+
+    const translatedRole = languageRoles[roleMapping[member.role] || "staff"]
+
     // Extract department and batch year for better formatting
-    const departmentParts = member.department.match(/(.*)\s'(\d+)$/);
-    const departmentName = departmentParts ? departmentParts[1] : member.department;
-    const batchYear = departmentParts ? departmentParts[2] : "";
-    
+    const departmentParts = member.department.match(/(.*)\s'(\d+)$/)
+    const departmentName = departmentParts
+      ? departmentParts[1]
+      : member.department
+    const batchYear = departmentParts ? departmentParts[2] : ""
+
     // Map English department names to translation keys
-    const departmentMapping: Record<string, keyof typeof t.organizationStructure.majorNames> = {
+    const departmentMapping: Record<
+      string,
+      keyof typeof t.organizationStructure.majorNames
+    > = {
       "International Relations": "internationalRelations",
-      "Law": "law",
+      Law: "law",
       "English Literature": "englishLiterature",
       "Public Administration": "publicAdministration",
-      "Sociology": "sociology",
+      Sociology: "sociology",
       "Food Technology": "foodTechnology",
       "English Diploma Program": "englishDiplomaProgram",
       "English Education": "englishEducation",
-      "Accounting": "accounting",
+      Accounting: "accounting",
       "Communication Science": "communicationScience",
-      "Agrotechnology": "agrotechnology",
-      "Physics": "physics",
-    };
-    
+      Agrotechnology: "agrotechnology",
+      Physics: "physics",
+    }
+
     // Translate department name if it exists in the mapping
-    const translatedDepartment = departmentName && departmentMapping[departmentName] 
-      ? t.organizationStructure.majorNames[departmentMapping[departmentName]] 
-      : departmentName;
-    
+    const translatedDepartment =
+      departmentName && departmentMapping[departmentName]
+        ? t.organizationStructure.majorNames[departmentMapping[departmentName]]
+        : departmentName
+
     return (
       <div className="flex flex-col items-center p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow relative group">
         <div className="relative w-32 h-32 mb-3 overflow-hidden rounded-full">
-          <Image 
-            src={member.image} 
+          <Image
+            src={member.image}
             alt={member.name}
             fill
             className="object-cover"
@@ -383,40 +392,54 @@ export default function TentangKami() {
           />
         </div>
         <h3 className="text-lg font-medium text-gray-900">{member.name}</h3>
-        <p className="text-sm text-indigo-600 font-semibold">{translatedRole}</p>
+        <p className="text-sm text-indigo-600 font-semibold">
+          {translatedRole}
+        </p>
         <p className="text-xs text-gray-500 mt-1">
           <span>{translatedDepartment}</span>
           {batchYear && (
-            <span className="ml-1 text-indigo-400">'<span className="font-medium">{batchYear}</span></span>
+            <span className="ml-1 text-indigo-400">
+              &apos;<span className="font-medium">{batchYear}</span>
+            </span>
           )}
         </p>
-        
+
         {/* Only show overlay if member has social media */}
         {(member.instagram || member.linkedin) && (
           <div className="absolute inset-0 bg-indigo-600/80 backdrop-blur-sm rounded-lg flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
             <p className="text-white font-medium text-lg mb-4">{member.name}</p>
             <div className="flex space-x-4">
               {member.instagram && (
-                <a 
-                  href={`https://instagram.com/${member.instagram}`} 
-                  target="_blank" 
+                <a
+                  href={`https://instagram.com/${member.instagram}`}
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="bg-white text-indigo-600 p-2 rounded-full hover:bg-gray-100 transition-colors"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-6 w-6"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
                   </svg>
                 </a>
               )}
               {member.linkedin && (
-                <a 
-                  href={`https://linkedin.com/in/${member.linkedin}`} 
-                  target="_blank" 
+                <a
+                  href={`https://linkedin.com/in/${member.linkedin}`}
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="bg-white text-indigo-600 p-2 rounded-full hover:bg-gray-100 transition-colors"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z"/>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-6 w-6"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z" />
                   </svg>
                 </a>
               )}
@@ -424,8 +447,8 @@ export default function TentangKami() {
           </div>
         )}
       </div>
-    );
-  };
+    )
+  }
 
   return (
     <div className="bg-white">
@@ -450,7 +473,9 @@ export default function TentangKami() {
       {/* Program Kerja section */}
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-24 sm:py-32">
         <div className="mx-auto max-w-2xl lg:text-center">
-          <h2 className="text-base font-semibold leading-7 text-indigo-600">{t.programKerja.title}</h2>
+          <h2 className="text-base font-semibold leading-7 text-indigo-600">
+            {t.programKerja.title}
+          </h2>
           <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
             {t.programKerja.subtitle}
           </p>
@@ -512,7 +537,9 @@ export default function TentangKami() {
       {/* Organization Structure section */}
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-24 sm:py-32 bg-gray-50">
         <div className="mx-auto max-w-2xl lg:text-center mb-16">
-          <h2 className="text-base font-semibold leading-7 text-indigo-600">{t.organizationStructure.title}</h2>
+          <h2 className="text-base font-semibold leading-7 text-indigo-600">
+            {t.organizationStructure.title}
+          </h2>
           <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
             {t.organizationStructure.subtitle}
           </p>
@@ -520,53 +547,83 @@ export default function TentangKami() {
             {t.organizationStructure.description}
           </p>
         </div>
-        
+
         {/* Leadership */}
         <div className="mb-16">
-          <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">{t.organizationStructure.departments.leadership}</h3>
+          <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">
+            {t.organizationStructure.departments.leadership}
+          </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
             {organizationStructure.leadership.map((member, index) => (
-              <MemberCard key={index} member={member} languageRoles={t.organizationStructure.roles} />
+              <MemberCard
+                key={index}
+                member={member}
+                languageRoles={t.organizationStructure.roles}
+              />
             ))}
           </div>
         </div>
-        
+
         {/* Talent & Debate Department */}
         <div className="mb-16">
-          <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">{t.organizationStructure.departments.talentDebate}</h3>
+          <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">
+            {t.organizationStructure.departments.talentDebate}
+          </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {organizationStructure.talentDebate.map((member, index) => (
-              <MemberCard key={index} member={member} languageRoles={t.organizationStructure.roles} />
+              <MemberCard
+                key={index}
+                member={member}
+                languageRoles={t.organizationStructure.roles}
+              />
             ))}
           </div>
         </div>
-        
+
         {/* Research & Development Department */}
         <div className="mb-16">
-          <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">{t.organizationStructure.departments.researchDevelopment}</h3>
+          <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">
+            {t.organizationStructure.departments.researchDevelopment}
+          </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {organizationStructure.researchDevelopment.map((member, index) => (
-              <MemberCard key={index} member={member} languageRoles={t.organizationStructure.roles} />
+              <MemberCard
+                key={index}
+                member={member}
+                languageRoles={t.organizationStructure.roles}
+              />
             ))}
           </div>
         </div>
-        
+
         {/* Public Relations Department */}
         <div className="mb-16">
-          <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">{t.organizationStructure.departments.publicRelations}</h3>
+          <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">
+            {t.organizationStructure.departments.publicRelations}
+          </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {organizationStructure.publicRelations.map((member, index) => (
-              <MemberCard key={index} member={member} languageRoles={t.organizationStructure.roles} />
+              <MemberCard
+                key={index}
+                member={member}
+                languageRoles={t.organizationStructure.roles}
+              />
             ))}
           </div>
         </div>
-        
+
         {/* Education Department */}
         <div className="mb-16">
-          <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">{t.organizationStructure.departments.education}</h3>
+          <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">
+            {t.organizationStructure.departments.education}
+          </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {organizationStructure.education.map((member, index) => (
-              <MemberCard key={index} member={member} languageRoles={t.organizationStructure.roles} />
+              <MemberCard
+                key={index}
+                member={member}
+                languageRoles={t.organizationStructure.roles}
+              />
             ))}
           </div>
         </div>
@@ -575,7 +632,9 @@ export default function TentangKami() {
       {/* FAQ section */}
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-24 sm:py-32">
         <div className="mx-auto max-w-2xl lg:text-center">
-          <h2 className="text-base font-semibold leading-7 text-indigo-600">{t.faq.title}</h2>
+          <h2 className="text-base font-semibold leading-7 text-indigo-600">
+            {t.faq.title}
+          </h2>
           <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
             {t.faq.subtitle}
           </p>
@@ -593,7 +652,7 @@ export default function TentangKami() {
                       <span>{faq.question}</span>
                       <ChevronUpIcon
                         className={`${
-                          open ? 'rotate-180 transform' : ''
+                          open ? "rotate-180 transform" : ""
                         } h-5 w-5 text-indigo-500`}
                       />
                     </Disclosure.Button>
@@ -611,7 +670,9 @@ export default function TentangKami() {
       {/* Contact section */}
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-24 sm:py-32">
         <div className="mx-auto max-w-2xl lg:text-center">
-          <h2 className="text-base font-semibold leading-7 text-indigo-600">{t.contact.title}</h2>
+          <h2 className="text-base font-semibold leading-7 text-indigo-600">
+            {t.contact.title}
+          </h2>
           <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
             {t.contact.subtitle}
           </p>
