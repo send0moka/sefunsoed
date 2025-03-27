@@ -225,7 +225,7 @@ function ContentComponent() {
   )
 }
 
-export default function Konten() {
+export default function ContentPage() {
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <ContentComponent />

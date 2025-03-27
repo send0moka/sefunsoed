@@ -5,12 +5,12 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname, useSearchParams } from 'next/navigation'
 import { Dialog } from '@headlessui/react'
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Bars3Icon, XMarkIcon, UserCircleIcon } from '@heroicons/react/24/outline'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { translations, type NavigationKeys } from '@/translations'
+import { SignInButton, SignUpButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
 
 const navigation: { name: NavigationKeys; href: string }[] = [
-  { name: 'home', href: '/' },
   { name: 'about', href: '/about' },
   { name: 'programs', href: '/programs' },
   { name: 'registration', href: '/registration' },
@@ -50,14 +50,14 @@ export default function Navbar() {
               href={getLinkWithLang(item.href)}
               className={`text-sm font-semibold leading-6 ${
                 pathname === item.href ? 'text-indigo-600' : 'text-gray-900 hover:text-indigo-600'
-              } ${item.name === 'media' ? 'mr-6' : ''}`}
+              } ${item.name === 'media' ? 'mr-10' : ''}`}
             >
               {translations[language].navigation[item.name]}
             </Link>
           ))}
         </div>
         <div className="flex items-center gap-4">
-          <div className="hidden lg:block">
+          <div className="hidden lg:flex items-center gap-6">
             <button
               onClick={toggleLanguage}
               className="flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-all duration-300"
@@ -73,6 +73,21 @@ export default function Navbar() {
                 <span className="text-sm font-medium text-gray-700 min-w-[20px]">{language.toUpperCase()}</span>
               </div>
             </button>
+            
+            {/* Replace the login button with Clerk auth buttons */}
+            <SignedOut>
+              <div className="flex items-center gap-3">
+                <SignInButton mode="modal">
+                  <button className="flex items-center gap-2 px-4 py-2 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 active:translate-y-0">
+                    <UserCircleIcon className="h-5 w-5 text-white group-hover:animate-pulse" />
+                    <span className="text-sm font-medium">{language === 'en' ? 'Sign In' : 'Masuk'}</span>
+                  </button>
+                </SignInButton>
+              </div>
+            </SignedOut>
+            <SignedIn>
+              <UserButton afterSignOutUrl="/" />
+            </SignedIn>
           </div>
           <div className="flex lg:hidden items-center gap-4">
             <button
@@ -90,6 +105,9 @@ export default function Navbar() {
                 <span className="text-sm font-medium text-gray-700 min-w-[20px]">{language.toUpperCase()}</span>
               </div>
             </button>
+            <SignedIn>
+              <UserButton afterSignOutUrl="/" />
+            </SignedIn>
             <button
               type="button"
               className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
@@ -132,6 +150,19 @@ export default function Navbar() {
                     {translations[language].navigation[item.name]}
                   </Link>
                 ))}
+                {/* Replace the mobile login button with Clerk auth buttons */}
+                <SignedOut>
+                  <div className="mt-4 space-y-2">
+                    <SignInButton mode="modal">
+                      <button className="w-full -mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 bg-indigo-600 text-white hover:bg-indigo-700" onClick={() => setMobileMenuOpen(false)}>
+                        <div className="flex items-center gap-2">
+                          <UserCircleIcon className="h-5 w-5" />
+                          <span>{language === 'en' ? 'Sign In' : 'Masuk'}</span>
+                        </div>
+                      </button>
+                    </SignInButton>
+                  </div>
+                </SignedOut>
               </div>
             </div>
           </div>
@@ -139,4 +170,4 @@ export default function Navbar() {
       </Dialog>
     </header>
   )
-} 
+}

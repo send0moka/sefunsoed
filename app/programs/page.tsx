@@ -73,7 +73,7 @@ const sponsors = [
   },
 ]
 
-export default function ProgramKegiatan() {
+export default function ProgramsPage() {
   const { language } = useLanguage()
   const t = translations[language].programs
 

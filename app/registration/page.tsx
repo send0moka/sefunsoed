@@ -32,7 +32,7 @@ const getRegistrationOptions = (t: any) => [
   },
 ]
 
-export default function Pendaftaran() {
+export default function RegistrationPage() {
   const { language } = useLanguage()
   const t = translations[language]
   const registrationOptions = getRegistrationOptions(t)
