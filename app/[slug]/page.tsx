@@ -1,18 +1,26 @@
 import { Metadata } from "next"
 import ClientPage from "./ClientPage"
 
-type Props = {
-  params: { slug: string }
-  searchParams?: { [key: string]: string | string[] | undefined }
+interface PageParams {
+  slug: string
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+interface PageProps {
+  params: PageParams
+  searchParams: Record<string, string | string[] | undefined>
+}
+
+export async function generateMetadata({ 
+  params 
+}: PageProps): Promise<Metadata> {
   return {
     title: `Page: ${params.slug}`,
     // Add other metadata as needed
   }
 }
 
-export default async function Page({ params }: Props) {
+export default function Page({ 
+  params 
+}: PageProps) {
   return <ClientPage slug={params.slug} />
 }
