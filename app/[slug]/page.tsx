@@ -2,10 +2,10 @@ import { Metadata } from 'next';
 import ClientPage from './ClientPage';
 
 type Props = {
-  params: { slug: string }
+  params: { slug: string },
+  searchParams: { [key: string]: string | string[] | undefined }
 }
 
-// This is a server component function
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `Page: ${params.slug}`,
@@ -13,7 +13,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-// This is the page component (also a server component)
 export default function Page({ params }: Props) {
   return <ClientPage slug={params.slug} />;
 }
