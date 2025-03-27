@@ -9,7 +9,7 @@ import {
 import { useLanguage } from "@/contexts/LanguageContext"
 import { translations } from "@/translations"
 
-export default function Layanan() {
+export default function ServicesPage() {
   const { language } = useLanguage()
   const t = translations[language]
 

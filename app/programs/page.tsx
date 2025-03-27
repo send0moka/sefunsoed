@@ -8,7 +8,7 @@ import {
 import { useLanguage } from "@/contexts/LanguageContext"
 import { translations } from "@/translations"
 
-export default function ProgramKegiatan() {
+export default function ProgramsPage() {
   const { language } = useLanguage()
   const t = translations[language].programs
 

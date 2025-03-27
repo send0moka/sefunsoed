@@ -314,7 +314,7 @@ const organizationStructure = {
   ],
 }
 
-export default function TentangKami() {
+export default function AboutPage() {
   const { language } = useLanguage()
   const t = translations[language].about
 

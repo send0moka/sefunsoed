@@ -61,7 +61,7 @@ export default function Navbar() {
           ))}
         </div>
         <div className="flex items-center gap-4">
-          <div className="hidden lg:block">
+          <div className="hidden lg:flex items-center gap-6">
             <button
               onClick={toggleLanguage}
               className="flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-all duration-300"
@@ -79,6 +79,21 @@ export default function Navbar() {
                 </span>
               </div>
             </button>
+            
+            {/* Replace the login button with Clerk auth buttons */}
+            <SignedOut>
+              <div className="flex items-center gap-3">
+                <SignInButton mode="modal">
+                  <button className="flex items-center gap-2 px-4 py-2 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 active:translate-y-0">
+                    <UserCircleIcon className="h-5 w-5 text-white group-hover:animate-pulse" />
+                    <span className="text-sm font-medium">{language === 'en' ? 'Sign In' : 'Masuk'}</span>
+                  </button>
+                </SignInButton>
+              </div>
+            </SignedOut>
+            <SignedIn>
+              <UserButton afterSignOutUrl="/" />
+            </SignedIn>
           </div>
           <div className="flex lg:hidden items-center gap-4">
             <button
@@ -98,6 +113,9 @@ export default function Navbar() {
                 </span>
               </div>
             </button>
+            <SignedIn>
+              <UserButton afterSignOutUrl="/" />
+            </SignedIn>
             <button
               type="button"
               className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
@@ -156,6 +174,19 @@ export default function Navbar() {
                     {translations[language].navigation[item.name]}
                   </Link>
                 ))}
+                {/* Replace the mobile login button with Clerk auth buttons */}
+                <SignedOut>
+                  <div className="mt-4 space-y-2">
+                    <SignInButton mode="modal">
+                      <button className="w-full -mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 bg-indigo-600 text-white hover:bg-indigo-700" onClick={() => setMobileMenuOpen(false)}>
+                        <div className="flex items-center gap-2">
+                          <UserCircleIcon className="h-5 w-5" />
+                          <span>{language === 'en' ? 'Sign In' : 'Masuk'}</span>
+                        </div>
+                      </button>
+                    </SignInButton>
+                  </div>
+                </SignedOut>
               </div>
             </div>
           </div>

@@ -38,8 +38,8 @@ const getRegistrationOptions = (t: (typeof translations)[keyof typeof translatio
   },
 ]
 
-export default function Pendaftaran() {
-  const { language } = useLanguage() as { language: keyof typeof translations }
+export default function RegistrationPage() {
+  const { language } = useLanguage()
   const t = translations[language]
   const registrationOptions = getRegistrationOptions(t)
 
