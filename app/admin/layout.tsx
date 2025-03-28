@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { SignOutButton, useAuth, useUser } from "@clerk/nextjs"
+import { SignOutButton, useAuth, useUser, UserButton } from "@clerk/nextjs"
 import Image from "next/image"
 import {
   HomeIcon,
@@ -17,6 +17,7 @@ import {
   Bars3Icon,
   XMarkIcon,
 } from "@heroicons/react/24/outline"
+import { MagnifyingGlassIcon } from "@heroicons/react/20/solid"
 import { useRouter } from "next/navigation"
 
 const navigation = [
@@ -135,12 +136,12 @@ export default function AdminLayout({
       {/* Desktop sidebar */}
       <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-64 lg:flex-col">
         <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6 pb-4">
-          <div className="flex h-16 shrink-0 items-center">
-            <Image src="/logo.jpeg" alt="SEF UNSOED" width={40} height={40} />
+          <Link className="flex h-16 shrink-0 items-center" href="/">
+            <Image src="/favicon.png" alt="SEF UNSOED" width={40} height={40} />
             <span className="ml-3 font-semibold text-gray-900">
               Admin Panel
             </span>
-          </div>
+          </Link>
           <nav className="flex flex-1 flex-col">
             <ul role="list" className="flex flex-1 flex-col gap-y-7">
               <li>
@@ -186,32 +187,52 @@ export default function AdminLayout({
       </div>
 
       <div className="lg:pl-64">
-        <div className="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 border-b border-gray-200 bg-white px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
+        <div className="sticky top-0 z-40 flex h-16 items-center gap-x-4 border-b border-gray-200 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
           <button
             type="button"
-            className="-m-2.5 p-2.5 text-gray-700 lg:hidden"
+            className="-m-2.5 p-2.5 text-gray-700 hover:text-gray-900 lg:hidden"
             onClick={() => setSidebarOpen(true)}
           >
             <span className="sr-only">Open sidebar</span>
             <Bars3Icon className="h-6 w-6" aria-hidden="true" />
           </button>
 
-          <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
-            <div className="flex items-center gap-x-4 lg:gap-x-6 ml-auto">
-              <div className="flex items-center space-x-2">
-                {user?.imageUrl && (
-                  <Image
-                    src={user.imageUrl}
-                    alt="Profile"
-                    width={32}
-                    height={32}
-                    className="rounded-full"
+          {/* Search bar with corrected alignment */}
+          <div className="flex flex-1 gap-x-4 items-center lg:gap-x-6">
+            <form className="flex flex-1 relative" action="#" method="GET">
+              <label htmlFor="search-field" className="sr-only">
+                Search
+              </label>
+              <div className="relative flex-1">
+                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                  <MagnifyingGlassIcon
+                    className="h-5 w-5 text-gray-400 transition-colors"
+                    aria-hidden="true"
                   />
-                )}
-                <span className="text-sm font-medium text-gray-700">
-                  {user?.fullName || user?.username}
-                </span>
+                </div>
+                <input
+                  id="search-field"
+                  className="block h-10 w-full rounded-md border-0 bg-gray-50 py-1.5 pl-10 pr-3 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6 transition-all"
+                  placeholder="Search anything..."
+                  type="search"
+                  name="search"
+                />
               </div>
+            </form>
+
+            {/* User avatar section */}
+            <div className="flex items-center gap-x-4 lg:gap-x-6">
+              <div className="hidden lg:block lg:h-6 lg:w-px lg:bg-gray-200" aria-hidden="true" />
+              <UserButton 
+                afterSignOutUrl="/"
+                appearance={{
+                  elements: {
+                    avatarBox: "h-8 w-8 ring-2 ring-white shadow-sm",
+                    userButtonPopoverCard: "shadow-xl",
+                    userButtonPopoverActions: "border-t border-gray-100",
+                  }
+                }}
+              />
             </div>
           </div>
         </div>

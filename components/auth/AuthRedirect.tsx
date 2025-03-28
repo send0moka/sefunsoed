@@ -1,26 +1,26 @@
 "use client"
 
 import { useAuth, useUser } from "@clerk/nextjs"
-import { useRouter } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import { useEffect } from "react"
 
 export default function AuthRedirect() {
-  const { isLoaded, isSignedIn } = useAuth()
-  const { user } = useUser()
+  const { isLoaded, user } = useUser()
+  const { isSignedIn } = useAuth()
   const router = useRouter()
+  const pathname = usePathname()
 
   useEffect(() => {
-    if (isLoaded && isSignedIn && user) {
-      // Check if the user's email is the admin email
-      const primaryEmail = user.primaryEmailAddress?.emailAddress
+    const isAdminPage = pathname?.startsWith("/admin")
+    const isAdminUser = user?.primaryEmailAddress?.emailAddress === "jehianathayata@gmail.com"
 
-      if (primaryEmail === "jehianathayata@gmail.com") {
-        router.push("/admin")
-      } else {
+    if (isLoaded && isAdminPage) {
+      // Only redirect from admin pages if user is not admin
+      if (!isSignedIn || !isAdminUser) {
         router.push("/")
       }
     }
-  }, [isLoaded, isSignedIn, user, router])
+  }, [isLoaded, isSignedIn, user, router, pathname])
 
-  return null // This component doesn't render anything
+  return null
 }

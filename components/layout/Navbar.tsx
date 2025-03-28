@@ -9,10 +9,11 @@ import {
   ArrowRightEndOnRectangleIcon,
   Bars3Icon,
   XMarkIcon,
+  ChartPieIcon,
 } from "@heroicons/react/24/outline"
 import { useLanguage } from "@/contexts/LanguageContext"
 import { translations, type NavigationKeys } from "@/translations"
-import { SignInButton, SignedIn, SignedOut, UserButton, useAuth } from "@clerk/nextjs"
+import { SignInButton, SignedIn, SignedOut, UserButton, useUser } from "@clerk/nextjs"
 
 const navigation: { name: NavigationKeys; href: string }[] = [
   { name: "about", href: "/about" },
@@ -28,8 +29,9 @@ export default function Navbar() {
   const { language, setLanguage } = useLanguage()
   const pathname = usePathname()
   const searchParams = useSearchParams()
-  const { userId } = useAuth()
-  const isAdmin = userId === "user_2uvTJ0ZPj8bqm34kMjF8zleMwTF" // Replace "user_specific_id" with the actual admin user ID
+  const { user } = useUser()
+
+  const isAdmin = user?.primaryEmailAddress?.emailAddress === "jehianathayata@gmail.com"
 
   const toggleLanguage = () => {
     setLanguage(language === "en" ? "id" : "en")
@@ -66,14 +68,6 @@ export default function Navbar() {
               {translations[language].navigation[item.name]}
             </Link>
           ))}
-          {isAdmin && (
-            <Link
-              href={getLinkWithLang("/admin")}
-              className="text-sm font-semibold leading-6 text-emerald-600 hover:text-emerald-800"
-            >
-              Admin Dashboard
-            </Link>
-          )}
         </div>
         <div className="flex items-center gap-4">
           <div className="hidden lg:flex items-center gap-6">
@@ -94,6 +88,15 @@ export default function Navbar() {
                 </span>
               </div>
             </button>
+            {isAdmin && (
+              <Link
+                href="/admin"
+                className="inline-flex items-center gap-x-1.5 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              >
+                <ChartPieIcon className="-ml-0.5 h-5 w-5" aria-hidden="true" />
+                Dashboard
+              </Link>
+            )}
             <SignedOut>
               <SignInButton>
                 <button className="flex items-center gap-2 px-4 py-2 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105">
@@ -103,7 +106,7 @@ export default function Navbar() {
               </SignInButton>
             </SignedOut>
             <SignedIn>
-              <UserButton />
+              <UserButton afterSignOutUrl="/" />
             </SignedIn>
           </div>
           <div className="flex lg:hidden items-center gap-4">
@@ -182,25 +185,28 @@ export default function Navbar() {
                     {translations[language].navigation[item.name]}
                   </Link>
                 ))}
-                {isAdmin && (
-                  <Link
-                    href={getLinkWithLang("/admin")}
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-emerald-600 hover:bg-gray-50"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    Admin Dashboard
-                  </Link>
-                )}
               </div>
             </div>
           </div>
+
+          {isAdmin && (
+            <Link
+              href="/admin"
+              className="w-full flex items-center justify-center gap-x-1.5 rounded-md bg-indigo-600 p-2 text-base font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mt-4"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              <ChartPieIcon className="-ml-0.5 h-5 w-5" aria-hidden="true" />
+              Dashboard
+            </Link>
+          )}
+
           <SignedOut>
-              <SignInButton>
-                <button className="w-full flex items-center gap-2 px-4 py-4 lg:py-2 mt-4 lg:mt-0 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105">
-                  <ArrowRightEndOnRectangleIcon className="w-5 h-5" />
-                  <span className="text-sm font-medium">Sign In</span>
-                </button>
-              </SignInButton>
+            <SignInButton>
+              <button className="w-full flex items-center gap-2 px-4 py-4 lg:py-2 mt-4 lg:mt-0 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105">
+                <ArrowRightEndOnRectangleIcon className="w-5 h-5" />
+                <span className="text-sm font-medium">Sign In</span>
+              </button>
+            </SignInButton>
           </SignedOut>
           <SignedIn>
             <div className="flex items-center gap-4 mt-6">
