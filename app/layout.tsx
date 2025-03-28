@@ -4,7 +4,7 @@ import "./globals.css"
 import Navbar from "@/components/layout/Navbar"
 import Footer from "@/components/layout/Footer"
 import { LanguageProvider } from "@/contexts/LanguageContext"
-import { Suspense } from "react"
+import React, { Suspense } from "react"
 import { ClerkProvider } from "@clerk/nextjs"
 
 const inter = Inter({ subsets: ["latin"] })
