@@ -20,18 +20,18 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <ClerkProvider>
-    <html lang="id">
-      <body className={inter.className}>
-        <Suspense fallback={<div>Loading...</div>}>
-          <LanguageProvider>
-            <Navbar />
-            <main>{children}</main>
-            <Footer />
-          </LanguageProvider>
-        </Suspense>
-      </body>
-    </html>
+    <ClerkProvider publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}>
+      <html lang="id">
+        <body className={inter.className}>
+          <Suspense fallback={<div>Loading...</div>}>
+            <LanguageProvider>
+              <Navbar />
+              <main>{children}</main>
+              <Footer />
+            </LanguageProvider>
+          </Suspense>
+        </body>
+      </html>
     </ClerkProvider>
   )
 }
