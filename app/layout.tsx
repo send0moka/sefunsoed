@@ -5,6 +5,7 @@ import Navbar from "@/components/layout/Navbar"
 import Footer from "@/components/layout/Footer"
 import { LanguageProvider } from "@/contexts/LanguageContext"
 import { Suspense } from "react"
+import { ClerkProvider } from "@clerk/nextjs"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -19,6 +20,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
+    <ClerkProvider>
     <html lang="id">
       <body className={inter.className}>
         <Suspense fallback={<div>Loading...</div>}>
@@ -30,5 +32,6 @@ export default function RootLayout({
         </Suspense>
       </body>
     </html>
+    </ClerkProvider>
   )
 }

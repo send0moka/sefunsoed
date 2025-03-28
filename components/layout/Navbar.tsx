@@ -5,9 +5,14 @@ import Link from "next/link"
 import Image from "next/image"
 import { usePathname, useSearchParams } from "next/navigation"
 import { Dialog } from "@headlessui/react"
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline"
+import {
+  ArrowRightEndOnRectangleIcon,
+  Bars3Icon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline"
 import { useLanguage } from "@/contexts/LanguageContext"
 import { translations, type NavigationKeys } from "@/translations"
+import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs"
 
 const navigation: { name: NavigationKeys; href: string }[] = [
   { name: "about", href: "/about" },
@@ -79,6 +84,17 @@ export default function Navbar() {
                 </span>
               </div>
             </button>
+            <SignedOut>
+              <SignInButton>
+                <button className="flex items-center gap-2 px-4 py-2 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105">
+                  <ArrowRightEndOnRectangleIcon className="w-5 h-5" />
+                  <span className="text-sm font-medium">Sign In</span>
+                </button>
+              </SignInButton>
+            </SignedOut>
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
           </div>
           <div className="flex lg:hidden items-center gap-4">
             <button
@@ -159,6 +175,19 @@ export default function Navbar() {
               </div>
             </div>
           </div>
+          <SignedOut>
+              <SignInButton>
+                <button className="w-full flex items-center gap-2 px-4 py-4 lg:py-2 mt-4 lg:mt-0 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105">
+                  <ArrowRightEndOnRectangleIcon className="w-5 h-5" />
+                  <span className="text-sm font-medium">Sign In</span>
+                </button>
+              </SignInButton>
+          </SignedOut>
+          <SignedIn>
+            <div className="flex items-center gap-4 mt-6">
+              <UserButton />
+            </div>
+          </SignedIn>
         </Dialog.Panel>
       </Dialog>
     </header>
