@@ -1,11 +1,11 @@
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
-import Navbar from "@/components/layout/Navbar"
-import Footer from "@/components/layout/Footer"
 import { LanguageProvider } from "@/contexts/LanguageContext"
 import React, { Suspense } from "react"
 import { ClerkProvider } from "@clerk/nextjs"
+import AuthRedirect from "@/components/auth/AuthRedirect"
+import ClientLayoutContent from "@/components/layout/ClientLayoutContent"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -25,9 +25,8 @@ export default function RootLayout({
         <body className={inter.className}>
           <Suspense fallback={<div>Loading...</div>}>
             <LanguageProvider>
-              <Navbar />
-              <main>{children}</main>
-              <Footer />
+              <AuthRedirect />
+              <ClientLayoutContent>{children}</ClientLayoutContent>
             </LanguageProvider>
           </Suspense>
         </body>

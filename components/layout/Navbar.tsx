@@ -12,7 +12,7 @@ import {
 } from "@heroicons/react/24/outline"
 import { useLanguage } from "@/contexts/LanguageContext"
 import { translations, type NavigationKeys } from "@/translations"
-import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs"
+import { SignInButton, SignedIn, SignedOut, UserButton, useAuth } from "@clerk/nextjs"
 
 const navigation: { name: NavigationKeys; href: string }[] = [
   { name: "about", href: "/about" },
@@ -28,6 +28,8 @@ export default function Navbar() {
   const { language, setLanguage } = useLanguage()
   const pathname = usePathname()
   const searchParams = useSearchParams()
+  const { userId } = useAuth()
+  const isAdmin = userId === "user_2uvTJ0ZPj8bqm34kMjF8zleMwTF" // Replace "user_specific_id" with the actual admin user ID
 
   const toggleLanguage = () => {
     setLanguage(language === "en" ? "id" : "en")
@@ -64,6 +66,14 @@ export default function Navbar() {
               {translations[language].navigation[item.name]}
             </Link>
           ))}
+          {isAdmin && (
+            <Link
+              href={getLinkWithLang("/admin")}
+              className="text-sm font-semibold leading-6 text-emerald-600 hover:text-emerald-800"
+            >
+              Admin Dashboard
+            </Link>
+          )}
         </div>
         <div className="flex items-center gap-4">
           <div className="hidden lg:flex items-center gap-6">
@@ -172,6 +182,15 @@ export default function Navbar() {
                     {translations[language].navigation[item.name]}
                   </Link>
                 ))}
+                {isAdmin && (
+                  <Link
+                    href={getLinkWithLang("/admin")}
+                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-emerald-600 hover:bg-gray-50"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Admin Dashboard
+                  </Link>
+                )}
               </div>
             </div>
           </div>
