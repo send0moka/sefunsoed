@@ -1,11 +1,8 @@
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
-import { LanguageProvider } from "@/contexts/LanguageContext"
-import React, { Suspense } from "react"
-import { ClerkProvider } from "@clerk/nextjs"
-import AuthRedirect from "@/components/auth/AuthRedirect"
-import ClientLayoutContent from "@/components/layout/ClientLayoutContent"
+import ClientLayout from "./client-layout"
+import { Toaster } from "sonner"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -20,17 +17,11 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <ClerkProvider publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}>
-      <html lang="id">
-        <body className={inter.className}>
-          <Suspense fallback={<div>Loading...</div>}>
-            <LanguageProvider>
-              <AuthRedirect />
-              <ClientLayoutContent>{children}</ClientLayoutContent>
-            </LanguageProvider>
-          </Suspense>
-        </body>
-      </html>
-    </ClerkProvider>
+    <html lang="en">
+      <body className={inter.className}>
+        <ClientLayout>{children}</ClientLayout>
+        <Toaster />
+      </body>
+    </html>
   )
 }
