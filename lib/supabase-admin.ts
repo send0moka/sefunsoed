@@ -1,9 +1,9 @@
-import { supabase } from "./supabase"
+import { supabaseAdmin } from "./supabase"
 import { Member } from "@/types/database"
 
 export const memberService = {
   async getAllMembers() {
-    const { data, error } = await supabase
+    const { data, error } = await supabaseAdmin
       .from("members")
       .select("*")
       .order("created_at", { ascending: false })
@@ -13,7 +13,7 @@ export const memberService = {
   },
 
   async getMemberById(id: string) {
-    const { data, error } = await supabase
+    const { data, error } = await supabaseAdmin
       .from("members")
       .select("*")
       .eq("id", id)
@@ -24,7 +24,7 @@ export const memberService = {
   },
 
   async updateMember(id: string, member: Partial<Member>) {
-    const { data, error } = await supabase
+    const { data, error } = await supabaseAdmin
       .from("members")
       .update(member)
       .eq("id", id)
@@ -36,7 +36,7 @@ export const memberService = {
   },
 
   async deleteMember(id: string) {
-    const { error } = await supabase.from("members").delete().eq("id", id)
+    const { error } = await supabaseAdmin.from("members").delete().eq("id", id)
 
     if (error) throw error
   },

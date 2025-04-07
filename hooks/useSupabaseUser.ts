@@ -2,8 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { useUser } from "@clerk/nextjs"
-import { supabase } from "@/lib/supabase"
-import { PostgrestError } from "@supabase/supabase-js"
+import { syncUser } from "@/app/actions/user" // Import the server action
 
 export const useSupabaseUser = () => {
   const { user } = useUser()
@@ -13,7 +12,6 @@ export const useSupabaseUser = () => {
   useEffect(() => {
     const syncUserWithSupabase = async () => {
       if (!user) {
-        console.log("No user found")
         setIsLoading(false)
         return
       }
@@ -24,52 +22,20 @@ export const useSupabaseUser = () => {
           throw new Error('User email not found')
         }
 
-        console.log("Attempting to sync user:", userEmail)
+        // Call the server action instead of directly accessing Supabase
+        const result = await syncUser({
+          name: user.fullName || '',
+          email: userEmail,
+          image: user.imageUrl || '',
+        })
 
-        // Check if user already exists
-        const { data: existingUser, error: queryError } = await supabase
-          .from("members")
-          .select("id")
-          .eq("email", userEmail)
-          .single()
-
-        if (queryError) {
-          console.log("Query error details:", queryError)
-          if (queryError.code !== 'PGRST116') { // Not found is ok
-            throw queryError
-          }
-        }
-
-        if (!existingUser) {
-          console.log("Creating new user record")
-          const { data: newUser, error: insertError } = await supabase
-            .from("members")
-            .insert([
-              {
-                name: user.fullName || '',
-                email: userEmail,
-                image: user.imageUrl || '',
-                role: "member",
-                created_at: new Date().toISOString(),
-              },
-            ])
-            .select()
-            .single()
-
-          if (insertError) {
-            console.log("Insert error details:", insertError)
-            throw insertError
-          }
-
-          console.log('New user created successfully:', newUser)
+        if (!result.success) {
+          throw new Error(result.error || 'Failed to sync user')
         }
 
         setIsLoading(false)
-      } catch (err) {
-        const pgError = err as PostgrestError
-        const errorMessage = pgError.message || 'Unknown error occurred'
-        console.error('Detailed error:', pgError)
-        setError(errorMessage)
+      } catch (err: unknown) {
+        setError(err instanceof Error ? err.message : 'Unknown error occurred')
         setIsLoading(false)
       }
     }
