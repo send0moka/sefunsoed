@@ -19,6 +19,7 @@ import {
 } from "@heroicons/react/24/outline"
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid"
 import { useRouter } from "next/navigation"
+import { authService } from "@/lib/supabase-admin"
 
 const navigation = [
   { name: "Dashboard", href: "/admin", icon: HomeIcon },
@@ -37,26 +38,38 @@ export default function AdminLayout({
 }) {
   const pathname = usePathname()
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [isAdmin, setIsAdmin] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
   const { isLoaded, user } = useUser()
   const { isSignedIn } = useAuth()
   const router = useRouter()
 
   useEffect(() => {
-    // Check if user is signed in and has the admin email
-    if (
-      isLoaded &&
-      (!isSignedIn ||
-        user?.primaryEmailAddress?.emailAddress !== "jehianathayata@gmail.com")
-    ) {
-      router.push("/")
+    async function checkAdminAccess() {
+      if (!isLoaded || !isSignedIn || !user?.primaryEmailAddress?.emailAddress) {
+        router.push("/")
+        return
+      }
+
+      try {
+        const userRole = await authService.getUserRole(user.primaryEmailAddress.emailAddress)
+        if (userRole === "admin") {
+          setIsAdmin(true)
+        } else {
+          router.push("/")
+        }
+      } catch (error) {
+        console.error("Error checking admin access:", error)
+        router.push("/")
+      } finally {
+        setIsLoading(false)
+      }
     }
+
+    checkAdminAccess()
   }, [isLoaded, isSignedIn, user, router])
 
-  if (
-    !isLoaded ||
-    !isSignedIn ||
-    user?.primaryEmailAddress?.emailAddress !== "jehianathayata@gmail.com"
-  ) {
+  if (isLoading || !isAdmin) {
     return (
       <div className="flex items-center justify-center h-screen">
         <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-indigo-600"></div>

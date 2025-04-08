@@ -162,3 +162,16 @@ export const batchService = {
     if (error) throw error
   },
 }
+
+export const authService = {
+  async getUserRole(email: string) {
+    const { data, error } = await supabaseAdmin
+      .from("members")
+      .select("role")
+      .eq("email", email)
+      .single()
+
+    if (error) return null
+    return data?.role
+  }
+}

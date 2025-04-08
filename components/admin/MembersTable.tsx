@@ -17,7 +17,16 @@ export function MembersTable({ initialMembers }: MembersTableProps) {
   const [members, setMembers] = useState<Member[]>(initialMembers)
   const router = useRouter()
 
-  const handleDelete = async (id: string) => {
+  const isSuperAdmin = (email: string) => {
+    return email === "jehianathayata@gmail.com"
+  }
+
+  const handleDelete = async (id: string, email: string) => {
+    if (isSuperAdmin(email)) {
+      toast.error("Cannot delete superadmin user")
+      return
+    }
+
     if (!confirm("Are you sure you want to delete this member?")) return
 
     try {
@@ -61,24 +70,32 @@ export function MembersTable({ initialMembers }: MembersTableProps) {
     },
     {
       id: "actions",
-      cell: ({ row }) => (
-        <div className="flex gap-2">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => router.push(`/admin/users/${row.original.id}`)}
-          >
-            Edit
-          </Button>
-          <Button
-            variant="destructive"
-            size="sm"
-            onClick={() => handleDelete(row.original.id)}
-          >
-            Delete
-          </Button>
-        </div>
-      ),
+      cell: ({ row }) => {
+        const isSuper = isSuperAdmin(row.original.email)
+        
+        return (
+          <div className="flex gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => router.push(`/admin/users/${row.original.id}`)}
+              disabled={isSuper}
+              className={isSuper ? "cursor-not-allowed opacity-50" : ""}
+            >
+              Edit
+            </Button>
+            <Button
+              variant="destructive"
+              size="sm"
+              onClick={() => handleDelete(row.original.id, row.original.email)}
+              disabled={isSuper}
+              className={isSuper ? "cursor-not-allowed opacity-50" : ""}
+            >
+              Delete
+            </Button>
+          </div>
+        )
+      },
     },
   ]
 

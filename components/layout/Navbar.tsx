@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname, useSearchParams } from "next/navigation"
@@ -14,6 +14,7 @@ import {
 import { useLanguage } from "@/contexts/LanguageContext"
 import { translations, type NavigationKeys } from "@/translations"
 import { SignInButton, SignedIn, SignedOut, UserButton, useUser } from "@clerk/nextjs"
+import { authService } from "@/lib/supabase-admin"
 
 const navigation: { name: NavigationKeys; href: string }[] = [
   { name: "about", href: "/about" },
@@ -30,8 +31,18 @@ export default function Navbar() {
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const { user } = useUser()
+  const [isAdmin, setIsAdmin] = useState(false)
 
-  const isAdmin = user?.primaryEmailAddress?.emailAddress === "jehianathayata@gmail.com"
+  useEffect(() => {
+    async function checkAdminRole() {
+      if (user?.primaryEmailAddress?.emailAddress) {
+        const role = await authService.getUserRole(user.primaryEmailAddress.emailAddress)
+        setIsAdmin(role === "admin")
+      }
+    }
+
+    checkAdminRole()
+  }, [user])
 
   const toggleLanguage = () => {
     setLanguage(language === "en" ? "id" : "en")

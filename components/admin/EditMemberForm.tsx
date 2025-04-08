@@ -18,6 +18,7 @@ import { memberService } from "@/lib/supabase-admin"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
 import { SelectButtons } from "@/components/ui/select-buttons"
+import { useEffect } from "react"
 
 const formSchema = z.object({
   name: z.string(),
@@ -42,6 +43,14 @@ interface EditMemberFormProps {
 
 export function EditMemberForm({ member, departments, batches }: EditMemberFormProps) {
   const router = useRouter()
+
+  // Add protection for superadmin
+  useEffect(() => {
+    if (member.email === "jehianathayata@gmail.com") {
+      toast.error("Cannot edit superadmin user")
+      router.push("/admin/users")
+    }
+  }, [member.email, router])
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
