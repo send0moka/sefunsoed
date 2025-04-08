@@ -1,9 +1,9 @@
 "use client"
 
-import { zodResolver } from "@hookform/resolvers/zod"
+import { Member, Department, Batch } from "@/types/database"
 import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
-import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
@@ -13,53 +13,57 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import { Member } from "@/types/database"
+import { Button } from "@/components/ui/button"
 import { memberService } from "@/lib/supabase-admin"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
+import { SelectButtons } from "@/components/ui/select-buttons"
 
 const formSchema = z.object({
-  name: z.string().min(2),
-  email: z.string().email(),
+  name: z.string(),
+  email: z.string(),
   role: z.enum(["admin", "member"]),
-  department: z.string().optional(),
-  batch: z.string().optional(),
   instagram: z.string().optional(),
   linkedin: z.string().optional(),
+  department_id: z.string().optional(),
+  batch_key: z.string().optional(),
 })
+
+const roles = [
+  { id: "admin", label: "Admin" },
+  { id: "member", label: "Member" },
+] as const
 
 interface EditMemberFormProps {
   member: Member
+  departments: Department[]
+  batches: Batch[]
 }
 
-export function EditMemberForm({ member }: EditMemberFormProps) {
+export function EditMemberForm({ member, departments, batches }: EditMemberFormProps) {
   const router = useRouter()
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: member.name,
       email: member.email,
       role: member.role,
-      department: member.department,
-      batch: member.batch,
-      instagram: member.instagram,
-      linkedin: member.linkedin,
+      instagram: member.instagram || "",
+      linkedin: member.linkedin || "",
+      department_id: member.department_id || "",
+      batch_key: member.batch_key || "",
     },
   })
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      await memberService.updateMember(member.id, values)
+      // Remove name and email from the update payload
+      const { ...updateData } = values
+      await memberService.updateMember(member.id, updateData)
       toast.success("Member updated successfully")
-      router.push("/admin/users")
       router.refresh()
+      router.push("/admin/users")
     } catch {
       toast.error("Failed to update member")
     }
@@ -67,7 +71,7 @@ export function EditMemberForm({ member }: EditMemberFormProps) {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <FormField
           control={form.control}
           name="name"
@@ -75,7 +79,7 @@ export function EditMemberForm({ member }: EditMemberFormProps) {
             <FormItem>
               <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input {...field} disabled className="bg-gray-50" />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -89,7 +93,7 @@ export function EditMemberForm({ member }: EditMemberFormProps) {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input {...field} disabled className="bg-gray-50" />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -102,17 +106,15 @@ export function EditMemberForm({ member }: EditMemberFormProps) {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Role</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select a role" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  <SelectItem value="member">Member</SelectItem>
-                  <SelectItem value="admin">Admin</SelectItem>
-                </SelectContent>
-              </Select>
+              <FormControl>
+                <SelectButtons
+                  items={roles}
+                  value={field.value}
+                  onChange={field.onChange}
+                  getLabel={(role) => role.label}
+                  getValue={(role) => role.id}
+                />
+              </FormControl>
               <FormMessage />
             </FormItem>
           )}
@@ -120,12 +122,18 @@ export function EditMemberForm({ member }: EditMemberFormProps) {
 
         <FormField
           control={form.control}
-          name="department"
+          name="department_id"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Department</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <SelectButtons
+                  items={departments}
+                  value={field.value}
+                  onChange={field.onChange}
+                  getLabel={(dept) => `${dept.name_en} (${dept.name_id})`}
+                  getValue={(dept) => dept.id}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -134,19 +142,53 @@ export function EditMemberForm({ member }: EditMemberFormProps) {
 
         <FormField
           control={form.control}
-          name="batch"
+          name="batch_key"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Batch</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <SelectButtons
+                  items={batches}
+                  value={field.value}
+                  onChange={field.onChange}
+                  getLabel={(batch) => batch.name}
+                  getValue={(batch) => batch.key}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
 
-        <Button type="submit">Update Member</Button>
+        <FormField
+          control={form.control}
+          name="instagram"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Instagram</FormLabel>
+              <FormControl>
+                <Input {...field} placeholder="@username" />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="linkedin"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>LinkedIn</FormLabel>
+              <FormControl>
+                <Input {...field} placeholder="https://linkedin.com/in/username" />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <Button type="submit">Save Changes</Button>
       </form>
     </Form>
   )

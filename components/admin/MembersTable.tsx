@@ -46,14 +46,18 @@ export function MembersTable({ initialMembers }: MembersTableProps) {
       enableSorting: true,
     },
     {
-      accessorKey: "department",
+      accessorKey: "departments",
       header: "Department",
-      cell: ({ row }) => row.original.department || "-",
+      cell: ({ row }) => {
+        const dept = row.original.departments
+        if (!dept) return "-"
+        return `${dept.name_en} (${dept.name_id})`
+      },
     },
     {
-      accessorKey: "batch",
+      accessorKey: "batches",
       header: "Batch",
-      cell: ({ row }) => row.original.batch || "-",
+      cell: ({ row }) => row.original.batches?.name || "-",
     },
     {
       id: "actions",

@@ -1,15 +1,19 @@
-import { memberService } from "@/lib/supabase-admin"
+import { memberService, departmentService, batchService } from "@/lib/supabase-admin"
 import { EditMemberForm } from "@/components/admin/EditMemberForm"
 import { notFound } from "next/navigation"
 
-interface EditUserPageProps {
+interface PageProps {
   params: {
     id: string
   }
 }
 
-export default async function EditUserPage({ params }: EditUserPageProps) {
-  const member = await memberService.getMemberById(params.id)
+export default async function EditMemberPage({ params }: PageProps) {
+  const [member, departments, batches] = await Promise.all([
+    memberService.getMemberById(params.id),
+    departmentService.getAllDepartments(),
+    batchService.getAllBatches()
+  ])
 
   if (!member) {
     notFound()
@@ -18,9 +22,15 @@ export default async function EditUserPage({ params }: EditUserPageProps) {
   return (
     <div className="p-6">
       <div className="mb-6">
-        <h1 className="text-2xl font-bold">Edit User</h1>
+        <h1 className="text-2xl font-bold">Edit Member</h1>
       </div>
-      <EditMemberForm member={member} />
+      <div className="bg-white rounded-lg shadow-sm p-6 border max-w-2xl">
+        <EditMemberForm 
+          member={member} 
+          departments={departments} 
+          batches={batches}
+        />
+      </div>
     </div>
   )
 }
