@@ -4,6 +4,10 @@ import { DepartmentsTable } from "@/components/admin/DepartmentsTable"
 import { BatchesTable } from "@/components/admin/BatchesTable"
 import { Member, Department, Batch } from "@/types/database"
 
+// Add this export to disable caching
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 export default async function UsersPage() {
   const [members, departments, batches] = await Promise.all([
     memberService.getAllMembers() as Promise<Member[]>,
