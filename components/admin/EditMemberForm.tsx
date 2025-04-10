@@ -19,6 +19,7 @@ import { useRouter } from "next/navigation"
 import { toast } from "sonner"
 import { SelectButtons } from "@/components/ui/select-buttons"
 import { useEffect } from "react"
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 
 const formSchema = z.object({
   name: z.string(),
@@ -81,6 +82,25 @@ export function EditMemberForm({ member, departments, batches }: EditMemberFormP
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        {/* Add Avatar section at the top */}
+        <div className="flex items-center gap-4 mb-6">
+          <Avatar className="h-20 w-20">
+            <AvatarImage
+              src={member.image}
+              alt={member.name}
+            />
+            <AvatarFallback>
+              {member.name.charAt(0).toUpperCase()}
+            </AvatarFallback>
+          </Avatar>
+          <div>
+            <h3 className="text-lg font-medium">Profile Picture</h3>
+            <p className="text-sm text-gray-500">
+              Profile picture is synced from authentication provider
+            </p>
+          </div>
+        </div>
+
         <FormField
           control={form.control}
           name="name"
