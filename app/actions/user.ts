@@ -31,7 +31,7 @@ export async function syncUser(userData: {
             name: userData.name,
             email: userData.email,
             image: userData.image,
-            role: "member",
+            role: "visitor", // Changed from "member"
             created_at: new Date().toISOString(),
           },
         ])

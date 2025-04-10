@@ -56,7 +56,7 @@ function LinkedInInput({ value, onChange }: { value: string, onChange: (value: s
 const formSchema = z.object({
   name: z.string(),
   email: z.string(),
-  role: z.enum(["admin", "member"]),
+  role: z.enum(["admin", "visitor"]), // Changed from ["admin", "member"]
   instagram: z.string().optional(),
   linkedin: z.string().optional(),
   department_id: z.string().optional(),
@@ -65,7 +65,7 @@ const formSchema = z.object({
 
 const roles = [
   { id: "admin", label: "Admin" },
-  { id: "member", label: "Member" },
+  { id: "visitor", label: "Visitor" }, // Changed from { id: "member", label: "Member" }
 ] as const
 
 interface EditUserFormProps {
