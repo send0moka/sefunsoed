@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { SignOutButton, useAuth, useUser, UserButton } from "@clerk/nextjs"
+import { SignOutButton, useAuth, useUser } from "@clerk/nextjs"
 import Image from "next/image"
 import {
   HomeIcon,
@@ -17,7 +17,6 @@ import {
   Bars3Icon,
   XMarkIcon,
 } from "@heroicons/react/24/outline"
-import { MagnifyingGlassIcon } from "@heroicons/react/20/solid"
 import { useRouter } from "next/navigation"
 import { authService } from "@/lib/supabase-admin"
 
@@ -200,7 +199,7 @@ export default function AdminLayout({
       </div>
 
       <div className="lg:pl-64">
-        <div className="sticky top-0 z-40 flex h-16 items-center gap-x-4 border-b border-gray-200 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
+        <div className="lg:hidden sticky top-0 z-40 flex h-16 items-center gap-x-4 border-b border-gray-200 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
           <button
             type="button"
             className="-m-2.5 p-2.5 text-gray-700 hover:text-gray-900 lg:hidden"
@@ -209,45 +208,6 @@ export default function AdminLayout({
             <span className="sr-only">Open sidebar</span>
             <Bars3Icon className="h-6 w-6" aria-hidden="true" />
           </button>
-
-          {/* Search bar with corrected alignment */}
-          <div className="flex flex-1 gap-x-4 items-center lg:gap-x-6">
-            <form className="flex flex-1 relative" action="#" method="GET">
-              <label htmlFor="search-field" className="sr-only">
-                Search
-              </label>
-              <div className="relative flex-1">
-                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                  <MagnifyingGlassIcon
-                    className="h-5 w-5 text-gray-400 transition-colors"
-                    aria-hidden="true"
-                  />
-                </div>
-                <input
-                  id="search-field"
-                  className="block h-10 w-full rounded-md border-0 bg-gray-50 py-1.5 pl-10 pr-3 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6 transition-all"
-                  placeholder="Search anything..."
-                  type="search"
-                  name="search"
-                />
-              </div>
-            </form>
-
-            {/* User avatar section */}
-            <div className="flex items-center gap-x-4 lg:gap-x-6">
-              <div className="hidden lg:block lg:h-6 lg:w-px lg:bg-gray-200" aria-hidden="true" />
-              <UserButton 
-                afterSignOutUrl="/"
-                appearance={{
-                  elements: {
-                    avatarBox: "h-8 w-8 ring-2 ring-white shadow-sm",
-                    userButtonPopoverCard: "shadow-xl",
-                    userButtonPopoverActions: "border-t border-gray-100",
-                  }
-                }}
-              />
-            </div>
-          </div>
         </div>
 
         <main className="py-6 px-4 sm:px-6 lg:px-8">{children}</main>
