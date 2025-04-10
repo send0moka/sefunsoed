@@ -21,6 +21,40 @@ import { SelectButtons } from "@/components/ui/select-buttons"
 import { useEffect } from "react"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 
+// Add this new component
+function InstagramInput({ value, onChange }: { value: string, onChange: (value: string) => void }) {
+  return (
+    <div className="flex">
+      <div className="flex items-center px-3 border border-r-0 rounded-l-md bg-gray-50 text-gray-500">
+        instagram.com/
+      </div>
+      <Input 
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="rounded-l-none"
+        placeholder="username"
+      />
+    </div>
+  )
+}
+
+// Add LinkedInInput component alongside InstagramInput
+function LinkedInInput({ value, onChange }: { value: string, onChange: (value: string) => void }) {
+  return (
+    <div className="flex">
+      <div className="flex items-center px-3 border border-r-0 rounded-l-md bg-gray-50 text-gray-500">
+        linkedin.com/in/
+      </div>
+      <Input 
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="rounded-l-none"
+        placeholder="username"
+      />
+    </div>
+  )
+}
+
 const formSchema = z.object({
   name: z.string(),
   email: z.string(),
@@ -196,7 +230,10 @@ export function EditMemberForm({ member, departments, batches }: EditMemberFormP
             <FormItem>
               <FormLabel>Instagram</FormLabel>
               <FormControl>
-                <Input {...field} placeholder="@username" />
+                <InstagramInput 
+                  value={field.value?.replace("@", "") || ""}
+                  onChange={(value) => field.onChange(value)}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -210,7 +247,10 @@ export function EditMemberForm({ member, departments, batches }: EditMemberFormP
             <FormItem>
               <FormLabel>LinkedIn</FormLabel>
               <FormControl>
-                <Input {...field} placeholder="https://linkedin.com/in/username" />
+                <LinkedInInput 
+                  value={field.value?.replace("https://linkedin.com/in/", "") || ""}
+                  onChange={(value) => field.onChange(value)}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
