@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button"
 import { memberService } from "@/lib/supabase-admin"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 
 interface MembersTableProps {
   initialMembers: Member[]
@@ -40,6 +41,24 @@ export function MembersTable({ initialMembers }: MembersTableProps) {
   }
 
   const columns: ColumnDef<Member>[] = [
+    {
+      accessorKey: "image",
+      header: "Avatar",
+      cell: ({ row }) => {
+        const member = row.original
+        return (
+          <Avatar className="h-10 w-10">
+            <AvatarImage
+              src={member.image}
+              alt={member.name}
+            />
+            <AvatarFallback>
+              {member.name.charAt(0).toUpperCase()}
+            </AvatarFallback>
+          </Avatar>
+        )
+      },
+    },
     {
       accessorKey: "name",
       header: "Name",

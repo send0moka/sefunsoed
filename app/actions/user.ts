@@ -12,10 +12,9 @@ export async function syncUser(userData: {
   image: string
 }) {
   try {
-    // Check if user exists
     const { data: existingUser, error: queryError } = await supabaseAdmin
       .from("members")
-      .select("id")
+      .select("*")
       .eq("email", userData.email)
       .single()
 
@@ -23,8 +22,8 @@ export async function syncUser(userData: {
       throw queryError
     }
 
-    // Create new user if not exists
     if (!existingUser) {
+      // Create new user
       const { data, error: insertError } = await supabaseAdmin
         .from("members")
         .insert([
@@ -41,6 +40,19 @@ export async function syncUser(userData: {
 
       if (insertError) throw insertError
       return { success: true, data }
+    } else {
+      // Update existing user's image if it has changed
+      if (existingUser.image !== userData.image) {
+        const { data, error: updateError } = await supabaseAdmin
+          .from("members")
+          .update({ image: userData.image })
+          .eq("id", existingUser.id)
+          .select()
+          .single()
+
+        if (updateError) throw updateError
+        return { success: true, data }
+      }
     }
 
     return { success: true, data: existingUser }
