@@ -85,26 +85,24 @@ export function UsersTable({ initialUsers }: UsersTableProps) {
       },
     },
     {
-      accessorKey: "image",
-      header: "Avatar",
+      accessorKey: "name",
+      header: "User",
       cell: ({ row }) => {
         const user = row.original
         return (
-          <Avatar className="h-10 w-10">
-            <AvatarImage src={user.image} alt={user.name} />
-            <AvatarFallback>{user.name.charAt(0).toUpperCase()}</AvatarFallback>
-          </Avatar>
+          <div className="flex items-center gap-3">
+            <Avatar className="h-10 w-10">
+              <AvatarImage src={user.image} alt={user.name} />
+              <AvatarFallback>{user.name.charAt(0).toUpperCase()}</AvatarFallback>
+            </Avatar>
+            <div className="flex flex-col">
+              <span className="font-medium">{user.name}</span>
+              <span className="text-sm text-gray-500">{user.email}</span>
+            </div>
+          </div>
         )
       },
-    },
-    {
-      accessorKey: "name",
-      header: "Name",
       enableSorting: true,
-    },
-    {
-      accessorKey: "email",
-      header: "Email",
     },
     {
       accessorKey: "role",
@@ -112,18 +110,14 @@ export function UsersTable({ initialUsers }: UsersTableProps) {
       enableSorting: true,
     },
     {
-      accessorKey: "departments",
+      id: "department_batch",
       header: "Department",
       cell: ({ row }) => {
         const dept = row.original.departments
+        const batch = row.original.batches
         if (!dept) return "-"
-        return `${dept.name_en} (${dept.name_id})`
+        return `${dept.name_en}'${batch ? batch.name.slice(-2) : ""}`
       },
-    },
-    {
-      accessorKey: "batches",
-      header: "Batch",
-      cell: ({ row }) => row.original.batches?.name || "-",
     },
     {
       accessorKey: "instagram",
@@ -167,6 +161,53 @@ export function UsersTable({ initialUsers }: UsersTableProps) {
             </span>
           </a>
         )
+      },
+    },
+    {
+      accessorKey: "last_sign_in",
+      header: "Last Sign In",
+      enableSorting: true,
+      cell: ({ row }) => {
+        const date = row.original.last_sign_in
+        if (!date) return "Never"
+        
+        const lastSignIn = new Date(date)
+        const now = new Date()
+        const diff = now.getTime() - lastSignIn.getTime()
+        
+        // If less than 24 hours ago, show relative time
+        if (diff < 24 * 60 * 60 * 1000) {
+          const hours = Math.floor(diff / (60 * 60 * 1000))
+          if (hours === 0) {
+            const minutes = Math.floor(diff / (60 * 1000))
+            return `${minutes} minutes ago`
+          }
+          return `${hours} hours ago`
+        }
+        
+        // Otherwise show date
+        return lastSignIn.toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit'
+        })
+      },
+    },
+    {
+      accessorKey: "created_at",
+      header: "Created At",
+      enableSorting: true,
+      cell: ({ row }) => {
+        const date = new Date(row.original.created_at)
+        return date.toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit'
+        })
       },
     },
   ]

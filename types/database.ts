@@ -8,6 +8,7 @@ export interface User {  // Changed from Member
   linkedin?: string
   department_id?: string
   batch_key?: string
+  last_sign_in?: string
   created_at: string
   departments?: {
     name_en: string

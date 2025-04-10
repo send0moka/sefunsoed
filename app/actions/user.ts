@@ -13,7 +13,7 @@ export async function syncUser(userData: {
 }) {
   try {
     const { data: existingUser, error: queryError } = await supabaseAdmin
-      .from("members")
+      .from("users")
       .select("*")
       .eq("email", userData.email)
       .single()
@@ -25,14 +25,15 @@ export async function syncUser(userData: {
     if (!existingUser) {
       // Create new user
       const { data, error: insertError } = await supabaseAdmin
-        .from("members")
+        .from("users")
         .insert([
           {
             name: userData.name,
             email: userData.email,
             image: userData.image,
-            role: "visitor", // Changed from "member"
+            role: "visitor",
             created_at: new Date().toISOString(),
+            last_sign_in: new Date().toISOString(), // Add initial sign-in time
           },
         ])
         .select()
@@ -41,21 +42,20 @@ export async function syncUser(userData: {
       if (insertError) throw insertError
       return { success: true, data }
     } else {
-      // Update existing user's image if it has changed
-      if (existingUser.image !== userData.image) {
-        const { data, error: updateError } = await supabaseAdmin
-          .from("members")
-          .update({ image: userData.image })
-          .eq("id", existingUser.id)
-          .select()
-          .single()
+      // Update existing user's image and last_sign_in
+      const { data, error: updateError } = await supabaseAdmin
+        .from("users")
+        .update({ 
+          image: userData.image,
+          last_sign_in: new Date().toISOString() // Update sign-in time
+        })
+        .eq("id", existingUser.id)
+        .select()
+        .single()
 
-        if (updateError) throw updateError
-        return { success: true, data }
-      }
+      if (updateError) throw updateError
+      return { success: true, data }
     }
-
-    return { success: true, data: existingUser }
   } catch (error: unknown) {
     console.error("Error syncing user:", error)
     return { success: false, error: error instanceof Error ? error.message : String(error) }
