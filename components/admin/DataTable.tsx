@@ -133,7 +133,7 @@ export function DataTable<TData, TValue>({
       </div>
       <div className="flex items-center justify-between space-x-2 py-4">
         <div className="flex-1 text-sm text-muted-foreground">
-          {table.getFilteredRowModel().rows.length} member(s) total.
+          {table.getFilteredRowModel().rows.length} user(s) total.
         </div>
         <div className="flex items-center space-x-2">
           <Button

@@ -1,6 +1,6 @@
 "use client"
 
-import { Member, Department, Batch } from "@/types/database"
+import { User, Department, Batch } from "@/types/database"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
@@ -14,14 +14,13 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { memberService } from "@/lib/supabase-admin"
+import { userService } from "@/lib/supabase-admin"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
 import { SelectButtons } from "@/components/ui/select-buttons"
 import { useEffect } from "react"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 
-// Add this new component
 function InstagramInput({ value, onChange }: { value: string, onChange: (value: string) => void }) {
   return (
     <div className="flex">
@@ -38,7 +37,6 @@ function InstagramInput({ value, onChange }: { value: string, onChange: (value: 
   )
 }
 
-// Add LinkedInInput component alongside InstagramInput
 function LinkedInInput({ value, onChange }: { value: string, onChange: (value: string) => void }) {
   return (
     <div className="flex">
@@ -70,61 +68,59 @@ const roles = [
   { id: "member", label: "Member" },
 ] as const
 
-interface EditMemberFormProps {
-  member: Member
+interface EditUserFormProps {
+  user: User
   departments: Department[]
   batches: Batch[]
 }
 
-export function EditMemberForm({ member, departments, batches }: EditMemberFormProps) {
+export function EditUserForm({ user, departments, batches }: EditUserFormProps) {
   const router = useRouter()
 
   // Add protection for superadmin
   useEffect(() => {
-    if (member.email === "jehianathayata@gmail.com") {
+    if (user.email === "jehianathayata@gmail.com") {
       toast.error("Cannot edit superadmin user")
       router.push("/admin/users")
     }
-  }, [member.email, router])
+  }, [user.email, router])
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: member.name,
-      email: member.email,
-      role: member.role,
-      instagram: member.instagram || "",
-      linkedin: member.linkedin || "",
-      department_id: member.department_id || "",
-      batch_key: member.batch_key || "",
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      instagram: user.instagram || "",
+      linkedin: user.linkedin || "",
+      department_id: user.department_id || "",
+      batch_key: user.batch_key || "",
     },
   })
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      // Remove name and email from the update payload
       const { ...updateData } = values
-      await memberService.updateMember(member.id, updateData)
-      toast.success("Member updated successfully")
+      await userService.updateUser(user.id, updateData)
+      toast.success("User updated successfully")
       router.refresh()
       router.push("/admin/users")
     } catch {
-      toast.error("Failed to update member")
+      toast.error("Failed to update user")
     }
   }
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-        {/* Add Avatar section at the top */}
         <div className="flex items-center gap-4 mb-6">
           <Avatar className="h-20 w-20">
             <AvatarImage
-              src={member.image}
-              alt={member.name}
+              src={user.image}
+              alt={user.name}
             />
             <AvatarFallback>
-              {member.name.charAt(0).toUpperCase()}
+              {user.name.charAt(0).toUpperCase()}
             </AvatarFallback>
           </Avatar>
           <div>

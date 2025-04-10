@@ -1,10 +1,10 @@
 import { supabaseAdmin } from "./supabase"
-import { Batch, Database, Department, Member } from "@/types/database"
+import { Batch, Database, Department, User } from "@/types/database"
 
-export const memberService = {
-  async getAllMembers() {
+export const userService = {
+  async getAllUsers() {
     const { data, error } = await supabaseAdmin
-      .from("members")
+      .from("users")
       .select(`
         *,
         departments:department_id (
@@ -21,9 +21,9 @@ export const memberService = {
     return data
   },
 
-  async getMemberById(id: string) {
+  async getUserById(id: string) {
     const { data, error } = await supabaseAdmin
-      .from("members")
+      .from("users")
       .select("*")
       .eq("id", id)
       .single()
@@ -32,10 +32,10 @@ export const memberService = {
     return data
   },
 
-  async updateMember(id: string, member: Partial<Member>) {
+  async updateUser(id: string, user: Partial<User>) {
     const { data, error } = await supabaseAdmin
-      .from("members")
-      .update(member)
+      .from("users")
+      .update(user)
       .eq("id", id)
       .select()
       .single()
@@ -44,8 +44,11 @@ export const memberService = {
     return data
   },
 
-  async deleteMember(id: string) {
-    const { error } = await supabaseAdmin.from("members").delete().eq("id", id)
+  async deleteUser(id: string) {
+    const { error } = await supabaseAdmin
+      .from("users")
+      .delete()
+      .eq("id", id)
 
     if (error) throw error
   },
@@ -57,14 +60,14 @@ export const departmentService = {
       .from("departments")
       .select(`
         *,
-        members:members(count)
+        users:users(count)
       `)
       .order("created_at", { ascending: false })
 
     if (error) throw error
     return data.map(dept => ({
       ...dept,
-      used: dept.members?.[0]?.count || 0
+      used: dept.users?.[0]?.count || 0
     }))
   },
 
@@ -92,9 +95,9 @@ export const departmentService = {
   },
 
   async deleteDepartment(id: string) {
-    // First update all members using this department to null
+    // First update all users using this department to null
     await supabaseAdmin
-      .from("members")
+      .from("users")
       .update({ department_id: null })
       .eq("department_id", id)
 
@@ -113,14 +116,14 @@ export const batchService = {
       .from("batches")
       .select(`
         *,
-        members:members(count)
+        users:users(count)
       `)
       .order("created_at", { ascending: false })
 
     if (error) throw error
     return data.map(batch => ({
       ...batch,
-      used: batch.members?.[0]?.count || 0
+      used: batch.users?.[0]?.count || 0
     }))
   },
 
@@ -148,9 +151,9 @@ export const batchService = {
   },
 
   async deleteBatch(id: string) {
-    // First update all members using this batch to null
+    // First update all users using this batch to null
     await supabaseAdmin
-      .from("members")
+      .from("users")
       .update({ batch_key: null })
       .eq("batch_key", id)
 
@@ -166,7 +169,7 @@ export const batchService = {
 export const authService = {
   async getUserRole(email: string) {
     const { data, error } = await supabaseAdmin
-      .from("members")
+      .from("users")
       .select("role")
       .eq("email", email)
       .single()

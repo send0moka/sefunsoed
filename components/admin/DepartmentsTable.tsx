@@ -23,7 +23,7 @@ export function DepartmentsTable({ initialDepartments }: DepartmentsTableProps) 
 
   const handleDelete = async (id: string, used: number) => {
     if (used > 0) {
-      if (!confirm(`This department is used by ${used} members. Are you sure you want to delete it?`)) {
+      if (!confirm(`This department is used by ${used} users. Are you sure you want to delete it?`)) {
         return
       }
     } else if (!confirm("Are you sure you want to delete this department?")) {
@@ -52,7 +52,7 @@ export function DepartmentsTable({ initialDepartments }: DepartmentsTableProps) 
     {
       accessorKey: "used",
       header: "Used By",
-      cell: ({ row }) => `${row.original.used} members`,
+      cell: ({ row }) => `${row.original.used} users`,
     },
     {
       accessorKey: "created_at",

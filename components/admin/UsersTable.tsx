@@ -1,24 +1,24 @@
 "use client"
 
-import { Member } from "@/types/database"
+import { User } from "@/types/database"
 import { useState } from "react"
 import { DataTable } from "./DataTable"
 import { ColumnDef } from "@tanstack/react-table"
 import { Button } from "@/components/ui/button"
-import { memberService } from "@/lib/supabase-admin"
+import { userService } from "@/lib/supabase-admin"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { InstagramIcon, LinkedinIcon } from "lucide-react"
 import { Checkbox } from "@/components/ui/checkbox"
 
-interface MembersTableProps {
-  initialMembers: Member[]
+interface UsersTableProps {
+  initialUsers: User[]
 }
 
-export function MembersTable({ initialMembers }: MembersTableProps) {
-  const [members, setMembers] = useState<Member[]>(initialMembers)
-  const [selectedMembers, setSelectedMembers] = useState<string[]>([])
+export function UsersTable({ initialUsers }: UsersTableProps) {
+  const [users, setUsers] = useState<User[]>(initialUsers)
+  const [selectedUsers, setSelectedUsers] = useState<string[]>([])
   const router = useRouter()
 
   const isSuperAdmin = (email: string) => {
@@ -26,55 +26,28 @@ export function MembersTable({ initialMembers }: MembersTableProps) {
   }
 
   const handleDelete = async (ids: string[]) => {
-    // Check if trying to delete superadmin
-    const hasSuperAdmin = members.some(
-      (member) => ids.includes(member.id) && isSuperAdmin(member.email)
+    const hasSuperAdmin = users.some(
+      (user) => ids.includes(user.id) && isSuperAdmin(user.email)
     )
     if (hasSuperAdmin) {
       toast.error("Cannot delete superadmin user")
       return
     }
 
-    if (!confirm(`Are you sure you want to delete ${ids.length} member(s)?`)) return
+    if (!confirm(`Are you sure you want to delete ${ids.length} user(s)?`)) return
 
     try {
-      await Promise.all(ids.map((id) => memberService.deleteMember(id)))
-      setMembers(members.filter((member) => !ids.includes(member.id)))
-      setSelectedMembers([])
-      toast.success("Members deleted successfully")
+      await Promise.all(ids.map((id) => userService.deleteUser(id)))
+      setUsers(users.filter((user) => !ids.includes(user.id)))
+      setSelectedUsers([])
+      toast.success("Users deleted successfully")
       router.refresh()
     } catch {
-      toast.error("Failed to delete members")
+      toast.error("Failed to delete users")
     }
   }
 
-  const actionButtons = selectedMembers.length > 0 ? (
-    <div className="flex items-center gap-2">
-      <Button
-        variant="outline"
-        size="sm"
-        onClick={() => {
-          if (selectedMembers.length === 1) {
-            router.push(`/admin/users/${selectedMembers[0]}`)
-          } else {
-            toast.error("Please select only one member to edit")
-          }
-        }}
-        disabled={selectedMembers.length !== 1}
-      >
-        Edit ({selectedMembers.length})
-      </Button>
-      <Button
-        variant="destructive"
-        size="sm"
-        onClick={() => handleDelete(selectedMembers)}
-      >
-        Delete ({selectedMembers.length})
-      </Button>
-    </div>
-  ) : null
-
-  const columns: ColumnDef<Member>[] = [
+  const columns: ColumnDef<User>[] = [
     {
       id: "select",
       header: ({ table }) => (
@@ -82,7 +55,7 @@ export function MembersTable({ initialMembers }: MembersTableProps) {
           checked={table.getIsAllPageRowsSelected()}
           onCheckedChange={(value) => {
             table.toggleAllPageRowsSelected(!!value)
-            setSelectedMembers(
+            setSelectedUsers(
               value 
                 ? table.getRowModel().rows
                     .filter(row => !isSuperAdmin(row.original.email))
@@ -99,10 +72,10 @@ export function MembersTable({ initialMembers }: MembersTableProps) {
             checked={row.getIsSelected()}
             onCheckedChange={(value) => {
               row.toggleSelected(!!value)
-              setSelectedMembers(
+              setSelectedUsers(
                 value
-                  ? [...selectedMembers, row.original.id]
-                  : selectedMembers.filter(id => id !== row.original.id)
+                  ? [...selectedUsers, row.original.id]
+                  : selectedUsers.filter(id => id !== row.original.id)
               )
             }}
             disabled={isSuper}
@@ -115,16 +88,11 @@ export function MembersTable({ initialMembers }: MembersTableProps) {
       accessorKey: "image",
       header: "Avatar",
       cell: ({ row }) => {
-        const member = row.original
+        const user = row.original
         return (
           <Avatar className="h-10 w-10">
-            <AvatarImage
-              src={member.image}
-              alt={member.name}
-            />
-            <AvatarFallback>
-              {member.name.charAt(0).toUpperCase()}
-            </AvatarFallback>
+            <AvatarImage src={user.image} alt={user.name} />
+            <AvatarFallback>{user.name.charAt(0).toUpperCase()}</AvatarFallback>
           </Avatar>
         )
       },
@@ -207,8 +175,32 @@ export function MembersTable({ initialMembers }: MembersTableProps) {
     <div>
       <DataTable 
         columns={columns} 
-        data={members} 
-        actionButtons={actionButtons}
+        data={users} 
+        actionButtons={selectedUsers.length > 0 ? (
+          <div className="flex items-center gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => {
+                if (selectedUsers.length === 1) {
+                  router.push(`/admin/users/${selectedUsers[0]}`)
+                } else {
+                  toast.error("Please select only one user to edit")
+                }
+              }}
+              disabled={selectedUsers.length !== 1}
+            >
+              Edit ({selectedUsers.length})
+            </Button>
+            <Button
+              variant="destructive"
+              size="sm"
+              onClick={() => handleDelete(selectedUsers)}
+            >
+              Delete ({selectedUsers.length})
+            </Button>
+          </div>
+        ) : null}
       />
     </div>
   )

@@ -1,4 +1,4 @@
-export interface Member {
+export interface User {  // Changed from Member
   id: string
   name: string
   email: string
@@ -37,10 +37,10 @@ export interface Batch {
 export interface Database {
   public: {
     Tables: {
-      members: {
-        Row: Member
-        Insert: Omit<Member, "id">
-        Update: Partial<Member>
+      users: {  // Changed from members
+        Row: User
+        Insert: Omit<User, "id">
+        Update: Partial<User>
       }
       departments: {
         Row: Department

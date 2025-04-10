@@ -1,16 +1,16 @@
-import { memberService, departmentService, batchService } from "@/lib/supabase-admin"
-import { MembersTable } from "@/components/admin/MembersTable"
+import { userService, departmentService, batchService } from "@/lib/supabase-admin"
+import { UsersTable } from "@/components/admin/UsersTable"
 import { DepartmentsTable } from "@/components/admin/DepartmentsTable"
 import { BatchesTable } from "@/components/admin/BatchesTable"
-import { Member, Department, Batch } from "@/types/database"
+import { User, Department, Batch } from "@/types/database"
 
 // Add this export to disable caching
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
 
 export default async function UsersPage() {
-  const [members, departments, batches] = await Promise.all([
-    memberService.getAllMembers() as Promise<Member[]>,
+  const [users, departments, batches] = await Promise.all([
+    userService.getAllUsers() as Promise<User[]>,
     departmentService.getAllDepartments() as Promise<Department[]>,
     batchService.getAllBatches() as Promise<Batch[]>
   ])
@@ -22,7 +22,7 @@ export default async function UsersPage() {
       </div>
       <div className="space-y-8">
         <div className="bg-white rounded-lg shadow-sm p-6 border">
-          <MembersTable initialMembers={members} />
+          <UsersTable initialUsers={users} />
         </div>
         <div className="bg-white rounded-lg shadow-sm p-6 border">
           <DepartmentsTable initialDepartments={departments} />
