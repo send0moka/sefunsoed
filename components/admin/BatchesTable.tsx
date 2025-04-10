@@ -107,6 +107,9 @@ export function BatchesTable({ initialBatches }: BatchesTableProps) {
       <DataTable 
         columns={columns} 
         data={batches}
+        filterColumn="name"
+        filterPlaceholder="Filter by name..."
+        rowCount="batch(es)"
         actionButtons={selectedBatches.length > 0 ? (
           <div className="flex items-center gap-2">
             <Button

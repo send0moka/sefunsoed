@@ -107,6 +107,9 @@ export function DepartmentsTable({ initialDepartments }: DepartmentsTableProps) 
       <DataTable 
         columns={columns} 
         data={departments}
+        filterColumn="name_en"
+        filterPlaceholder="Filter by English name..."
+        rowCount="department(s)"
         actionButtons={selectedDepartments.length > 0 ? (
           <div className="flex items-center gap-2">
             <Button

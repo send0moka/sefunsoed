@@ -29,12 +29,18 @@ interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
   actionButtons?: React.ReactNode
+  filterColumn?: string
+  filterPlaceholder?: string
+  rowCount?: string
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
   actionButtons,
+  filterColumn = "name",
+  filterPlaceholder = "Filter by name...",
+  rowCount = "row(s)"
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -60,10 +66,10 @@ export function DataTable<TData, TValue>({
     <div>
       <div className="flex items-center justify-between pb-4">
         <Input
-          placeholder="Filter by name..."
-          value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
+          placeholder={filterPlaceholder}
+          value={(table.getColumn(filterColumn)?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
-            table.getColumn("name")?.setFilterValue(event.target.value)
+            table.getColumn(filterColumn)?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />
@@ -133,7 +139,7 @@ export function DataTable<TData, TValue>({
       </div>
       <div className="flex items-center justify-between space-x-2 py-4">
         <div className="flex-1 text-sm text-muted-foreground">
-          {table.getFilteredRowModel().rows.length} user(s) total.
+          {table.getFilteredRowModel().rows.length} {rowCount} total.
         </div>
         <div className="flex items-center space-x-2">
           <Button

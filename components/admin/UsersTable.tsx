@@ -176,6 +176,9 @@ export function UsersTable({ initialUsers }: UsersTableProps) {
       <DataTable 
         columns={columns} 
         data={users} 
+        filterColumn="name"
+        filterPlaceholder="Filter by name..."
+        rowCount="user(s)"
         actionButtons={selectedUsers.length > 0 ? (
           <div className="flex items-center gap-2">
             <Button
