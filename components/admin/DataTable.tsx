@@ -28,10 +28,11 @@ import { Input } from "@/components/ui/input"
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
-  actionButtons?: React.ReactNode
   filterColumn?: string
   filterPlaceholder?: string
   rowCount?: string
+  createButton?: React.ReactNode
+  actionButtons?: React.ReactNode
 }
 
 export function DataTable<TData, TValue>({
@@ -40,7 +41,8 @@ export function DataTable<TData, TValue>({
   actionButtons,
   filterColumn = "name",
   filterPlaceholder = "Filter by name...",
-  rowCount = "row(s)"
+  rowCount = "row(s)",
+  createButton
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -73,7 +75,10 @@ export function DataTable<TData, TValue>({
           }
           className="max-w-sm"
         />
-        {actionButtons}
+        <div className="flex items-center gap-2">
+          {actionButtons}
+          {createButton}
+        </div>
       </div>
       <div className="rounded-md border">
         <Table>

@@ -1,6 +1,6 @@
 "use client"
 
-import { User } from "@/types/database"
+import { Batch, Department, User } from "@/types/database"
 import { useState } from "react"
 import { DataTable } from "./DataTable"
 import { ColumnDef } from "@tanstack/react-table"
@@ -11,12 +11,19 @@ import { toast } from "sonner"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { InstagramIcon, LinkedinIcon } from "lucide-react"
 import { Checkbox } from "@/components/ui/checkbox"
+import { CreateUserModal } from "./CreateUserModal"
 
 interface UsersTableProps {
   initialUsers: User[]
+  departments: Department[]
+  batches: Batch[]
 }
 
-export function UsersTable({ initialUsers }: UsersTableProps) {
+export function UsersTable({ initialUsers, departments, batches }: UsersTableProps) {
+  // Add console.log to verify props
+  console.log('UsersTable departments:', departments)
+  console.log('UsersTable batches:', batches)
+
   const [users, setUsers] = useState<User[]>(initialUsers)
   const [selectedUsers, setSelectedUsers] = useState<string[]>([])
   const router = useRouter()
@@ -220,6 +227,12 @@ export function UsersTable({ initialUsers }: UsersTableProps) {
         filterColumn="name"
         filterPlaceholder="Filter by name..."
         rowCount="user(s)"
+        createButton={
+          <CreateUserModal 
+            departments={departments} 
+            batches={batches} 
+          />
+        }
         actionButtons={selectedUsers.length > 0 ? (
           <div className="flex items-center gap-2">
             <Button

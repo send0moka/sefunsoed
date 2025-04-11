@@ -3,7 +3,7 @@ export interface User {  // Changed from Member
   name: string
   email: string
   image: string
-  role: "admin" | "visitor"  // Changed from "admin" | "member"
+  role: "admin" | "visitor" | "member"  // Added "member" role
   instagram?: string
   linkedin?: string
   department_id?: string

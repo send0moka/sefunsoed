@@ -23,7 +23,6 @@ export async function syncUser(userData: {
     }
 
     if (!existingUser) {
-      // Create new user
       const { data, error: insertError } = await supabaseAdmin
         .from("users")
         .insert([
@@ -33,7 +32,7 @@ export async function syncUser(userData: {
             image: userData.image,
             role: "visitor",
             created_at: new Date().toISOString(),
-            last_sign_in: new Date().toISOString(), // Add initial sign-in time
+            last_sign_in: new Date().toISOString(),
           },
         ])
         .select()
@@ -42,12 +41,11 @@ export async function syncUser(userData: {
       if (insertError) throw insertError
       return { success: true, data }
     } else {
-      // Update existing user's image and last_sign_in
       const { data, error: updateError } = await supabaseAdmin
         .from("users")
         .update({ 
           image: userData.image,
-          last_sign_in: new Date().toISOString() // Update sign-in time
+          last_sign_in: new Date().toISOString()
         })
         .eq("id", existingUser.id)
         .select()

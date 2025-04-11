@@ -52,6 +52,17 @@ export const userService = {
 
     if (error) throw error
   },
+
+  async createUser(user: Database["public"]["Tables"]["users"]["Insert"]) {
+    const { data, error } = await supabaseAdmin
+      .from("users")
+      .insert(user)
+      .select()
+      .single()
+
+    if (error) throw error
+    return data
+  },
 }
 
 export const departmentService = {

@@ -15,6 +15,10 @@ export default async function UsersPage() {
     batchService.getAllBatches() as Promise<Batch[]>
   ])
 
+  // Add logging to verify data
+  console.log('Departments:', departments)
+  console.log('Batches:', batches)
+
   return (
     <div className="p-6">
       <div className="mb-6">
@@ -22,7 +26,7 @@ export default async function UsersPage() {
       </div>
       <div className="space-y-8">
         <div className="bg-white rounded-lg shadow-sm p-6 border">
-          <UsersTable initialUsers={users} />
+          <UsersTable initialUsers={users} departments={departments} batches={batches} />
         </div>
         <div className="bg-white rounded-lg shadow-sm p-6 border">
           <DepartmentsTable initialDepartments={departments} />
