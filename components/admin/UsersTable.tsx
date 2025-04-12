@@ -96,10 +96,19 @@ export function UsersTable({ initialUsers, departments, batches }: UsersTablePro
       header: "User",
       cell: ({ row }) => {
         const user = row.original
+        const fallbackUrl = `https://api.dicebear.com/7.x/initials/svg?seed=${user.name}`
+        
         return (
           <div className="flex items-center gap-3">
             <Avatar className="h-10 w-10">
-              <AvatarImage src={user.image} alt={user.name} />
+              <AvatarImage 
+                src={user.image || fallbackUrl} 
+                alt={user.name}
+                onError={(e) => {
+                  console.error('Image load error for:', user.image)
+                  e.currentTarget.src = fallbackUrl
+                }}
+              />
               <AvatarFallback>{user.name.charAt(0).toUpperCase()}</AvatarFallback>
             </Avatar>
             <div className="flex flex-col">
@@ -120,8 +129,10 @@ export function UsersTable({ initialUsers, departments, batches }: UsersTablePro
       id: "department_batch",
       header: "Department",
       cell: ({ row }) => {
-        const dept = row.original.departments
-        const batch = row.original.batches
+        const user = row.original
+        const dept = departments.find(d => d.id === user.department_id)
+        const batch = batches.find(b => b.key === user.batch_key)
+        
         if (!dept) return "-"
         return `${dept.name_en}'${batch ? batch.name.slice(-2) : ""}`
       },
@@ -178,22 +189,7 @@ export function UsersTable({ initialUsers, departments, batches }: UsersTablePro
         const date = row.original.last_sign_in
         if (!date) return "Never"
         
-        const lastSignIn = new Date(date)
-        const now = new Date()
-        const diff = now.getTime() - lastSignIn.getTime()
-        
-        // If less than 24 hours ago, show relative time
-        if (diff < 24 * 60 * 60 * 1000) {
-          const hours = Math.floor(diff / (60 * 60 * 1000))
-          if (hours === 0) {
-            const minutes = Math.floor(diff / (60 * 1000))
-            return `${minutes} minutes ago`
-          }
-          return `${hours} hours ago`
-        }
-        
-        // Otherwise show date
-        return lastSignIn.toLocaleDateString('en-US', {
+        return new Date(date).toLocaleDateString('en-US', {
           year: 'numeric',
           month: 'short',
           day: 'numeric',

@@ -1,38 +1,30 @@
-export interface User {  // Changed from Member
+export interface User {
   id: string
   name: string
   email: string
   image: string
-  role: "admin" | "visitor" | "member"  // Added "member" role
-  instagram?: string
-  linkedin?: string
+  role: "admin" | "visitor" | "member"
   department_id?: string
   batch_key?: string
-  last_sign_in?: string
+  instagram?: string
+  linkedin?: string
   created_at: string
-  departments?: {
-    name_en: string
-    name_id: string
-  } | null
-  batches?: {
-    name: string
-  } | null
+  last_sign_in?: string
+  is_anonymous: boolean
+  is_sso_user: boolean
+  departments?: Department
+  batches?: Batch
 }
 
 export interface Department {
   id: string
   name_en: string
   name_id: string
-  created_at: string
-  used?: number
 }
 
 export interface Batch {
-  id: string
-  name: string
   key: string
-  created_at: string
-  used?: number
+  name: string
 }
 
 export interface Database {

@@ -55,12 +55,20 @@ export const userService = {
 
   async createUser(user: Database["public"]["Tables"]["users"]["Insert"]) {
     const { data, error } = await supabaseAdmin
-      .from("users")
-      .insert(user)
+      .from('users')
+      .insert([user]) // Note: Wrap user in array
       .select()
       .single()
 
-    if (error) throw error
+    if (error) {
+      console.error('Supabase error:', error)
+      throw new Error(error.message)
+    }
+
+    if (!data) {
+      throw new Error('No data returned from insert operation')
+    }
+
     return data
   },
 }
