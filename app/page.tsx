@@ -5,6 +5,7 @@ import { useLanguage } from "@/contexts/LanguageContext"
 import { translations } from "@/translations"
 import { useSearchParams } from "next/navigation"
 import { JSX, Suspense } from "react"
+import Image from "next/image"
 
 function HomeComponent() {
   const { language } = useLanguage()
@@ -20,32 +21,89 @@ function HomeComponent() {
     <div className="bg-white">
       {/* Hero section */}
       <div className="relative isolate overflow-hidden bg-gradient-to-b from-indigo-100/20">
-        <div className="mx-auto max-w-7xl pb-24 pt-10 sm:pb-32 lg:grid lg:grid-cols-2 lg:gap-x-8 lg:px-8 lg:py-40">
-          <div className="px-6 lg:px-0 lg:pt-4">
-            <div className="mx-auto max-w-2xl">
-              <div className="max-w-lg">
-                <h1 className="mt-10 text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-                  {translations[language].home.hero.title}
-                </h1>
-                <p className="mt-6 text-lg leading-8 text-gray-600">
-                  {translations[language].home.hero.description}
-                </p>
-                <div className="mt-10 flex items-center gap-x-6">
-                  <Link
-                    href={getLinkWithLang("/registration")}
-                    className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                  >
-                    {translations[language].home.hero.registerButton}
-                  </Link>
-                  <Link
-                    href={getLinkWithLang("/about")}
-                    className="text-sm font-semibold leading-6 text-gray-900"
-                  >
-                    {translations[language].home.hero.learnMore}{" "}
-                    <span aria-hidden="true">→</span>
-                  </Link>
-                </div>
+        <div className="mx-auto mt-20 sm:mt-24 lg:mt-32 max-w-7xl px-6 py-12 sm:py-16 lg:py-24 lg:px-8">
+          {/* Hero Header */}
+          <div className="flex flex-col sm:flex-row items-center sm:items-end gap-4 sm:gap-x-6">
+            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tight text-gray-900 text-center sm:text-left">
+              Student-English Forum
+            </h1>
+            <div className="flex -space-x-4 sm:-space-x-6">
+              <Image 
+                src="/lamp.svg" 
+                alt="Lamp" 
+                width={125} 
+                height={125}
+                className="w-20 h-20 sm:w-24 sm:h-24 lg:w-32 lg:h-32" 
+              />
+              <Image 
+                src="/star.svg" 
+                alt="star" 
+                width={125} 
+                height={125}
+                className="w-20 h-20 sm:w-24 sm:h-24 lg:w-32 lg:h-32" 
+              />
+            </div>
+          </div>
+
+          {/* Hero Content */}
+          <div className="flex flex-col lg:flex-row mt-8 gap-8 lg:gap-x-8">
+            {/* Left Column */}
+            <div className="flex flex-col gap-y-6 items-center">
+              <div className="flex flex-col sm:flex-row -space-y-4 sm:-space-x-6 sm:space-y-0 items-center sm:items-end">
+                <Image
+                  src="/laptop.png"
+                  alt="laptop"
+                  width={600}
+                  height={300}
+                  className="w-24 sm:w-28 lg:w-32 z-10"
+                />
+                <Image
+                  src="/forum.png"
+                  alt="Forum"
+                  width={600}
+                  height={300}
+                  className="w-full sm:w-auto h-48 sm:h-60 lg:h-72 rounded-3xl object-cover"
+                />
               </div>
+              <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-x-6">
+                <Link
+                  href={getLinkWithLang("/registration")}
+                  className="w-full sm:w-fit rounded-full bg-indigo-600 px-6 py-3 text-base lg:text-lg font-semibold text-white text-center shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                >
+                  {translations[language].home.hero.registerButton}
+                </Link>
+                <Link
+                  href={getLinkWithLang("/about")}
+                  className="text-base lg:text-lg font-semibold leading-6 text-gray-900"
+                >
+                  {translations[language].home.hero.learnMore}{" "}
+                  <span aria-hidden="true">→</span>
+                </Link>
+              </div>
+            </div>
+
+            {/* Right Column */}
+            <div className="space-y-4 text-center lg:text-left">
+              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-wide text-indigo-500">
+                UNSOED
+              </h1>
+              <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-x-4">
+                <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-gray-900">
+                  Purwokerto
+                </h1>
+                <Image 
+                  src="/lup.svg" 
+                  alt="lup" 
+                  width={80} 
+                  height={80}
+                  className="w-16 sm:w-20 lg:w-24 h-auto" 
+                />
+              </div>
+              <p className="text-base lg:text-lg font-medium text-balance max-w-2xl mx-auto lg:mx-0 leading-8 text-gray-900">
+                A dynamic platform designed to foster the development of English
+                language proficiency and cultivate student leadership skills at
+                Universitas Jenderal Soedirman.
+              </p>
             </div>
           </div>
         </div>

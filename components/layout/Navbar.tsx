@@ -8,12 +8,17 @@ import { Dialog } from "@headlessui/react"
 import {
   ArrowRightEndOnRectangleIcon,
   Bars3Icon,
-  XMarkIcon,
   ChartPieIcon,
 } from "@heroicons/react/24/outline"
 import { useLanguage } from "@/contexts/LanguageContext"
 import { translations, type NavigationKeys } from "@/translations"
-import { SignInButton, SignedIn, SignedOut, UserButton, useUser } from "@clerk/nextjs"
+import {
+  SignInButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+  useUser,
+} from "@clerk/nextjs"
 import { authService } from "@/lib/supabase-admin"
 
 const navigation: { name: NavigationKeys; href: string }[] = [
@@ -36,7 +41,9 @@ export default function Navbar() {
   useEffect(() => {
     async function checkAdminRole() {
       if (user?.primaryEmailAddress?.emailAddress) {
-        const role = await authService.getUserRole(user.primaryEmailAddress.emailAddress)
+        const role = await authService.getUserRole(
+          user.primaryEmailAddress.emailAddress
+        )
         setIsAdmin(role === "admin")
       }
     }
@@ -55,14 +62,20 @@ export default function Navbar() {
   }
 
   return (
-    <header className="bg-white shadow-sm sticky top-0 z-50">
+    <header className="fixed top-4 lg:top-10 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-[76rem]">
       <nav
-        className="mx-auto flex max-w-7xl items-center justify-between px-6 lg:px-8"
+        className="mx-auto flex items-center justify-between px-6 lg:px-8 bg-black/90 backdrop-blur-sm rounded-full shadow-lg"
         aria-label="Global"
       >
         <div className="flex lg:flex-1">
-          <Link href={getLinkWithLang("/")} className="-m-1.5 p-1.5">
-            <Image src="/logo.jpeg" alt="SEF UNSOED" width={100} height={100} />
+          <Link href={getLinkWithLang("/")}>
+            <Image
+              src="/logo.png"
+              alt="SEF UNSOED"
+              width={100}
+              height={48}
+              className="brightness-0 invert md:py-2 scale-75 md:scale-100 -translate-x-3 md:-translate-x-0"
+            />
           </Link>
         </div>
         <div className="hidden lg:flex lg:gap-x-12">
@@ -73,7 +86,7 @@ export default function Navbar() {
               className={`text-sm font-semibold leading-6 ${
                 pathname === item.href
                   ? "text-indigo-600"
-                  : "text-gray-900 hover:text-indigo-600"
+                  : "text-gray-50 hover:text-indigo-600"
               } ${item.name === "media" ? "mr-6" : ""}`}
             >
               {translations[language].navigation[item.name]}
@@ -84,7 +97,7 @@ export default function Navbar() {
           <div className="hidden lg:flex items-center gap-6">
             <button
               onClick={toggleLanguage}
-              className="flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-all duration-300"
+              className="flex items-center gap-2 p-3 rounded-full bg-gray-100 hover:bg-gray-200 transition-all duration-300"
             >
               <div className="flex items-center gap-2 w-[50px] justify-center">
                 <Image
@@ -102,7 +115,7 @@ export default function Navbar() {
             {isAdmin && (
               <Link
                 href="/admin"
-                className="inline-flex items-center gap-x-1.5 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className="inline-flex items-center gap-x-1.5 rounded-full bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 <ChartPieIcon className="-ml-0.5 h-5 w-5" aria-hidden="true" />
                 Dashboard
@@ -110,7 +123,7 @@ export default function Navbar() {
             )}
             <SignedOut>
               <SignInButton>
-                <button className="flex items-center gap-2 px-4 py-2 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105">
+                <button className="flex items-center gap-2 px-4 py-3 rounded-full bg-indigo-600 text-white hover:bg-indigo-700 transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105">
                   <ArrowRightEndOnRectangleIcon className="w-5 h-5" />
                   <span className="text-sm font-medium">Sign In</span>
                 </button>
@@ -123,7 +136,7 @@ export default function Navbar() {
           <div className="flex lg:hidden items-center gap-4">
             <button
               onClick={toggleLanguage}
-              className="flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-all duration-300"
+              className="flex items-center gap-2 px-3 py-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-all duration-300"
             >
               <div className="flex items-center gap-2 w-[50px] justify-center">
                 <Image
@@ -140,7 +153,7 @@ export default function Navbar() {
             </button>
             <button
               type="button"
-              className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
+              className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-50"
               onClick={() => setMobileMenuOpen(true)}
             >
               <span className="sr-only">
@@ -153,43 +166,28 @@ export default function Navbar() {
       </nav>
       <Dialog
         as="div"
-        className="lg:hidden"
+        className="lg:hidden relative"
         open={mobileMenuOpen}
         onClose={setMobileMenuOpen}
       >
-        <div className="fixed inset-0 z-10" />
-        <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
-          <div className="flex items-center justify-between">
-            <Link href={getLinkWithLang("/")} className="-m-1.5 p-1.5">
-              <Image
-                src="/logo.jpeg"
-                alt="SEF UNSOED"
-                width={100}
-                height={100}
-              />
-            </Link>
-            <button
-              type="button"
-              className="-m-2.5 rounded-md p-2.5 text-gray-700"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              <span className="sr-only">
-                {translations[language].common.closeMenu}
-              </span>
-              <XMarkIcon className="h-6 w-6" aria-hidden="true" />
-            </button>
-          </div>
+        {/* Overlay for clicking outside */}
+        <div
+          className="fixed inset-0 z-10 bg-black/20 backdrop-blur-sm"
+          onClick={() => setMobileMenuOpen(false)}
+        />
+
+        <Dialog.Panel className="fixed left-1/2 -translate-x-1/2 top-24 z-20 w-[95%] overflow-y-auto bg-black/90 backdrop-blur-sm px-6 pb-6 rounded-3xl shadow-xl">
           <div className="mt-6 flow-root">
-            <div className="-my-6 divide-y divide-gray-500/10">
-              <div className="space-y-2 py-6">
+            <div className="-my-6">
+              <div className="space-y-1 py-6">
                 {navigation.map((item) => (
                   <Link
                     key={item.name}
                     href={getLinkWithLang(item.href)}
-                    className={`-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 ${
+                    className={`block rounded-full px-4 py-2 text-base font-semibold ${
                       pathname === item.href
-                        ? "bg-gray-50 text-indigo-600"
-                        : "text-gray-900 hover:bg-gray-50"
+                        ? "bg-indigo-600 text-white"
+                        : "text-gray-50 hover:bg-gray-800/50"
                     }`}
                     onClick={() => setMobileMenuOpen(false)}
                   >
@@ -203,7 +201,7 @@ export default function Navbar() {
           {isAdmin && (
             <Link
               href="/admin"
-              className="w-full flex items-center justify-center gap-x-1.5 rounded-md bg-indigo-600 p-2 text-base font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mt-4"
+              className="w-full flex items-center justify-center gap-x-1.5 rounded-full bg-indigo-600 p-2 text-base font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mt-4"
               onClick={() => setMobileMenuOpen(false)}
             >
               <ChartPieIcon className="-ml-0.5 h-5 w-5" aria-hidden="true" />
@@ -213,14 +211,14 @@ export default function Navbar() {
 
           <SignedOut>
             <SignInButton>
-              <button className="w-full flex items-center gap-2 px-4 py-4 lg:py-2 mt-4 lg:mt-0 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105">
+              <button className="w-full flex items-center justify-center gap-2 px-4 py-3 mt-4 rounded-full bg-indigo-600 text-white hover:bg-indigo-700 transition-all duration-300 shadow-md hover:shadow-lg">
                 <ArrowRightEndOnRectangleIcon className="w-5 h-5" />
                 <span className="text-sm font-medium">Sign In</span>
               </button>
             </SignInButton>
           </SignedOut>
           <SignedIn>
-            <div className="flex items-center gap-4 mt-6">
+            <div className="flex items-center justify-center gap-4 mt-6">
               <UserButton />
             </div>
           </SignedIn>
