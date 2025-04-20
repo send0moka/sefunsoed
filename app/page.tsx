@@ -21,48 +21,65 @@ function HomeComponent() {
     <div className="bg-white">
       {/* Hero section */}
       <div className="relative isolate overflow-hidden bg-gradient-to-b from-indigo-100/20">
-        <div className="mx-auto mt-20 sm:mt-24 lg:mt-32 max-w-7xl px-6 py-12 sm:py-16 lg:py-24 lg:px-8">
+        <div className="mx-auto mt-10 sm:mt-24 lg:mt-32 max-w-7xl px-6 py-12 sm:py-16 lg:py-24 lg:px-8">
           {/* Hero Header */}
-          <div className="flex flex-col sm:flex-row items-center sm:items-end gap-4 sm:gap-x-6">
-            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tight text-gray-900 text-center sm:text-left">
+          <div className="flex flex-col lg:flex-row lg:items-end sm:gap-x-6">
+            <h1 className="text-[2.12rem] sm:text-5xl lg:text-7xl font-semibold lg:font-bold tracking-tighter lg:tracking-tight text-gray-900">
               Student-English Forum
             </h1>
-            <div className="flex -space-x-4 sm:-space-x-6">
-              <Image 
-                src="/lamp.svg" 
-                alt="Lamp" 
-                width={125} 
-                height={125}
-                className="w-20 h-20 sm:w-24 sm:h-24 lg:w-32 lg:h-32" 
-              />
-              <Image 
-                src="/star.svg" 
-                alt="star" 
-                width={125} 
-                height={125}
-                className="w-20 h-20 sm:w-24 sm:h-24 lg:w-32 lg:h-32" 
-              />
+            <div className="flex flex-col lg:flex-row -space-x-6 mt-1 lg:mt-0 gap-1 lg:gap-0">
+              <div className="flex gap-3 items-center">
+                <Image 
+                  src="/lamp.svg" 
+                  alt="Lamp" 
+                  width={125} 
+                  height={125}
+                  className="size-12 sm:size-24 lg:size-32" 
+                />
+                <h1 className="lg:hidden text-[2.12rem] sm:text-6xl lg:text-7xl font-semibold lg:font-bold tracking-tighter lg:tracking-wide text-indigo-500">
+                  Unsoed 2025
+                </h1>
+              </div>
+              <div className="flex gap-3 items-center">
+                <Image 
+                  src="/star.svg" 
+                  alt="star" 
+                  width={125} 
+                  height={125}
+                  className="size-12 sm:size-24 lg:size-32" 
+                />
+                <h1 className="lg:hidden -translate-y-0.5 text-[2.12rem] sm:text-5xl lg:text-7xl font-semibold lg:font-bold tracking-tighter lg:tracking-tight text-gray-900">
+                  Purwokerto
+                </h1>
+                <Image 
+                  src="/lup.svg" 
+                  alt="lup" 
+                  width={80} 
+                  height={80}
+                  className="lg:hidden size-10 -translate-y-0.5" 
+                />
+              </div>
             </div>
           </div>
 
           {/* Hero Content */}
-          <div className="flex flex-col lg:flex-row mt-8 gap-8 lg:gap-x-8">
+          <div className="flex flex-col-reverse lg:flex-row mt-2 lg:mt-8 gap-8 lg:gap-x-8">
             {/* Left Column */}
             <div className="flex flex-col gap-y-6 items-center">
-              <div className="flex flex-col sm:flex-row -space-y-4 sm:-space-x-6 sm:space-y-0 items-center sm:items-end">
+              <div className="w-full lg:w-fit flex flex-row -space-y-4 sm:-space-x-6 sm:space-y-0 items-center sm:items-end">
                 <Image
                   src="/laptop.png"
                   alt="laptop"
                   width={600}
                   height={300}
-                  className="w-24 sm:w-28 lg:w-32 z-10"
+                  className="absolute -left-2 lg:left-0 bottom-40 lg:bottom-0 lg:relative w-24 sm:w-28 lg:w-32 z-10"
                 />
                 <Image
                   src="/forum.png"
                   alt="Forum"
                   width={600}
                   height={300}
-                  className="w-full sm:w-auto h-48 sm:h-60 lg:h-72 rounded-3xl object-cover"
+                  className="w-full lg:w-auto h-48 lg:h-72 rounded-3xl object-cover"
                 />
               </div>
               <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-x-6">
@@ -83,11 +100,11 @@ function HomeComponent() {
             </div>
 
             {/* Right Column */}
-            <div className="space-y-4 text-center lg:text-left">
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-wide text-indigo-500">
+            <div className="space-y-4">
+              <h1 className="hidden lg:flex text-5xl sm:text-6xl lg:text-7xl font-bold tracking-wide text-indigo-500">
                 UNSOED
               </h1>
-              <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-x-4">
+              <div className="hidden lg:flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-x-4">
                 <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-gray-900">
                   Purwokerto
                 </h1>
@@ -99,7 +116,7 @@ function HomeComponent() {
                   className="w-16 sm:w-20 lg:w-24 h-auto" 
                 />
               </div>
-              <p className="text-base lg:text-lg font-medium text-balance max-w-2xl mx-auto lg:mx-0 leading-8 text-gray-900">
+              <p className="text-base lg:text-lg font-medium text-balance max-w-2xl mx-auto lg:mx-0 lg:leading-8 text-gray-500 lg:text-gray-900">
                 A dynamic platform designed to foster the development of English
                 language proficiency and cultivate student leadership skills at
                 Universitas Jenderal Soedirman.
