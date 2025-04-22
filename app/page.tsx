@@ -25,7 +25,7 @@ function HomeComponent() {
           {/* Hero Header */}
           <div className="flex flex-col lg:flex-row lg:items-end sm:gap-x-6">
             <h1 className="text-[2.12rem] sm:text-5xl lg:text-7xl font-semibold lg:font-bold tracking-tighter lg:tracking-tight text-gray-900">
-              Student-English Forum
+              {translations[language].home.hero.title}
             </h1>
             <div className="flex flex-col lg:flex-row -space-x-6 mt-1 lg:mt-0 gap-1 lg:gap-0">
               <div className="flex gap-3 items-center">
@@ -37,7 +37,7 @@ function HomeComponent() {
                   className="size-12 sm:size-24 lg:size-32" 
                 />
                 <h1 className="lg:hidden text-[2.12rem] sm:text-6xl lg:text-7xl font-semibold lg:font-bold tracking-tighter lg:tracking-wide text-indigo-500">
-                  Unsoed 2025
+                  {translations[language].home.hero.subtitle}
                 </h1>
               </div>
               <div className="flex gap-3 items-center">
@@ -49,7 +49,7 @@ function HomeComponent() {
                   className="size-12 sm:size-24 lg:size-32" 
                 />
                 <h1 className="lg:hidden -translate-y-0.5 text-[2.12rem] sm:text-5xl lg:text-7xl font-semibold lg:font-bold tracking-tighter lg:tracking-tight text-gray-900">
-                  Purwokerto
+                  {translations[language].home.hero.place}
                 </h1>
                 <Image 
                   src="/lup.svg" 
@@ -65,7 +65,7 @@ function HomeComponent() {
           {/* Hero Content */}
           <div className="flex flex-col-reverse lg:flex-row mt-2 lg:mt-8 gap-8 lg:gap-x-8">
             {/* Left Column */}
-            <div className="flex flex-col gap-y-6 items-center">
+            <div className="flex flex-col gap-y-6 items-center lg:items-end">
               <div className="w-full lg:w-fit flex flex-row -space-y-4 sm:-space-x-6 sm:space-y-0 items-center sm:items-end">
                 <Image
                   src="/laptop.png"
@@ -102,11 +102,11 @@ function HomeComponent() {
             {/* Right Column */}
             <div className="space-y-4">
               <h1 className="hidden lg:flex text-5xl sm:text-6xl lg:text-7xl font-bold tracking-wide text-indigo-500">
-                UNSOED
+                {translations[language].home.hero.institution}
               </h1>
               <div className="hidden lg:flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-x-4">
                 <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-gray-900">
-                  Purwokerto
+                  {translations[language].home.hero.place}
                 </h1>
                 <Image 
                   src="/lup.svg" 
@@ -117,9 +117,7 @@ function HomeComponent() {
                 />
               </div>
               <p className="text-base lg:text-lg font-medium text-balance max-w-2xl mx-auto lg:mx-0 lg:leading-8 text-gray-500 lg:text-gray-900">
-                A dynamic platform designed to foster the development of English
-                language proficiency and cultivate student leadership skills at
-                Universitas Jenderal Soedirman.
+                {translations[language].home.hero.description}
               </p>
             </div>
           </div>

@@ -21,6 +21,9 @@ type Common = {
 type HomeContent = {
   hero: {
     title: string
+    subtitle: string
+    institution: string
+    place: string
     description: string
     registerButton: string
     learnMore: string
@@ -423,9 +426,12 @@ export const translations: Translations = {
     },
     home: {
       hero: {
-        title: "Student English Forum UNSOED",
+        title: "Student-English Forum",
+        subtitle: "Unsoed 2025",
+        institution: "UNSOED",
+        place: "Purwokerto",
         description:
-          "A platform for developing English language skills and student leadership at UNSOED.",
+          "A dynamic platform designed to foster the development of English language proficiency and cultivate student leadership skills at Universitas Jenderal Soedirman.",
         registerButton: "Register Now",
         learnMore: "Learn More",
       },
@@ -998,9 +1004,12 @@ export const translations: Translations = {
     },
     home: {
       hero: {
-        title: "Student English Forum UNSOED",
+        title: "Student-English Forum",
+        subtitle: "Unsoed 2025",
+        institution: "UNSOED",
+        place: "Purwokerto",
         description:
-          "Wadah pengembangan kemampuan bahasa Inggris dan kepemimpinan mahasiswa UNSOED.",
+          "Platform untuk mengembangkan kemampuan berbahasa Inggris dan keterampilan kepemimpinan mahasiswa Universitas Jenderal Soedirman.",
         registerButton: "Daftar Sekarang",
         learnMore: "Pelajari Lebih Lanjut",
       },
