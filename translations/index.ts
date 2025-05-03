@@ -36,11 +36,10 @@ type HomeContent = {
     items: string[]
     button: string
   }
-  cta: {
+  learning: {
     title: string
-    description: string
-    registerButton: string
-    learnMore: string
+    sections: string[]
+    description: string[]
   }
 }
 
@@ -435,12 +434,20 @@ export const translations: Translations = {
         items: ["STEP Class", "Organizer SEF", "Additional Committee"],
         button: "Interested"
       },
-      cta: {
-        title: "Join SEF UNSOED",
-        description:
-          "Be part of a community focused on developing English language skills and leadership.",
-        registerButton: "Register Now",
-        learnMore: "Learn More",
+      learning: {
+        title: "Different Types of Learning",
+        sections: [
+          "English Online Course",
+          "Conversation Club",
+          "Private Tutor",
+          "Group to Learn English",
+        ],
+        description: [
+          "A program for self-study. A clear and modern pace, at a time convenient for you and with any connection to a team instructor.",
+          "Conversation clubs on various topics and for different levels of conversational and practical atmosphere with other students.",
+          "Individual lessons with a teacher, tailored to your request. You choose the teacher, time, and frequency of lessons.",
+          "Conversational groups of 5-6 people. Conversational classes and intellectual abilities in intensive lessons. This is a great opportunity to work on challenging lessons during live conversations.",
+        ],
       },
     },
     content: {
@@ -1001,12 +1008,20 @@ export const translations: Translations = {
         items: ["Kelas STEP", "Pengurus SEF", "Panitia Tambahan"],
         button: "Tertarik"
       },
-      cta: {
-        title: "Bergabunglah dengan SEF UNSOED",
-        description:
-          "Jadilah bagian dari komunitas yang berfokus pada pengembangan kemampuan bahasa Inggris dan kepemimpinan.",
-        registerButton: "Daftar Sekarang",
-        learnMore: "Pelajari Lebih Lanjut",
+      learning: {
+        title: "Berbagai Jenis Pembelajaran",
+        sections: [
+          "Kursus Bahasa Inggris Online",
+          "Klub Percakapan",
+          "Tutor Pribadi",
+          "Kelompok Belajar Bahasa Inggris",
+        ],
+        description: [
+          "Program untuk belajar mandiri. Tempo yang jelas dan modern, pada waktu yang nyaman bagi Anda dan dengan koneksi apapun ke instruktur tim.",
+          "Klub percakapan tentang berbagai topik dan untuk berbagai tingkat percakapan dan suasana praktis dengan mahasiswa lain.",
+          "Pelajaran individu dengan guru, disesuaikan dengan permintaan Anda. Anda sendiri yang memilih guru, waktu, dan frekuensi pelajaran.",
+          "Kelompok percakapan 5-6 orang. Kelas percakapan dan kemampuan intelektual dalam pelajaran intensif. Ini adalah kesempatan besar untuk mengerjakan pelajaran yang menantang selama percakapan langsung.",
+        ],
       },
     },
     content: {

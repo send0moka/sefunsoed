@@ -149,7 +149,7 @@ function HomeComponent() {
               {translations[language].home.features.description}
             </p>
           </div>
-          <div className="mb-13 lg:mb-0 lg:w-1/2">
+          <div className="lg:w-1/2">
             <Image
               src="/feat-1.svg"
               alt="feat-1"
@@ -172,11 +172,11 @@ function HomeComponent() {
             alt="bauble"
             width={300}
             height={300}
-            className="absolute -top-30 lg:-top-60 left-5 w-40 lg:w-72 h-auto z-0 -rotate-6 lg:-rotate-2"
+            className="absolute -top-18 lg:-top-52 left-2 lg:left-10 w-40 lg:w-72 h-auto z-0 -rotate-14 lg:-rotate-2"
           />
           <div
-            className="w-full h-auto bg-[#191919] py-20"
-            style={{ clipPath: "polygon(0 10%, 100% 0, 100% 100%, 0 100%)" }}
+            className="w-full h-auto bg-[#191919] py-25"
+            style={{ clipPath: "polygon(0 20%, 100% 0, 100% 100%, 0 100%)" }}
           >
             <div className="flex flex-col lg:flex-row relative">
               <div className="w-full px-6 lg:px-40 mt-10 z-0">
@@ -227,41 +227,139 @@ function HomeComponent() {
         </div>
       </div>
 
-      {/* CTA section */}
-      <div className="relative isolate mt-32 px-6 py-32 sm:mt-56 sm:py-40 lg:px-8">
-        <div
-          className="absolute inset-x-0 top-1/3 -z-10 -translate-y-1/2 transform-gpu overflow-hidden opacity-30 blur-3xl"
-          aria-hidden="true"
-        >
-          <div
-            className="ml-[max(50%,38rem)] aspect-[1313/771] w-[82.375rem] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc]"
-            style={{
-              clipPath:
-                "polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)",
-            }}
-          />
+      {/* <h1 className="text-3xl font-bold text-center">
+          {translations[language].home.features.subtitle
+            .split(" ")
+            .map((word, index, array) => (
+              <span
+                key={index}
+                className={`${
+                  index === Math.floor(array.length / 2) ? "text-blue-500" : ""
+                }`}
+              >
+                {word}{" "}
+              </span>
+            ))}
+        </h1>
+
+        <div className="bg-[#f6f6f8] not-visited:p-6 rounded-xl shadow-lg">
+            <Image
+              src="/princess.svg"
+              alt="Column 1 Image"
+              width={100}
+              height={100}
+              className="w-full h-auto -mt-10"
+            />
+            <div className="mt-8">
+              <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                Ohnanh-kypcbl no ahrnnnckomy
+              </h3>
+              <p>
+                Nporpamma anr camoctortenbhoro ogyyehnr. Yyntecb b cboem
+                cogctbehhom tmene, b yaoghoe anr bac bpemr n c tohhon noaaepxkn
+                ot hawen komahabl npenoaabatenen.
+              </p>
+            </div>
+          </div> */}
+
+      <div className="pt-20 sm:pt-24 lg:pt-32">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-center mb-8 sm:mb-12 lg:mb-16">
+            {translations[language].home.learning.title
+            .split(" ")
+            .map((word, index, array) => (
+              <span
+              key={index}
+              className={`${
+                index === array.length - 1 ? "text-blue-500" : ""
+              }`}
+              >
+              {word}{" "}
+              </span>
+            ))}
+            </h1>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-12">
+            {/* Card 1 */}
+            <div className="bg-[#f6f6f8] rounded-xl shadow-lg p-6 relative">
+              <Image
+              src="/princess.svg"
+              alt={translations[language].home.learning.sections[0]}
+              width={100}
+              height={100}
+              className="w-full h-auto -mt-10"
+              />
+              <div className="mt-6 sm:mt-8">
+              <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3">
+                {translations[language].home.learning.sections[0]}
+              </h3>
+              <p className="text-gray-600 text-sm sm:text-base">
+                {translations[language].home.learning.description[0]}
+              </p>
+              </div>
+            </div>
+
+            {/* Card 2 */}
+            <div className="flex flex-col gap-6 h-full">
+              {[1, 2].map((index) => (
+              <div
+                key={index}
+                className="bg-[#f6f6f8] rounded-xl shadow-lg p-6 flex-1"
+              >
+                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3">
+                {translations[language].home.learning.sections[index]}
+                </h3>
+                <p className="text-gray-600 text-sm sm:text-base">
+                {translations[language].home.learning.description[index]}
+                </p>
+              </div>
+              ))}
+            </div>
+
+            {/* Card 3 */}
+            <div className="bg-[#f6f6f8] rounded-xl shadow-lg p-6 relative">
+              <Image
+              src="/joey.svg"
+              alt="Learning Icon"
+              width={100}
+              height={100}
+              className="w-full h-auto -mt-10"
+              />
+              <div className="mt-6 sm:mt-8">
+              <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3">
+                {translations[language].home.learning.sections[3]}
+              </h3>
+              <p className="text-gray-600 text-sm sm:text-base">
+                {translations[language].home.learning.description[3]}
+              </p>
+              </div>
+            </div>
+            </div>
         </div>
-        <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            {translations[language].home.cta.title}
-          </h2>
-          <p className="mx-auto mt-6 max-w-xl text-lg leading-8 text-gray-600">
-            {translations[language].home.cta.description}
-          </p>
-          <div className="mt-10 flex items-center justify-center gap-x-6">
-            <Link
-              href={getLinkWithLang("/registration")}
-              className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-            >
-              {translations[language].home.cta.registerButton}
-            </Link>
-            <Link
-              href={getLinkWithLang("/about")}
-              className="text-sm font-semibold leading-6 text-gray-900"
-            >
-              {translations[language].home.cta.learnMore}{" "}
-              <span aria-hidden="true">→</span>
-            </Link>
+      </div>
+
+      {/* Blue Section with Pattern */}
+      <div className="relative mt-20 sm:mt-32">
+        <Image
+          src="/ezpzls.svg"
+          alt="Decoration"
+          width={100}
+          height={100}
+          className="absolute -top-10 sm:-top-12 lg:-top-14 left-4 sm:left-8 lg:left-10 w-20 sm:w-24 lg:w-28 h-auto z-10 -rotate-12"
+        />
+        <div
+          className="w-full bg-[#4d74f3] py-12 sm:py-16 lg:py-20 relative"
+          style={{
+            clipPath: "polygon(100% 50%, 0 0, 0 100%, 100% 100%)",
+            backgroundImage: `
+        linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px)
+      `,
+            backgroundSize: "20px 20px",
+          }}
+        >
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {/* Add content here */}
           </div>
         </div>
       </div>
