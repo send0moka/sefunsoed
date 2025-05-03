@@ -41,6 +41,14 @@ type HomeContent = {
     sections: string[]
     description: string[]
   }
+  course: {
+    title: string
+    subtitle: string
+    header: string
+    items: string[]
+    button: string
+    additional: string
+  }
 }
 
 type DynamicContentKey =
@@ -448,6 +456,19 @@ export const translations: Translations = {
           "Individual lessons with a teacher, tailored to your request. You choose the teacher, time, and frequency of lessons.",
           "Conversational groups of 5-6 people. Conversational classes and intellectual abilities in intensive lessons. This is a great opportunity to work on challenging lessons during live conversations.",
         ],
+      },
+      course: {
+        title: "Online Course",
+        subtitle: "For Self-Learning with Ease",
+        header: "Course 'English by Memes'",
+        items: [
+          "Learn the language in the context of modern sources",
+          "Understand the cultural references and norms hidden behind each meme",
+          "Immerse yourself in the authentic world of the English language through the most popular memes on the internet",
+          "This course will spark your passion for practical and scientific language learning",
+        ],
+        button: "Cost",
+        additional: "Cheaper"
       },
     },
     content: {
@@ -1022,6 +1043,19 @@ export const translations: Translations = {
           "Pelajaran individu dengan guru, disesuaikan dengan permintaan Anda. Anda sendiri yang memilih guru, waktu, dan frekuensi pelajaran.",
           "Kelompok percakapan 5-6 orang. Kelas percakapan dan kemampuan intelektual dalam pelajaran intensif. Ini adalah kesempatan besar untuk mengerjakan pelajaran yang menantang selama percakapan langsung.",
         ],
+      },
+      course: {
+        title: "Kursus Online",
+        subtitle: "Untuk Pembelajaran Mandiri dengan Mudah",
+        header: "Kursus 'Bahasa Inggris melalui Meme'",
+        items: [
+          "Belajar bahasa dalam konteks sumber modern",
+          "Memahami referensi budaya dan norma yang tersembunyi di balik setiap meme",
+          "Benamkan diri Anda dalam dunia otentik bahasa Inggris melalui meme paling populer di internet",
+          "Kursus ini akan memicu semangat Anda untuk belajar bahasa secara praktis dan ilmiah",
+        ],
+        button: "Biaya",
+        additional: "Lebih Murah"
       },
     },
     content: {

@@ -227,114 +227,80 @@ function HomeComponent() {
         </div>
       </div>
 
-      {/* <h1 className="text-3xl font-bold text-center">
-          {translations[language].home.features.subtitle
-            .split(" ")
-            .map((word, index, array) => (
-              <span
-                key={index}
-                className={`${
-                  index === Math.floor(array.length / 2) ? "text-blue-500" : ""
-                }`}
-              >
-                {word}{" "}
-              </span>
-            ))}
-        </h1>
-
-        <div className="bg-[#f6f6f8] not-visited:p-6 rounded-xl shadow-lg">
-            <Image
-              src="/princess.svg"
-              alt="Column 1 Image"
-              width={100}
-              height={100}
-              className="w-full h-auto -mt-10"
-            />
-            <div className="mt-8">
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">
-                Ohnanh-kypcbl no ahrnnnckomy
-              </h3>
-              <p>
-                Nporpamma anr camoctortenbhoro ogyyehnr. Yyntecb b cboem
-                cogctbehhom tmene, b yaoghoe anr bac bpemr n c tohhon noaaepxkn
-                ot hawen komahabl npenoaabatenen.
-              </p>
-            </div>
-          </div> */}
-
+      {/* Learning Section */}
       <div className="pt-20 sm:pt-24 lg:pt-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-center mb-8 sm:mb-12 lg:mb-16">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-center mb-8 sm:mb-12 lg:mb-16">
             {translations[language].home.learning.title
-            .split(" ")
-            .map((word, index, array) => (
-              <span
-              key={index}
-              className={`${
-                index === array.length - 1 ? "text-blue-500" : ""
-              }`}
-              >
-              {word}{" "}
-              </span>
-            ))}
-            </h1>
+              .split(" ")
+              .map((word, index, array) => (
+                <span
+                  key={index}
+                  className={`${
+                    index === array.length - 1 ? "text-blue-500" : ""
+                  }`}
+                >
+                  {word}{" "}
+                </span>
+              ))}
+          </h1>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-12">
             {/* Card 1 */}
             <div className="bg-[#f6f6f8] rounded-xl shadow-lg p-6 relative">
               <Image
-              src="/princess.svg"
-              alt={translations[language].home.learning.sections[0]}
-              width={100}
-              height={100}
-              className="w-full h-auto -mt-10"
+                src="/princess.svg"
+                alt={translations[language].home.learning.sections[0]}
+                width={100}
+                height={100}
+                className="w-full h-auto -mt-10"
               />
               <div className="mt-6 sm:mt-8">
-              <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3">
-                {translations[language].home.learning.sections[0]}
-              </h3>
-              <p className="text-gray-600 text-sm sm:text-base">
-                {translations[language].home.learning.description[0]}
-              </p>
+                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3">
+                  {translations[language].home.learning.sections[0]}
+                </h3>
+                <p className="text-gray-600 text-sm sm:text-base">
+                  {translations[language].home.learning.description[0]}
+                </p>
               </div>
             </div>
 
             {/* Card 2 */}
             <div className="flex flex-col gap-6 h-full">
               {[1, 2].map((index) => (
-              <div
-                key={index}
-                className="bg-[#f6f6f8] rounded-xl shadow-lg p-6 flex-1"
-              >
-                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3">
-                {translations[language].home.learning.sections[index]}
-                </h3>
-                <p className="text-gray-600 text-sm sm:text-base">
-                {translations[language].home.learning.description[index]}
-                </p>
-              </div>
+                <div
+                  key={index}
+                  className="bg-[#f6f6f8] rounded-xl shadow-lg p-6 flex-1"
+                >
+                  <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3">
+                    {translations[language].home.learning.sections[index]}
+                  </h3>
+                  <p className="text-gray-600 text-sm sm:text-base">
+                    {translations[language].home.learning.description[index]}
+                  </p>
+                </div>
               ))}
             </div>
 
             {/* Card 3 */}
             <div className="bg-[#f6f6f8] rounded-xl shadow-lg p-6 relative">
               <Image
-              src="/joey.svg"
-              alt="Learning Icon"
-              width={100}
-              height={100}
-              className="w-full h-auto -mt-10"
+                src="/joey.svg"
+                alt="Learning Icon"
+                width={100}
+                height={100}
+                className="w-full h-auto -mt-10"
               />
               <div className="mt-6 sm:mt-8">
-              <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3">
-                {translations[language].home.learning.sections[3]}
-              </h3>
-              <p className="text-gray-600 text-sm sm:text-base">
-                {translations[language].home.learning.description[3]}
-              </p>
+                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3">
+                  {translations[language].home.learning.sections[3]}
+                </h3>
+                <p className="text-gray-600 text-sm sm:text-base">
+                  {translations[language].home.learning.description[3]}
+                </p>
               </div>
             </div>
-            </div>
+          </div>
         </div>
       </div>
 
@@ -345,21 +311,110 @@ function HomeComponent() {
           alt="Decoration"
           width={100}
           height={100}
-          className="absolute -top-10 sm:-top-12 lg:-top-14 left-4 sm:left-8 lg:left-10 w-20 sm:w-24 lg:w-28 h-auto z-10 -rotate-12"
+          className="absolute -top-10 sm:-top-12 lg:-top-14 left-4 sm:left-8 lg:left-10 w-28 sm:w-32 lg:w-52 h-auto z-10 -rotate-12"
         />
         <div
-          className="w-full bg-[#4d74f3] py-12 sm:py-16 lg:py-20 relative"
+          className="w-full bg-[#4d74f3] pb-6 pt-12 sm:pt-16 sm:pb-8 lg:pt-20 lg:pb-10 relative text-white"
           style={{
-            clipPath: "polygon(100% 50%, 0 0, 0 100%, 100% 100%)",
+            clipPath: window.innerWidth < 640 ? "polygon(100% 4%, 0 0, 0 100%, 100% 100%)" : "polygon(100% 10%, 0 0, 0 100%, 100% 100%)",
             backgroundImage: `
         linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px)
-      `,
+            `,
             backgroundSize: "20px 20px",
           }}
         >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            {/* Add content here */}
+          <div className="mx-auto pt-10 lg:pt-20 px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-between lg:mx-40">
+              <div className="hidden lg:flex w-[150px]">
+                <Image src="/star1.svg" alt="star1" width={35} height={35} />
+              </div>
+              <div>
+                <div className="flex items-center">
+                  <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold">
+                    {translations[language].home.course.title}
+                  </h1>
+                  <Image
+                    src="/arrow.svg"
+                    alt="arrow"
+                    width={230}
+                    height={230}
+                    className="w-36 lg:w-[230px] h-auto translate-y-1 ml-1"
+                  />
+                </div>
+                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold">
+                  {translations[language].home.course.subtitle
+                    .split(" ")
+                    .map((word, index, array) => (
+                      <span
+                        key={index}
+                        className={`${
+                          index === array.length - 1
+                            ? "text-white"
+                            : "text-[#51ff5f]"
+                        }`}
+                      >
+                        {word}{" "}
+                      </span>
+                    ))}
+                </h1>
+              </div>
+              <Image src="/money.svg" alt="money" width={150} height={150} className="hidden lg:flex" />
+            </div>
+            <div className="relative rounded-4xl overflow-hidden max-w-7xl mx-auto mt-5 sm:mt-16 lg:mt-20">
+              <div
+                className="absolute inset-0 rounded-4xl"
+                style={{
+                  background: "linear-gradient(to bottom, #fff, transparent)",
+                  padding: "2px",
+                  maskImage: "linear-gradient(black, black)",
+                  WebkitMaskImage: "linear-gradient(black, black)",
+                }}
+              >
+                <div className="w-full h-full bg-[#5f83f3] rounded-4xl" />
+              </div>
+              <div className="relative px-6 lg:px-7 pt-2 lg:pt-0 pb-6 lg:pb-4 grid lg:grid-cols-2 gap-8">
+                <Image
+                  src="/women.png"
+                  alt="women"
+                  width={500}
+                  height={500}
+                  className="w-full lg:h-96"
+                />
+                <div className="flex flex-col justify-center">
+                  <h3 className="text-2xl font-bold ml-3 mb-4">
+                    {translations[language].home.course.header}
+                  </h3>
+                  <ul className="list-disc ml-4 space-y-2">
+                    {translations[language].home.course.items.map(
+                      (item, index) => (
+                        <li key={index} className="text-lg">
+                          {item}
+                        </li>
+                      )
+                    )}
+                  </ul>
+                  <div className="flex mt-4 ml-3 gap-4">
+                    <Link
+                      href={getLinkWithLang("/registration")}
+                      className="bg-white text-black text-lg font-semibold w-40 text-center py-2 rounded-lg"
+                    >
+                      {translations[language].home.course.button}
+                    </Link>
+                    <Link
+                      href={getLinkWithLang("/about")}
+                      className="border border-white text-lg font-semibold w-40 text-center py-2 rounded-lg"
+                    >
+                      {translations[language].home.course.additional}
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="flex justify-between mt-4 lg:mt-10 mx-4 lg:mx-40">
+              <Image src="/grass.svg" alt="grass" width={40} height={40} />
+              <Image src="/rick.svg" alt="rick" width={140} height={140} className="rotate-12" />
+            </div>
           </div>
         </div>
       </div>
