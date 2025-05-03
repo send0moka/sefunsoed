@@ -32,18 +32,9 @@ type HomeContent = {
     title: string
     subtitle: string
     description: string
-    nudc: {
-      title: string
-      description: string
-    }
-    toefl: {
-      title: string
-      description: string
-    }
-    translation: {
-      title: string
-      description: string
-    }
+    head: string
+    items: string[]
+    button: string
   }
   cta: {
     title: string
@@ -439,22 +430,10 @@ export const translations: Translations = {
         title: "Featured Programs",
         subtitle: "Various Programs for Self Development",
         description:
-          "SEF UNSOED provides various programs to help students develop their English language skills and leadership abilities.",
-        nudc: {
-          title: "NUDC/KDMI Program",
-          description:
-            "Program preparation for national and international English debate competitions.",
-        },
-        toefl: {
-          title: "TOEFL/UEPT Preparation",
-          description:
-            "Program preparation for TOEFL and UEPT tests with structured materials and test simulations.",
-        },
-        translation: {
-          title: "Translation & Proofreading",
-          description:
-            "Translation and proofreading services for academic and non-academic documents.",
-        },
+          "The Student English Forum (SEF) at Universitas Jenderal Soedirman (UNSOED) offers a range of programs designed to enhance students' English language proficiency and leadership skills. Through engaging workshops, discussion groups, and activities, SEF fosters effective communication, critical thinking, and teamwork, empowering students to excel academically and professionally.",
+        head: "Boosting english proficiency and strong leadership development skills.",
+        items: ["STEP Class", "Organizer SEF", "Additional Committee"],
+        button: "Interested"
       },
       cta: {
         title: "Join SEF UNSOED",
@@ -1017,22 +996,10 @@ export const translations: Translations = {
         title: "Program Unggulan",
         subtitle: "Berbagai Program untuk Pengembangan Diri",
         description:
-          "SEF UNSOED menyediakan berbagai program untuk membantu mahasiswa mengembangkan kemampuan bahasa Inggris dan kepemimpinan mereka.",
-        nudc: {
-          title: "Program NUDC/KDMI",
-          description:
-            "Program persiapan untuk kompetisi debat bahasa Inggris tingkat nasional dan internasional.",
-        },
-        toefl: {
-          title: "TOEFL/UEPT Preparation",
-          description:
-            "Program persiapan untuk tes TOEFL dan UEPT dengan materi yang terstruktur dan simulasi tes.",
-        },
-        translation: {
-          title: "Translation & Proofreading",
-          description:
-            "Layanan penerjemahan dan proofreading untuk dokumen akademik dan non-akademik.",
-        },
+          "Student English Forum (SEF) Universitas Jenderal Soedirman (UNSOED) menyediakan berbagai program untuk meningkatkan kemampuan bahasa Inggris dan keterampilan kepemimpinan mahasiswa. Melalui lokakarya, kelompok diskusi, dan aktivitas menarik, SEF mempromosikan komunikasi efektif, berpikir kritis, dan kerja tim, memberdayakan mahasiswa untuk sukses secara akademik dan profesional.",
+        head: "Tingkatkan kemahiran inggris dan keterampilan kepemimpinan kuat.",
+        items: ["Kelas STEP", "Pengurus SEF", "Panitia Tambahan"],
+        button: "Tertarik"
       },
       cta: {
         title: "Bergabunglah dengan SEF UNSOED",

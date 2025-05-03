@@ -4,7 +4,7 @@ import Link from "next/link"
 import { useLanguage } from "@/contexts/LanguageContext"
 import { translations } from "@/translations"
 import { useSearchParams } from "next/navigation"
-import { JSX, Suspense } from "react"
+import { Suspense } from "react"
 import Image from "next/image"
 
 function HomeComponent() {
@@ -124,30 +124,107 @@ function HomeComponent() {
 
       {/* Feature section */}
       <div className="bg-gray-100">
-        <div className="pt-10 mx-auto mt-32 max-w-7xl">
-          <div className="flex flex-col items-center">
-            <div className="relative">
+        <div className="pt-10 mx-auto mt-32 max-w-7xl flex flex-col lg:flex-row items-center gap-10 lg:gap-32">
+          <div className="flex flex-col items-center lg:items-start lg:w-1/2">
+            <div className="relative w-fit">
               <h1 className="font-bold text-3xl lg:text-4xl text-center">
                 {translations[language].home.features.title}
               </h1>
-              <Image 
-                src="/crown.svg" 
-                alt="crown" 
-                width={100} 
-                height={100} 
-                className="hidden lg:block absolute -top-9 -right-9 size-14" 
-              />
-              <Image 
-                src="/z-line.svg" 
-                alt="zigzag" 
-                width={1000} 
+              <Image
+                src="/crown.svg"
+                alt="crown"
+                width={100}
                 height={100}
-                className="lg:hidden absolute -bottom-7 left-0 w-full h-auto" 
+                className="hidden lg:block absolute -top-9 -right-9 size-12"
               />
+              <Image
+                src="/z-line.svg"
+                alt="zigzag"
+                width={1000}
+                height={100}
+                className="lg:hidden absolute -bottom-7 left-0 w-full h-auto"
+              />
+            </div>
+            <p className="hidden lg:flex font-medium text-lg mt-4">
+              {translations[language].home.features.description}
+            </p>
+          </div>
+          <div className="mb-13 lg:mb-0 lg:w-1/2">
+            <Image
+              src="/feat-1.svg"
+              alt="feat-1"
+              width={100}
+              height={100}
+              className="hidden lg:flex w-full h-auto"
+            />
+            <Image
+              src="/feat-1-mb.svg"
+              alt="feat-1-mb"
+              width={100}
+              height={100}
+              className="lg:hidden w-full h-auto"
+            />
+          </div>
+        </div>
+        <div className="relative mt-10">
+          <Image
+            src="/bauble.svg"
+            alt="bauble"
+            width={300}
+            height={300}
+            className="absolute -top-30 lg:-top-60 left-5 w-40 lg:w-72 h-auto z-0 -rotate-6 lg:-rotate-2"
+          />
+          <div
+            className="w-full h-auto bg-[#191919] py-20"
+            style={{ clipPath: "polygon(0 10%, 100% 0, 100% 100%, 0 100%)" }}
+          >
+            <div className="flex flex-col lg:flex-row relative">
+              <div className="w-full px-6 lg:px-40 mt-10 z-0">
+                <h1 className="font-bold text-2xl lg:text-3xl">
+                  {translations[language].home.features.subtitle
+                    .split(" ")
+                    .map((word, index) => (
+                      <span
+                        key={index}
+                        className={`${
+                          index === 3 ? "text-[#f89401]" : "text-white"
+                        } `}
+                      >
+                        {word}{" "}
+                      </span>
+                    ))}
+                </h1>
+                <p className="font-medium text-lg mt-4 text-white">
+                  {translations[language].home.features.head}
+                </p>
+                <ul className="text-lg mt-5 mb-10 lg:mb-0 lg:mt-15 ml-5 text-white/50 flex flex-col lg:flex-row lg:gap-10 list-disc">
+                  {translations[language].home.features.items.map(
+                    (item, index) => (
+                      <li key={index}>{item}</li>
+                    )
+                  )}
+                </ul>
+              </div>
+              <Image
+                src="/feat-2.svg"
+                alt="feat-2"
+                width={100}
+                height={100}
+                className="hidden lg:flex absolute right-32 top-1/2 -translate-y-1/2 w-auto h-72 object-contain"
+              />
+              <Image
+                src="/feat-2-mb.svg"
+                alt="feat-2-mb"
+                width={100}
+                height={100}
+                className="lg:hidden absolute -top-5 px-4 lg:px-0 lg:right-32 lg:top-1/2 lg:-translate-y-1/2 w-auto lg:h-72 object-contain"
+              />
+              <button className="cursor-pointer absolute -bottom-[2.2rem] right-[16.5rem] lg:bottom-[5.5rem] lg:right-[240px] bg-[#ff8800] w-[118px] lg:w-[142px] px-4 lg:px-7 py-2 lg:py-3 rounded-lg text-lg font-medium text-white hover:scale-105 hover:text-[#ff8800] hover:bg-white transition-all duration-300">
+                {translations[language].home.features.button}
+              </button>
             </div>
           </div>
         </div>
-        <div className="w-full h-96 bg-black/90 mt-10" style={{ clipPath: 'polygon(0 10%, 100% 0, 100% 100%, 0 100%)' }}></div>
       </div>
 
       {/* CTA section */}
@@ -199,80 +276,3 @@ export default function Home() {
     </Suspense>
   )
 }
-
-type FeatureKey = "nudc" | "toefl" | "translation"
-
-interface Feature {
-  key: FeatureKey
-  name: string
-  icon: (props: React.SVGProps<SVGSVGElement>) => JSX.Element
-}
-
-const features: Feature[] = [
-  {
-    key: "nudc",
-    name: "NUDC/KDMI Program",
-    icon: function Icon(props: React.SVGProps<SVGSVGElement>) {
-      return (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          {...props}
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"
-          />
-        </svg>
-      )
-    },
-  },
-  {
-    key: "toefl",
-    name: "TOEFL/UEPT Preparation",
-    icon: function Icon(props: React.SVGProps<SVGSVGElement>) {
-      return (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          {...props}
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"
-          />
-        </svg>
-      )
-    },
-  },
-  {
-    key: "translation",
-    name: "Translation & Proofreading",
-    icon: function Icon(props: React.SVGProps<SVGSVGElement>) {
-      return (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          {...props}
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"
-          />
-        </svg>
-      )
-    },
-  },
-]
