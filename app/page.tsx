@@ -4,12 +4,33 @@ import Link from "next/link"
 import { useLanguage } from "@/contexts/LanguageContext"
 import { translations } from "@/translations"
 import { useSearchParams } from "next/navigation"
-import { Suspense } from "react"
+import { Suspense, useEffect, useState } from "react"
 import Image from "next/image"
 
 function HomeComponent() {
   const { language } = useLanguage()
   const searchParams = useSearchParams()
+  const [clipPath, setClipPath] = useState<string>("polygon(100% 10%, 0 0, 0 100%, 100% 100%)")
+
+  useEffect(() => {
+    // Set clip path based on window width only after component mounts
+    const handleResize = () => {
+      setClipPath(
+        window.innerWidth < 640
+          ? "polygon(100% 4%, 0 0, 0 100%, 100% 100%)"
+          : "polygon(100% 10%, 0 0, 0 100%, 100% 100%)"
+      )
+    }
+
+    // Initial setup
+    handleResize()
+
+    // Add event listener
+    window.addEventListener('resize', handleResize)
+
+    // Cleanup
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   const getLinkWithLang = (href: string) => {
     const params = new URLSearchParams(searchParams.toString())
@@ -84,7 +105,7 @@ function HomeComponent() {
             <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-x-6">
               <Link
                 href={getLinkWithLang("/registration")}
-                className="w-full sm:w-fit rounded-full bg-indigo-600 px-6 py-3 text-base lg:text-lg font-semibold text-white text-center shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className="w-full sm:w-fit rounded-full bg-indigo-600 px-6 py-3 text-base lg:text-lg font-semibold text-white text-center shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 {translations[language].home.hero.registerButton}
               </Link>
@@ -316,7 +337,7 @@ function HomeComponent() {
         <div
           className="w-full bg-[#4d74f3] pb-6 pt-12 sm:pt-16 sm:pb-8 lg:pt-20 lg:pb-10 relative text-white"
           style={{
-            clipPath: window.innerWidth < 640 ? "polygon(100% 4%, 0 0, 0 100%, 100% 100%)" : "polygon(100% 10%, 0 0, 0 100%, 100% 100%)",
+            clipPath: clipPath,
             backgroundImage: `
         linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px)
