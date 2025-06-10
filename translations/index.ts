@@ -49,6 +49,15 @@ type HomeContent = {
     button: string
     additional: string
   }
+  night: {
+    title: string
+    subtitle: string
+    desc: string
+    minutes: string[]
+    titleItems: string[]
+    descItems: string[]
+    button: string
+  }
 }
 
 type DynamicContentKey =
@@ -469,6 +478,23 @@ export const translations: Translations = {
         ],
         button: "Cost",
         additional: "Cheaper"
+      },
+      night: {
+        title: "Binoculars with night vision presenters",
+        subtitle: "Free delivery",
+        desc: "Prepared for a minimum order with a silver certificate and a horse",
+        minutes: ["14 min", "18 min", "9 min"],
+        titleItems: [
+          "Construction Going to + V",
+          "We celebrate Halloween and other holidays",
+          "3 free rules in English",
+        ],
+        descItems: [
+          "Break 14 series of Druzba",
+          "How to celebrate Halloween",
+          "How quickly familiar rules"
+        ],
+        button: "Watch"
       },
     },
     content: {
@@ -1057,6 +1083,23 @@ export const translations: Translations = {
         button: "Biaya",
         additional: "Lebih Murah"
       },
+      night: {
+        title: "Teropong dengan penglihatan malam",
+        subtitle: "Pengiriman gratis",
+        desc: "Disiapkan untuk pesanan minimum dengan sertifikat perak dan kuda",
+        minutes: ["14 menit", "18 menit", "9 menit"],
+        titleItems: [
+          "Konstruksi Going to + V",
+          "Kami merayakan Halloween dan hari libur",
+          "3 aturan gratis dalam bahasa Inggris",
+        ],
+        descItems: [
+          "Istirahat 14 seri Druzba",
+          "Cara merayakan Halloween",
+          "Bagaimana cara cepat mengenal aturan"
+        ],
+        button: "Tonton"
+      }
     },
     content: {
       hero: {

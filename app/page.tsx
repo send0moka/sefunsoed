@@ -10,7 +10,9 @@ import Image from "next/image"
 function HomeComponent() {
   const { language } = useLanguage()
   const searchParams = useSearchParams()
-  const [clipPath, setClipPath] = useState<string>("polygon(100% 10%, 0 0, 0 100%, 100% 100%)")
+  const [clipPath, setClipPath] = useState<string>(
+    "polygon(100% 10%, 0 0, 0 100%, 100% 100%)"
+  )
 
   useEffect(() => {
     // Set clip path based on window width only after component mounts
@@ -26,16 +28,72 @@ function HomeComponent() {
     handleResize()
 
     // Add event listener
-    window.addEventListener('resize', handleResize)
+    window.addEventListener("resize", handleResize)
 
     // Cleanup
-    return () => window.removeEventListener('resize', handleResize)
+    return () => window.removeEventListener("resize", handleResize)
   }, [])
 
   const getLinkWithLang = (href: string) => {
     const params = new URLSearchParams(searchParams.toString())
     params.set("lang", language)
     return `${href}?${params.toString()}`
+  }
+
+  // First, create a reusable card component
+  const VideoCard = ({
+    minutes,
+    image,
+    title,
+    description,
+    buttonText,
+    href,
+  }: {
+    minutes: string
+    image: string
+    title: string
+    description: string
+    buttonText: string
+    href: string
+  }) => {
+    return (
+      <div className="w-full px-4 pb-8 pt-4 transition-all duration-300 hover:bg-black/15 rounded-3xl border border-black/15">
+        <div className="relative">
+          {/* Play button overlay */}
+          <button className="absolute left-1/2 top-1/2 z-10 flex -translate-x-1/2 -translate-y-1/2 transform rounded-full bg-white/30 p-4 backdrop-blur-sm transition-all duration-300 hover:bg-white/50 group">
+            <svg
+              className="h-8 w-8 text-white transition-transform group-hover:scale-110"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path d="M8 5v14l11-7z" />
+            </svg>
+          </button>
+
+          {/* Duration badge */}
+          <div className="absolute bottom-6 left-6 z-10 rounded-lg bg-[#ff8800] px-3 py-1 text-sm font-medium text-white">
+            {minutes}
+          </div>
+
+          {/* Image */}
+          <Image
+            src={image}
+            alt={title}
+            width={1848}
+            height={1116}
+            className="mb-4 h-48 w-full rounded-3xl object-cover sm:h-60 md:h-72"
+          />
+        </div>
+        <h3 className="mb-2 text-lg font-semibold sm:text-xl">{title}</h3>
+        <p className="mb-10 text-gray-600">{description}</p>
+        <Link
+          href={href}
+          className="rounded-lg bg-indigo-600 px-6 py-3 text-white transition duration-300 hover:bg-indigo-500"
+        >
+          {buttonText}
+        </Link>
+      </div>
+    )
   }
 
   return (
@@ -102,7 +160,7 @@ function HomeComponent() {
                 className="w-full lg:w-auto h-48 lg:h-72 rounded-3xl object-cover"
               />
             </div>
-            <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-x-6">
+            <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:gap-x-6">
               <Link
                 href={getLinkWithLang("/registration")}
                 className="w-full sm:w-fit rounded-full bg-indigo-600 px-6 py-3 text-base lg:text-lg font-semibold text-white text-center shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
@@ -380,7 +438,13 @@ function HomeComponent() {
                     ))}
                 </h1>
               </div>
-              <Image src="/money.svg" alt="money" width={150} height={150} className="hidden lg:flex" />
+              <Image
+                src="/money.svg"
+                alt="money"
+                width={150}
+                height={150}
+                className="hidden lg:flex"
+              />
             </div>
             <div className="relative rounded-4xl overflow-hidden max-w-7xl mx-auto mt-5 sm:mt-16 lg:mt-20">
               <div
@@ -434,9 +498,45 @@ function HomeComponent() {
             </div>
             <div className="flex justify-between mt-4 lg:mt-10 mx-4 lg:mx-40">
               <Image src="/grass.svg" alt="grass" width={40} height={40} />
-              <Image src="/rick.svg" alt="rick" width={140} height={140} className="rotate-12" />
+              <Image
+                src="/rick.svg"
+                alt="rick"
+                width={140}
+                height={140}
+                className="rotate-12"
+              />
             </div>
           </div>
+        </div>
+      </div>
+
+      <div className="container mx-auto mt-20 px-4 sm:mt-32 sm:px-6 lg:mt-40 lg:px-8">
+        <div className="flex flex-col justify-between sm:flex-row">
+          <div className="relative w-fit px-2 sm:px-0">
+            <h2 className="absolute right-0 sm:-right-15 top-4 sm:-top-6 w-fit rotate-7 rounded-lg bg-[#fc4a3e] px-3 py-1.5 font-bold tracking-wider text-white">
+              {translations[language].home.night.subtitle}
+            </h2>
+            <h1 className="mb-8 max-w-96 text-balance sm:text-right text-2xl font-bold sm:mb-12 sm:text-3xl lg:mb-16 lg:text-4xl">
+              {translations[language].home.night.title}
+            </h1>
+          </div>
+          <p className="sm:max-w-72 font-medium opacity-55 pl-2 sm:pl-0 pb-10 sm:pb-0">
+            {translations[language].home.night.desc}
+          </p>
+        </div>
+
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-10">
+          {[0, 1, 2].map((index) => (
+            <VideoCard
+              key={index}
+              minutes={translations[language].home.night.minutes[index]}
+              image={`/${["girls", "skeletons", "spongebob"][index]}.png`}
+              title={translations[language].home.night.titleItems[index]}
+              description={translations[language].home.night.descItems[index]}
+              buttonText={translations[language].home.night.button}
+              href={getLinkWithLang("/feature1")}
+            />
+          ))}
         </div>
       </div>
     </div>
