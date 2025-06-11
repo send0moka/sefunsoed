@@ -1,9 +1,9 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
+import { useEffect, useState } from "react"
 import { SignOutButton, useAuth, useUser } from "@clerk/nextjs"
+import { supabase } from "@/lib/supabase"
 import Image from "next/image"
 import {
   HomeIcon,
@@ -17,8 +17,7 @@ import {
   Bars3Icon,
   XMarkIcon,
 } from "@heroicons/react/24/outline"
-import { useRouter } from "next/navigation"
-import { authService } from "@/lib/supabase-admin"
+import Link from "next/link"
 
 const navigation = [
   { name: "Dashboard", href: "/admin", icon: HomeIcon },
@@ -45,36 +44,76 @@ export default function AdminLayout({
   const router = useRouter()
 
   useEffect(() => {
-    async function checkAdminAccess() {
-      if (!isLoaded || !isSignedIn || !user?.primaryEmailAddress?.emailAddress) {
-        router.push("/")
-        return
-      }
+    let isMounted = true
 
+    async function checkAdminAccess() {
       try {
-        const userRole = await authService.getUserRole(user.primaryEmailAddress.emailAddress)
-        if (userRole === "admin") {
-          setIsAdmin(true)
-        } else {
-          router.push("/")
+        if (!isLoaded) return
+        
+        if (!isSignedIn || !user?.emailAddresses?.[0]?.emailAddress) {
+          console.log("No authenticated user or email")
+          if (isMounted) {
+            setIsLoading(false)
+            router.replace('/')
+          }
+          return
+        }
+
+        const userEmail = user.emailAddresses[0].emailAddress
+        console.log("Checking admin access for email:", userEmail)
+
+        const { data: userData, error } = await supabase
+          .from('users')
+          .select('role')
+          .eq('email', userEmail)
+          .single()
+
+        if (error) {
+          console.error("Supabase error:", error)
+          if (isMounted) {
+            setIsLoading(false)
+            router.replace('/')
+          }
+          return
+        }
+
+        if (isMounted) {
+          if (userData?.role === 'admin') {
+            console.log("User is admin")
+            setIsAdmin(true)
+            setIsLoading(false)
+          } else {
+            console.log("User is not admin, redirecting...")
+            setIsLoading(false)
+            router.replace('/')
+          }
         }
       } catch (error) {
         console.error("Error checking admin access:", error)
-        router.push("/")
-      } finally {
-        setIsLoading(false)
+        if (isMounted) {
+          setIsLoading(false)
+          router.replace('/')
+        }
       }
     }
 
     checkAdminAccess()
+
+    return () => {
+      isMounted = false
+    }
   }, [isLoaded, isSignedIn, user, router])
 
-  if (isLoading || !isAdmin) {
+  if (isLoading) {
     return (
-      <div className="flex items-center justify-center h-screen">
+      <div className="flex items-center justify-center min-h-screen">
         <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-indigo-600"></div>
       </div>
     )
+  }
+
+  if (!isAdmin) {
+    return null
   }
 
   return (
