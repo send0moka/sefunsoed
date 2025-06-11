@@ -20,6 +20,8 @@ import {
   useUser,
 } from "@clerk/nextjs"
 import { authService } from "@/lib/supabase-admin"
+import { supabase } from "@/lib/supabase"
+import { HeaderConfig } from "@/types/database"
 
 const navigation: { name: NavigationKeys; href: string }[] = [
   { name: "about", href: "/about" },
@@ -32,6 +34,7 @@ const navigation: { name: NavigationKeys; href: string }[] = [
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [headerConfig, setHeaderConfig] = useState<HeaderConfig | null>(null)
   const { language, setLanguage } = useLanguage()
   const pathname = usePathname()
   const searchParams = useSearchParams()
@@ -51,6 +54,22 @@ export default function Navbar() {
     checkAdminRole()
   }, [user])
 
+  useEffect(() => {
+    async function loadHeaderConfig() {
+      const { data, error } = await supabase
+        .from("header_configs")
+        .select("*")
+        .eq("is_active", true)
+        .single()
+
+      if (!error && data) {
+        setHeaderConfig(data)
+      }
+    }
+
+    loadHeaderConfig()
+  }, [])
+
   const toggleLanguage = () => {
     setLanguage(language === "en" ? "id" : "en")
   }
@@ -62,9 +81,18 @@ export default function Navbar() {
   }
 
   return (
-    <header className="fixed top-4 lg:top-10 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-[76rem]">
+    <header className={`fixed top-4 lg:top-10 left-1/2 -translate-x-1/2 z-50 w-[95%] ${headerConfig?.config.layout.maxWidth || "max-w-[76rem]"}`}>
       <nav
-        className="mx-auto flex items-center justify-between px-6 lg:px-8 bg-black/90 backdrop-blur-sm rounded-full shadow-lg"
+        className={`
+          ${headerConfig?.config.layout.display || "flex"}
+          ${headerConfig?.config.layout.alignment || "items-center justify-between"}
+          ${headerConfig?.config.layout.padding.left || "px-6"}
+          ${headerConfig?.config.layout.padding.right || "lg:px-8"}
+          ${headerConfig?.config.background.color || "bg-black/90"}
+          ${headerConfig?.config.background.blur || "backdrop-blur-sm"}
+          ${headerConfig?.config.background.rounded || "rounded-full"}
+          ${headerConfig?.config.background.shadow || "shadow-lg"}
+        `}
         aria-label="Global"
       >
         <div className="flex lg:flex-1">
@@ -74,19 +102,29 @@ export default function Navbar() {
               alt="SEF UNSOED"
               width={100}
               height={48}
-              className="brightness-0 invert md:py-2 scale-75 md:scale-100 -translate-x-3 md:-translate-x-0"
+              className={`${
+                headerConfig?.config.logo.brightness || "brightness-0"
+              } ${headerConfig?.config.logo.invert || "invert"} md:py-2 scale-75 md:scale-100 -translate-x-3 md:-translate-x-0`}
             />
           </Link>
         </div>
-        <div className="hidden lg:flex lg:gap-x-12">
+        <div
+          className={`hidden lg:flex ${
+            headerConfig?.config.navigation.spacing || "lg:gap-x-12"
+          }`}
+        >
           {navigation.map((item) => (
             <Link
               key={item.name}
               href={getLinkWithLang(item.href)}
-              className={`text-sm font-semibold leading-6 ${
+              className={`${headerConfig?.config.navigation.fontSize || "text-sm"} ${
+                headerConfig?.config.navigation.fontWeight || "font-semibold"
+              } leading-6 ${
                 pathname === item.href
-                  ? "text-indigo-600"
-                  : "text-gray-50 hover:text-indigo-600"
+                  ? headerConfig?.config.navigation.activeColor || "text-indigo-600"
+                  : `${headerConfig?.config.navigation.textColor || "text-gray-50"} ${
+                      headerConfig?.config.navigation.hoverColor || "hover:text-indigo-600"
+                    }`
               } ${item.name === "media" ? "mr-6" : ""}`}
             >
               {translations[language].navigation[item.name]}
@@ -97,7 +135,9 @@ export default function Navbar() {
           <div className="hidden lg:flex items-center gap-6">
             <button
               onClick={toggleLanguage}
-              className="flex items-center gap-2 p-3 rounded-full bg-gray-100 hover:bg-gray-200 transition-all duration-300"
+              className={`flex items-center gap-2 p-3 ${
+                headerConfig?.config.buttons.language.borderRadius || "rounded-full"
+              } ${headerConfig?.config.buttons.language.backgroundColor || "bg-gray-100"} hover:bg-gray-200 transition-all duration-300`}
             >
               <div className="flex items-center gap-2 w-[50px] justify-center">
                 <Image

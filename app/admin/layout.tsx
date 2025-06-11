@@ -23,6 +23,7 @@ import { authService } from "@/lib/supabase-admin"
 const navigation = [
   { name: "Dashboard", href: "/admin", icon: HomeIcon },
   { name: "Users", href: "/admin/users", icon: UsersIcon },
+  { name: "Header Builder", href: "/admin/header-builder", icon: DocumentDuplicateIcon },
   { name: "Programs", href: "/admin/programs", icon: CalendarIcon },
   { name: "Content", href: "/admin/content", icon: DocumentDuplicateIcon },
   { name: "Media", href: "/admin/media", icon: PhotoIcon },

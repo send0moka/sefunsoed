@@ -30,7 +30,8 @@ export interface Batch {
 export interface Database {
   public: {
     Tables: {
-      users: {  // Changed from members
+      users: {
+        // Changed from members
         Row: User
         Insert: Omit<User, "id">
         Update: Partial<User>
@@ -45,6 +46,68 @@ export interface Database {
         Insert: Omit<Batch, "id" | "created_at">
         Update: Partial<Batch>
       }
+      header_configs: {
+        Row: HeaderConfig
+        Insert: Omit<HeaderConfig, "id" | "created_at" | "updated_at">
+        Update: Partial<HeaderConfig>
+      }
     }
+  }
+}
+
+export interface HeaderConfig {
+  id: string
+  name: string
+  is_active: boolean
+  config: {
+    background: {
+      type: "solid" | "gradient" | "transparent"
+      color?: string
+      blur?: string
+      shadow?: string
+      rounded?: string
+    }
+    layout: {
+      padding: {
+        top: string
+        bottom: string
+        left: string
+        right: string
+      }
+      position: string
+      maxWidth: string
+      display: string
+      alignment: string
+    }
+    logo: {
+      width: string
+      height: string
+      brightness: string
+      invert: string
+    }
+    navigation: {
+      fontSize: string
+      fontWeight: string
+      textColor: string
+      hoverColor: string
+      activeColor: string
+      spacing: number
+    }
+    buttons: {
+      primary: {
+        backgroundColor: string
+        textColor: string
+        hoverBackgroundColor: string
+        hoverTextColor: string
+        borderRadius: string
+        padding: string
+      }
+      language: {
+        backgroundColor: string
+        textColor: string
+        borderRadius: string
+      }
+    }
+    Update: Partial<HeaderConfig>
   }
 }
