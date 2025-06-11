@@ -6,6 +6,62 @@ type PanelProps = {
 }
 
 export function BackgroundPanel({ config, onChange }: PanelProps) {
+  const getBackgroundColorInput = () => {
+    if (config.background.type === "transparent") {
+      return null;
+    }
+
+    if (config.background.type === "gradient") {
+      return (
+        <>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              Gradient Color
+            </label>
+            <input
+              type="text"
+              value={config.background.color || ""}
+              onChange={(e) => {
+                onChange({
+                  ...config,
+                  background: {
+                    ...config.background,
+                    color: e.target.value
+                  }
+                })
+              }}
+              placeholder="e.g. bg-gradient-to-r from-indigo-500 to-purple-500"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+            />
+          </div>
+        </>
+      );
+    }
+
+    return (
+      <div>
+        <label className="block text-sm font-medium text-gray-700">
+          Background Color
+        </label>
+        <input
+          type="text"
+          value={config.background.color || ""}
+          onChange={(e) => {
+            onChange({
+              ...config,
+              background: {
+                ...config.background,
+                color: e.target.value
+              }
+            })
+          }}
+          placeholder="e.g. bg-black/90"
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+        />
+      </div>
+    );
+  };
+
   return (
     <div className="space-y-4">
       <div>
@@ -15,11 +71,24 @@ export function BackgroundPanel({ config, onChange }: PanelProps) {
         <select
           value={config.background.type || "solid"}
           onChange={(e) => {
+            const newType = e.target.value as HeaderConfig["config"]["background"]["type"];
+            let newColor = config.background.color;
+            
+            // Reset color when changing types
+            if (newType === "transparent") {
+              newColor = "";
+            } else if (newType === "gradient" && !newColor?.includes("gradient")) {
+              newColor = "bg-gradient-to-r from-indigo-500 to-purple-500";
+            } else if (newType === "solid" && newColor?.includes("gradient")) {
+              newColor = "bg-black/90";
+            }
+
             onChange({
               ...config,
               background: {
                 ...config.background,
-                type: e.target.value as HeaderConfig["config"]["background"]["type"]
+                type: newType,
+                color: newColor
               }
             })
           }}
@@ -31,28 +100,7 @@ export function BackgroundPanel({ config, onChange }: PanelProps) {
         </select>
       </div>
 
-      {config.background.type !== "transparent" && (
-        <div>
-          <label className="block text-sm font-medium text-gray-700">
-            Background Color Class
-          </label>
-          <input
-            type="text"
-            value={config.background.color || ""}
-            onChange={(e) => {
-              onChange({
-                ...config,
-                background: {
-                  ...config.background,
-                  color: e.target.value
-                }
-              })
-            }}
-            placeholder="e.g. bg-black/90"
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-          />
-        </div>
-      )}
+      {getBackgroundColorInput()}
 
       <div>
         <label className="block text-sm font-medium text-gray-700">

@@ -81,21 +81,24 @@ export default function Navbar() {
   }
 
   return (
-    <header className={`fixed top-4 lg:top-10 left-1/2 -translate-x-1/2 z-50 w-[95%] ${headerConfig?.config.layout.maxWidth || "max-w-[76rem]"}`}>
+    <header 
+      className={`fixed top-4 lg:top-10 left-1/2 -translate-x-1/2 z-50 w-[95%] ${
+        headerConfig?.config.layout.maxWidth ?? "max-w-[76rem]"
+      }`}
+    >
       <nav
-        className={`
-          ${headerConfig?.config.layout.display || "flex"}
-          ${headerConfig?.config.layout.alignment || "items-center justify-between"}
-          ${headerConfig?.config.layout.padding.left || "px-6"}
-          ${headerConfig?.config.layout.padding.right || "lg:px-8"}
-          ${headerConfig?.config.background.color || "bg-black/90"}
-          ${headerConfig?.config.background.blur || "backdrop-blur-sm"}
-          ${headerConfig?.config.background.rounded || "rounded-full"}
-          ${headerConfig?.config.background.shadow || "shadow-lg"}
-        `}
+        className={[
+          headerConfig?.config.layout.display ?? "flex",
+          headerConfig?.config.layout.alignment ?? "items-center justify-between",
+          headerConfig?.config.layout.padding.left ?? "px-6",
+          headerConfig?.config.layout.padding.right ?? "lg:px-8",
+          headerConfig?.config.background.color ?? "bg-black/90",
+          headerConfig?.config.background.blur ?? "backdrop-blur-sm",
+          headerConfig?.config.background.rounded ?? "",
+          headerConfig?.config.background.shadow ?? "shadow-lg",
+        ].filter(Boolean).join(" ")}
         aria-label="Global"
       >
-        <div className="flex lg:flex-1">
           <Link href={getLinkWithLang("/")}>
             <Image
               src="/logo.png"
@@ -107,7 +110,6 @@ export default function Navbar() {
               } ${headerConfig?.config.logo.invert || "invert"} md:py-2 scale-75 md:scale-100 -translate-x-3 md:-translate-x-0`}
             />
           </Link>
-        </div>
         <div
           className={`hidden lg:flex ${
             headerConfig?.config.navigation.spacing || "lg:gap-x-12"
