@@ -16,6 +16,8 @@ import {
   UserCircleIcon,
   Bars3Icon,
   XMarkIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
 } from "@heroicons/react/24/outline"
 import Link from "next/link"
 
@@ -39,6 +41,7 @@ export default function AdminLayout({
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [isAdmin, setIsAdmin] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
+  const [isCollapsed, setIsCollapsed] = useState(false)
   const { isLoaded, user } = useUser()
   const { isSignedIn } = useAuth()
   const router = useRouter()
@@ -186,14 +189,30 @@ export default function AdminLayout({
       </div>
 
       {/* Desktop sidebar */}
-      <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-64 lg:flex-col">
+      <div className={`hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:flex-col transition-all duration-300 ${
+        isCollapsed ? 'lg:w-20' : 'lg:w-64'
+      }`}>
         <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6 pb-4">
-          <Link className="flex h-16 shrink-0 items-center" href="/">
-            <Image src="/favicon.png" alt="SEF UNSOED" width={40} height={40} />
-            <span className="ml-3 font-semibold text-gray-900">
-              Admin Panel
-            </span>
-          </Link>
+          <div className="flex h-16 shrink-0 items-center justify-between">
+            <Link className="flex items-center" href="/">
+              <Image src="/favicon.png" alt="SEF UNSOED" width={40} height={40} />
+              {!isCollapsed && (
+                <span className="ml-3 font-semibold text-gray-900">
+                  Admin Panel
+                </span>
+              )}
+            </Link>
+            <button
+              onClick={() => setIsCollapsed(!isCollapsed)}
+              className="p-2 rounded-md hover:bg-gray-100"
+            >
+              {isCollapsed ? (
+                <ChevronRightIcon className="h-5 w-5 text-gray-500" />
+              ) : (
+                <ChevronLeftIcon className="h-5 w-5 text-gray-500" />
+              )}
+            </button>
+          </div>
           <nav className="flex flex-1 flex-col">
             <ul role="list" className="flex flex-1 flex-col gap-y-7">
               <li>
@@ -203,10 +222,13 @@ export default function AdminLayout({
                       <Link
                         href={item.href}
                         className={`group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 ${
+                          isCollapsed ? 'justify-center' : ''
+                        } ${
                           pathname === item.href
                             ? "bg-indigo-100 text-indigo-700"
                             : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                         }`}
+                        title={isCollapsed ? item.name : ''}
                       >
                         <item.icon
                           className={`h-6 w-6 shrink-0 ${
@@ -216,7 +238,7 @@ export default function AdminLayout({
                           }`}
                           aria-hidden="true"
                         />
-                        {item.name}
+                        {!isCollapsed && item.name}
                       </Link>
                     </li>
                   ))}
@@ -224,12 +246,16 @@ export default function AdminLayout({
               </li>
               <li className="mt-auto">
                 <SignOutButton>
-                  <button className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-red-700 hover:bg-red-50">
+                  <button className={`group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-red-700 hover:bg-red-50 ${
+                    isCollapsed ? 'justify-center' : ''
+                  }`}
+                    title={isCollapsed ? "Sign Out" : ''}
+                  >
                     <ArrowLeftOnRectangleIcon
                       className="h-6 w-6 shrink-0 text-red-500"
                       aria-hidden="true"
                     />
-                    Sign Out
+                    {!isCollapsed && "Sign Out"}
                   </button>
                 </SignOutButton>
               </li>
@@ -238,7 +264,10 @@ export default function AdminLayout({
         </div>
       </div>
 
-      <div className="lg:pl-64">
+      {/* Modify main content wrapper to adjust with collapsed sidebar */}
+      <div className={`transition-all duration-300 ${
+        isCollapsed ? 'lg:pl-20' : 'lg:pl-64'
+      }`}>
         <div className="lg:hidden sticky top-0 z-40 flex h-16 items-center gap-x-4 border-b border-gray-200 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
           <button
             type="button"
@@ -250,7 +279,7 @@ export default function AdminLayout({
           </button>
         </div>
 
-        <main className="py-6 px-4 sm:px-6 lg:px-8">{children}</main>
+        <main>{children}</main>
       </div>
     </div>
   )

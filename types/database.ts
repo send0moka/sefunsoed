@@ -60,54 +60,85 @@ export interface HeaderConfig {
   name: string
   is_active: boolean
   config: {
-    background: {
-      type: "solid" | "gradient" | "transparent"
-      color?: string
-      blur?: string
-      shadow?: string
-      rounded?: string
-    }
-    layout: {
-      padding: {
-        top: string
-        bottom: string
-        left: string
-        right: string
+    desktop?: { hidden?: boolean }
+    tablet?: { hidden?: boolean }
+    mobile?: { hidden?: boolean }
+    typography?: {
+      desktop?: {
+        fontFamily?: string
       }
-      position: string
-      maxWidth: string
-      display: string
-      alignment: string
+      tablet?: {
+        fontFamily?: string
+      }
+      mobile?: {
+        fontFamily?: string
+      }
+    }
+    sticky?: {
+      enabled: boolean
+    }
+    animation?: {
+      enabled: boolean
+    }
+    border?: {
+      color?: string
     }
     logo: {
       width: string
-      height: string
-      brightness: string
+      height: string | null
       invert: string
+      brightness: string
+      alt: string
+    }
+    layout: {
+      display: string
+      padding: {
+        top: string
+        left: string
+        right: string
+        bottom: string
+      }
+      maxWidth: string
+      position: string
+      alignment: string
+    }
+    background?: {
+      blur: string
+      type: 'solid' | 'gradient' | 'transparent'
+      color: string
+      shadow: string
+      rounded: string
+      gradientTo?: string
+      gradientDirection?: string
     }
     navigation: {
+      spacing: string
       fontSize: string
-      fontWeight: string
       textColor: string
+      fontWeight: string
       hoverColor: string
       activeColor: string
-      spacing: number
+      layout: string
+      menuItems: {
+        name: string
+        url: string
+      }[]
     }
     buttons: {
       primary: {
-        backgroundColor: string
-        textColor: string
-        hoverBackgroundColor: string
-        hoverTextColor: string
-        borderRadius: string
+        [x: string]: string | number | readonly string[] | undefined
         padding: string
+        textColor: string
+        borderRadius: string
+        hoverTextColor: string
+        backgroundColor: string
+        hoverBackgroundColor: string
       }
       language: {
-        backgroundColor: string
         textColor: string
         borderRadius: string
+        backgroundColor: string
       }
     }
-    Update: Partial<HeaderConfig>
   }
 }

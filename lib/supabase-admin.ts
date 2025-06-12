@@ -231,19 +231,52 @@ export const headerConfigService = {
     return data
   },
 
-  async updateConfig(id: string, config: Partial<HeaderConfig>) {
-    const { data, error } = await supabaseAdmin
-      .from('header_configs')
-      .update({
-        ...config,
-        updated_at: new Date().toISOString()
-      })
-      .eq('id', id)
-      .select()
-      .single()
+  update: async (id: string, config: HeaderConfig["config"]) => {
+    if (!id) {
+      console.error('Missing id parameter');
+      throw new Error('ID is required for update');
+    }
 
-    if (error) throw error
-    return data
+    if (!config) {
+      console.error('Missing config parameter');
+      throw new Error('Config is required for update');
+    }
+
+    try {
+      // Changed table name from 'header_config' to 'header_configs'
+      const { data, error } = await supabaseAdmin
+        .from('header_configs')  // Fix: Changed from header_config to header_configs
+        .update({ 
+          config,
+          updated_at: new Date().toISOString()
+        })
+        .eq('id', id)
+        .select()
+        .single();
+
+      if (error) {
+        console.error('Supabase error details:', error);
+        throw error;
+      }
+
+      if (!data) {
+        throw new Error('No data returned from update');
+      }
+
+      console.log('Update successful:', data);
+      return { data, error: null };
+    } catch (error) {
+      console.error('Update error:', {
+        name: error instanceof Error ? error.name : 'Unknown error',
+        message: error instanceof Error ? error.message : String(error),
+        details: error
+      });
+
+      return { 
+        data: null, 
+        error: error instanceof Error ? error : new Error('Unknown error during update') 
+      };
+    }
   },
 
   async setActiveConfig(id: string) {

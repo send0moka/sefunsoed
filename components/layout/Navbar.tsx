@@ -92,10 +92,10 @@ export default function Navbar() {
           headerConfig?.config.layout.alignment ?? "items-center justify-between",
           headerConfig?.config.layout.padding.left ?? "px-6",
           headerConfig?.config.layout.padding.right ?? "lg:px-8",
-          headerConfig?.config.background.color ?? "bg-black/90",
-          headerConfig?.config.background.blur ?? "backdrop-blur-sm",
-          headerConfig?.config.background.rounded ?? "",
-          headerConfig?.config.background.shadow ?? "shadow-lg",
+          headerConfig?.config?.background?.color ?? "bg-black/90",
+          headerConfig?.config?.background?.blur ?? "backdrop-blur-sm",
+          headerConfig?.config.background?.rounded ?? "",
+          headerConfig?.config.background?.shadow ?? "shadow-lg",
         ].filter(Boolean).join(" ")}
         aria-label="Global"
       >
