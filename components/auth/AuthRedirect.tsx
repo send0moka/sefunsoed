@@ -4,8 +4,13 @@ import { useAuth, useUser } from "@clerk/nextjs"
 import { usePathname, useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { authService } from "@/lib/supabase-admin"
+import { ReactNode } from "react"
 
-export default function AuthRedirect() {
+interface AuthRedirectProps {
+  children: ReactNode
+}
+
+export default function AuthRedirect({ children }: AuthRedirectProps) {
   const { isLoaded, user } = useUser()
   const { isSignedIn } = useAuth()
   const router = useRouter()
@@ -45,5 +50,6 @@ export default function AuthRedirect() {
     return null
   }
 
-  return null
+  // Return children instead of null
+  return <>{children}</>
 }

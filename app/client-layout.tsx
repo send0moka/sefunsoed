@@ -1,33 +1,27 @@
 "use client"
 
-import { LanguageProvider } from "@/contexts/LanguageContext"
-import React from "react"
 import { ClerkProvider } from "@clerk/nextjs"
+import { LanguageProvider } from "@/contexts/LanguageContext"
 import AuthRedirect from "@/components/auth/AuthRedirect"
-import ClientLayoutContent from "@/components/layout/ClientLayoutContent"
-import { useSupabaseUser } from '@/hooks/useSupabaseUser'
-
-// Create a new component inside ClerkProvider to use the hook
-function ClerkProviderContent({ children }: { children: React.ReactNode }) {
-  // Now the hook is used within ClerkProvider
-  useSupabaseUser()
-  
-  return (
-    <LanguageProvider>
-      <AuthRedirect />
-      <ClientLayoutContent>{children}</ClientLayoutContent>
-    </LanguageProvider>
-  )
-}
+import Navbar from "@/components/layout/Navbar"
+import { usePathname } from "next/navigation"
 
 export default function ClientLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const pathname = usePathname()
+  const isAdminPage = pathname?.startsWith("/admin")
+
   return (
     <ClerkProvider>
-      <ClerkProviderContent>{children}</ClerkProviderContent>
+      <LanguageProvider>
+        <AuthRedirect>
+          {!isAdminPage && <Navbar />}
+          {children}
+        </AuthRedirect>
+      </LanguageProvider>
     </ClerkProvider>
   )
 }
