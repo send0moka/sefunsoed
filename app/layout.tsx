@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
-import React from "react"
+import React, { Suspense } from "react"
 import ClientLayout from "./client-layout"
 import { Toaster } from "sonner"
 
@@ -20,7 +20,9 @@ export default function RootLayout({
   return (
     <html lang="id">
       <body className={inter.className}>
-        <ClientLayout>{children}</ClientLayout>
+        <Suspense fallback={<div>Loading...</div>}>
+          <ClientLayout>{children}</ClientLayout>
+        </Suspense>
         <Toaster />
       </body>
     </html>

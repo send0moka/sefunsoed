@@ -1,7 +1,7 @@
 "use client"
 
-import { createContext, useContext, useEffect, useState, Suspense } from "react"
-import { useSearchParams, useRouter } from "next/navigation"
+import { createContext, useContext, useState } from "react"
+import { useRouter } from "next/navigation"
 import { LanguageKeys } from "@/translations"
 
 type LanguageContextType = {
@@ -11,15 +11,15 @@ type LanguageContextType = {
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined)
 
-function LanguageProviderContent({ children }: { children: React.ReactNode }) {
-  const [language, setLanguage] = useState<LanguageKeys>("en")
-  const searchParams = useSearchParams()
+export function LanguageProvider({ 
+  children,
+  initialLanguage = "en"
+}: { 
+  children: React.ReactNode
+  initialLanguage?: LanguageKeys 
+}) {
+  const [language, setLanguage] = useState<LanguageKeys>(initialLanguage)
   const router = useRouter()
-
-  useEffect(() => {
-    const lang = (searchParams.get("lang") as LanguageKeys) || "en"
-    setLanguage(lang)
-  }, [searchParams])
 
   const handleSetLanguage = (lang: LanguageKeys) => {
     setLanguage(lang)
@@ -32,14 +32,6 @@ function LanguageProviderContent({ children }: { children: React.ReactNode }) {
     <LanguageContext.Provider value={{ language, setLanguage: handleSetLanguage }}>
       {children}
     </LanguageContext.Provider>
-  )
-}
-
-export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <LanguageProviderContent>{children}</LanguageProviderContent>
-    </Suspense>
   )
 }
 
