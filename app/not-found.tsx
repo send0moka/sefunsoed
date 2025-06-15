@@ -4,18 +4,12 @@ import Link from "next/link"
 import Image from "next/image"
 import { useLanguage } from "@/contexts/LanguageContext"
 import { translations } from "@/translations"
-import { useSearchParams } from "next/navigation"
 import { Suspense } from "react"
+import { useSearchParams } from "next/navigation"
+import { LanguageKeys } from "@/translations"
 
 function NotFoundContent() {
   const { language } = useLanguage()
-  const searchParams = useSearchParams()
-
-  const getLinkWithLang = (href: string) => {
-    const params = new URLSearchParams(searchParams.toString())
-    params.set("lang", language)
-    return `${href}?${params.toString()}`
-  }
 
   return (
     <div className="grid min-h-screen place-items-center px-6 py-24 sm:py-32 lg:px-8">
@@ -33,15 +27,32 @@ function NotFoundContent() {
         <p className="mt-6 text-base leading-7 text-gray-600">
           {translations[language].content.notFound.description}
         </p>
-        <div className="mt-10 flex items-center justify-center gap-x-6">
-          <Link
-            href={getLinkWithLang("/")}
-            className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >
-            {translations[language].content.notFound.backToHome}
-          </Link>
-        </div>
+        <Suspense>
+          <NotFoundLink language={language} />
+        </Suspense>
       </div>
+    </div>
+  )
+}
+
+// Separate component for the link that uses useSearchParams
+function NotFoundLink({ language }: { language: LanguageKeys }) {
+  const searchParams = useSearchParams()
+
+  const getLinkWithLang = (href: string) => {
+    const params = new URLSearchParams(searchParams.toString())
+    params.set("lang", language)
+    return `${href}?${params.toString()}`
+  }
+
+  return (
+    <div className="mt-10 flex items-center justify-center gap-x-6">
+      <Link
+        href={getLinkWithLang("/")}
+        className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+      >
+        {translations[language].content.notFound.backToHome}
+      </Link>
     </div>
   )
 }
