@@ -4,9 +4,11 @@ import { ClerkProvider } from "@clerk/nextjs"
 import { LanguageProvider } from "@/contexts/LanguageContext"
 import AuthRedirect from "@/components/auth/AuthRedirect"
 import Navbar from "@/components/layout/Navbar"
-import { usePathname } from "next/navigation"
+import Footer from "@/components/layout/Footer"
+import { usePathname } from "next/navigation" 
+import { Suspense } from "react"
 
-export default function ClientLayout({
+function ClientLayoutContent({
   children,
 }: {
   children: React.ReactNode
@@ -15,13 +17,28 @@ export default function ClientLayout({
   const isAdminPage = pathname?.startsWith("/admin")
 
   return (
+    <>
+      {!isAdminPage && <Navbar />}
+      {children}
+      <Footer />
+    </>
+  )
+}
+
+export default function ClientLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
     <ClerkProvider>
-      <LanguageProvider>
-        <AuthRedirect>
-          {!isAdminPage && <Navbar />}
-          {children}
-        </AuthRedirect>
-      </LanguageProvider>
+      <Suspense fallback={<div>Loading...</div>}>
+        <LanguageProvider>
+          <AuthRedirect>
+            <ClientLayoutContent>{children}</ClientLayoutContent>
+          </AuthRedirect>
+        </LanguageProvider>
+      </Suspense>
     </ClerkProvider>
   )
 }
