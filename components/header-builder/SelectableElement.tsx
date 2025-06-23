@@ -3,17 +3,19 @@ import { motion } from 'framer-motion'
 import { createPortal } from 'react-dom'
 
 type SelectableElementProps = {
+  id: string
   children: ReactNode
   isSelected: boolean
   onClick: () => void
   elementType: string
 }
 
-export default function SelectableElement({ 
-  children, 
-  isSelected, 
+export default function SelectableElement({
+  id,
+  children,
+  isSelected,
   onClick,
-  elementType 
+  elementType
 }: SelectableElementProps) {
   const elementRef = useRef<HTMLDivElement>(null)
   const [labelPosition, setLabelPosition] = useState({ top: 0, left: 0 })
@@ -29,7 +31,7 @@ export default function SelectableElement({
   }, [isSelected])
 
   return (
-    <div ref={elementRef} className="relative group" onClick={onClick}>
+    <div ref={elementRef} className="relative group" onClick={onClick} id={id}>
       {isSelected && typeof document !== 'undefined' && createPortal(
         <motion.div
           style={{

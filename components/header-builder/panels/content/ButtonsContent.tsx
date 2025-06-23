@@ -18,17 +18,16 @@ export default function ButtonsContent({ config, onChange }: ButtonsContentProps
           <div>
             <label className="block text-xs font-medium text-gray-700 mb-1">
               Text
-            </label>
-            <input
+            </label>            <input
               type="text"
               className="w-full border border-gray-300 rounded-md shadow-sm py-2 pl-3 pr-10 text-sm"
               placeholder="Button text"
-              value={config.buttons.primary.text}
+              value={config?.buttons?.primary?.text ?? ''}
               onChange={(e) => onChange({
                 ...config,
                 buttons: {
                   ...config.buttons,
-                  primary: { ...config.buttons.primary, text: e.target.value }
+                  primary: { ...config?.buttons?.primary, text: e.target.value }
                 }
               })}
             />

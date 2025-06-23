@@ -79,53 +79,49 @@ export default function Navbar() {
     params.set("lang", language)
     return `${href}?${params.toString()}`
   }
-
   return (
     <header 
       className={`fixed top-4 lg:top-10 left-1/2 -translate-x-1/2 z-50 w-[95%] ${
-        headerConfig?.config.layout.maxWidth ?? "max-w-[76rem]"
+        headerConfig?.config?.layout?.maxWidth ?? "max-w-[76rem]"
       }`}
-    >
-      <nav
+    >      <nav
         className={[
-          headerConfig?.config.layout.display ?? "flex",
-          headerConfig?.config.layout.alignment ?? "items-center justify-between",
-          headerConfig?.config.layout.padding.left ?? "px-6",
-          headerConfig?.config.layout.padding.right ?? "lg:px-8",
+          headerConfig?.config?.layout?.display ?? "flex",
+          headerConfig?.config?.layout?.alignment ?? "items-center justify-between",
+          headerConfig?.config?.layout?.padding?.left ?? "px-6",
+          headerConfig?.config?.layout?.padding?.right ?? "lg:px-8",
           headerConfig?.config?.background?.color ?? "bg-black/90",
           headerConfig?.config?.background?.blur ?? "backdrop-blur-sm",
-          headerConfig?.config.background?.rounded ?? "",
-          headerConfig?.config.background?.shadow ?? "shadow-lg",
+          headerConfig?.config?.background?.rounded ?? "rounded-full",
+          headerConfig?.config?.background?.shadow ?? "shadow-lg",
         ].filter(Boolean).join(" ")}
         aria-label="Global"
       >
-          <Link href={getLinkWithLang("/")}>
-            <Image
+          <Link href={getLinkWithLang("/")}>            <Image
               src="/logo.png"
               alt="SEF UNSOED"
               width={100}
               height={48}
               className={`${
-                headerConfig?.config.logo.brightness || "brightness-0"
-              } ${headerConfig?.config.logo.invert || "invert"} md:py-2 scale-75 md:scale-100 -translate-x-3 md:-translate-x-0`}
+                headerConfig?.config?.logo?.brightness || "brightness-0"
+              } ${headerConfig?.config?.logo?.invert || "invert"} md:py-2 scale-75 md:scale-100 -translate-x-3 md:-translate-x-0`}
             />
-          </Link>
-        <div
+          </Link>        <div
           className={`hidden lg:flex ${
-            headerConfig?.config.navigation.spacing || "lg:gap-x-12"
+            headerConfig?.config?.navigation?.spacing || "lg:gap-x-12"
           }`}
         >
           {navigation.map((item) => (
             <Link
               key={item.name}
               href={getLinkWithLang(item.href)}
-              className={`${headerConfig?.config.navigation.fontSize || "text-sm"} ${
-                headerConfig?.config.navigation.fontWeight || "font-semibold"
+              className={`${headerConfig?.config?.navigation?.fontSize || "text-sm"} ${
+                headerConfig?.config?.navigation?.fontWeight || "font-semibold"
               } leading-6 ${
                 pathname === item.href
-                  ? headerConfig?.config.navigation.activeColor || "text-indigo-600"
-                  : `${headerConfig?.config.navigation.textColor || "text-gray-50"} ${
-                      headerConfig?.config.navigation.hoverColor || "hover:text-indigo-600"
+                  ? headerConfig?.config?.navigation?.activeColor || "text-indigo-600"
+                  : `${headerConfig?.config?.navigation?.textColor || "text-gray-50"} ${
+                      headerConfig?.config?.navigation?.hoverColor || "hover:text-indigo-600"
                     }`
               } ${item.name === "media" ? "mr-6" : ""}`}
             >
@@ -134,12 +130,11 @@ export default function Navbar() {
           ))}
         </div>
         <div className="flex items-center gap-4">
-          <div className="hidden lg:flex items-center gap-6">
-            <button
+          <div className="hidden lg:flex items-center gap-6">            <button
               onClick={toggleLanguage}
               className={`flex items-center gap-2 p-3 ${
-                headerConfig?.config.buttons.language.borderRadius || "rounded-full"
-              } ${headerConfig?.config.buttons.language.backgroundColor || "bg-gray-100"} hover:bg-gray-200 transition-all duration-300`}
+                headerConfig?.config?.buttons?.language?.borderRadius || "rounded-full"
+              } ${headerConfig?.config?.buttons?.language?.backgroundColor || "bg-gray-100"} hover:bg-gray-200 transition-all duration-300`}
             >
               <div className="flex items-center gap-2 w-[50px] justify-center">
                 <Image

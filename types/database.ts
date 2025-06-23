@@ -60,6 +60,35 @@ export interface HeaderConfig {
   name: string
   is_active: boolean
   config: {
+    elements: {
+      id: string
+      type: 'container' | 'image' | 'text' | 'button'
+      name: string
+      props: {
+        className?: string
+        children?: string[]
+        // Image specific props
+        src?: string
+        alt?: string
+        width?: number
+        height?: number
+        // Text specific props
+        content?: string
+        fontSize?: string
+        fontWeight?: string
+        color?: string
+        // Button specific props
+        label?: string
+        variant?: 'primary' | 'secondary' | 'language'
+        onClick?: string
+        // Container specific props
+        display?: string
+        padding?: string
+        margin?: string
+        alignment?: string
+        maxWidth?: string
+      }
+    }[]
     desktop?: { hidden?: boolean }
     tablet?: { hidden?: boolean }
     mobile?: { hidden?: boolean }
@@ -119,10 +148,11 @@ export interface HeaderConfig {
       hoverColor: string
       activeColor: string
       layout: string
-      menuItems: {
-        name: string
+      menuItems: Array<{
+        name_en: string
+        name_id: string
         url: string
-      }[]
+      }>
     }
     buttons: {
       primary: {

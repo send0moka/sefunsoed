@@ -39,6 +39,45 @@ type HistoryState = {
   timestamp: number
 }
 
+const getInitialNavigatorElements = (config: HeaderConfig["config"]): NavigatorElement[] => {
+  return [{
+    id: 'nav-container',
+    name: 'Container',
+    type: 'container',
+    children: [
+      {
+        id: 'logo-image',
+        name: 'Image',
+        type: 'image',
+        children: []
+      },
+      {
+        id: 'nav-links',  // Changed from links-container
+        name: 'Container',
+        type: 'container',
+        children: (config.navigation?.menuItems || []).map((item, index) => ({
+          id: `nav-link-${index}`,
+          name: 'Text',
+          type: 'text',
+          children: []
+        }))
+      },
+      {
+        id: 'lang-button',  // Changed from language-button
+        name: 'Button',
+        type: 'button',
+        children: []
+      },
+      {
+        id: 'signin-button',
+        name: 'Button',
+        type: 'button',
+        children: []
+      }
+    ]
+  }]
+}
+
 export default function HeaderBuilder() {
   const [activeConfig, setActiveConfig] = useState<HeaderConfig | null>(null)
   const [loading, setLoading] = useState(true)
@@ -50,33 +89,7 @@ export default function HeaderBuilder() {
   const [isDragging, setIsDragging] = useState(false)
   const [isUpdating, setIsUpdating] = useState(false);
 
-  const [navigatorElements, setNavigatorElements] = useState<NavigatorElement[]>([
-    {
-      id: '1',
-      name: 'Navbar',
-      type: 'navbar',
-      children: [
-        {
-          id: '2',
-          name: 'Logo',
-          type: 'logo',
-          children: []
-        },
-        {
-          id: '3',
-          name: 'Navigation',
-          type: 'navigation',
-          children: []
-        },
-        {
-          id: '4',
-          name: 'Action Buttons',
-          type: 'buttons',
-          children: []
-        }
-      ]
-    }
-  ])
+  const [navigatorElements, setNavigatorElements] = useState<NavigatorElement[]>([])
 
   useEffect(() => {
     loadConfigs()
@@ -298,6 +311,12 @@ export default function HeaderBuilder() {
       setIsUpdating(false);
     }
   };
+
+  useEffect(() => {
+    if (activeConfig) {
+      setNavigatorElements(getInitialNavigatorElements(activeConfig.config))
+    }
+  }, [activeConfig])
 
   if (loading || !activeConfig) {
     return (

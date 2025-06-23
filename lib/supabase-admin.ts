@@ -306,54 +306,115 @@ export const headerConfigService = {
 
   async initializeDefaultConfig() {
     const defaultConfig = {
-      background: {
-        type: "solid" as const,
-        color: "bg-black/90",
-        blur: "backdrop-blur-sm",
-        shadow: "shadow-lg",
-        rounded: "rounded-full"
-      },
-      layout: {
-        padding: {
-          top: "py-1",
-          bottom: "py-1",
-          left: "px-6",
-          right: "px-8"
+      elements: [
+        {
+          id: 'nav-container',
+          type: 'container',
+          props: {
+            background: {
+              type: "solid",
+              color: "bg-black/90",
+              blur: "backdrop-blur-sm",
+              shadow: "shadow-lg",
+              rounded: "rounded-full"
+            },
+            layout: {
+              padding: {
+                top: "py-1",
+                bottom: "py-1",
+                left: "px-6",
+                right: "px-8"
+              },
+              position: "fixed",
+              maxWidth: "max-w-6xl",
+              display: "flex",
+              alignment: "items-center justify-between"
+            }
+          }
         },
-        position: "fixed",
-        maxWidth: "max-w-6xl",
-        display: "flex",
-        alignment: "items-center justify-between"
-      },
-      logo: {
-        width: "w-[100px]",
-        height: "h-12",
-        brightness: "brightness-0",
-        invert: "invert"
-      },
-      navigation: {
-        fontSize: "text-sm",
-        fontWeight: "font-semibold",
-        textColor: "text-gray-50",
-        hoverColor: "hover:text-indigo-600",
-        activeColor: "text-indigo-600",
-        spacing: "space-x-12"
-      },
-      buttons: {
-        primary: {
-          backgroundColor: "bg-indigo-600",
-          textColor: "text-white",
-          hoverBackgroundColor: "hover:bg-indigo-700",
-          hoverTextColor: "hover:text-white",
-          borderRadius: "rounded-full",
-          padding: "px-4 py-3"
+        {
+          id: 'logo-image',
+          type: 'image',
+          props: {
+            src: "/logo.png",
+            alt: "SEF UNSOED",
+            width: "w-[100px]",
+            height: "h-12",
+            brightness: "brightness-0",
+            invert: "invert"
+          }
         },
-        language: {
-          backgroundColor: "bg-gray-100",
-          textColor: "text-gray-700",
-          borderRadius: "rounded-full"
+        {
+          id: 'nav-links',
+          type: 'container',
+          props: {
+            className: "hidden lg:flex",
+            spacing: "space-x-12",
+            menuItems: [
+              {
+                name_en: "About Us",
+                name_id: "Tentang Kami",
+                url: "/about"
+              },
+              {
+                name_en: "Programs & Activities",
+                name_id: "Program & Kegiatan",
+                url: "/programs"
+              },
+              {
+                name_en: "Registration",
+                name_id: "Pendaftaran",
+                url: "/registration"
+              },
+              {
+                name_en: "Our Services",
+                name_id: "Layanan Kami",
+                url: "/services"
+              },
+              {
+                name_en: "Educational Content",
+                name_id: "Konten Edukasi",
+                url: "/content"
+              },
+              {
+                name_en: "Media",
+                name_id: "Media",
+                url: "/media"
+              },
+            ],
+            text: {
+              fontSize: "text-sm",
+              fontWeight: "font-semibold",
+              color: "text-gray-50",
+              hoverColor: "hover:text-indigo-600",
+              activeColor: "text-indigo-600"
+            }
+          }
+        },
+        {
+          id: 'lang-button',
+          type: 'button',
+          props: {
+            variant: 'language',
+            backgroundColor: "bg-gray-100",
+            textColor: "text-gray-700",
+            borderRadius: "rounded-full"
+          }
+        },
+        {
+          id: 'signin-button', 
+          type: 'button',
+          props: {
+            variant: 'primary',
+            backgroundColor: "bg-indigo-600",
+            textColor: "text-white",
+            hoverBackgroundColor: "hover:bg-indigo-700",
+            hoverTextColor: "hover:text-white",
+            borderRadius: "rounded-full",
+            padding: "px-4 py-3"
+          }
         }
-      }
+      ]
     }
 
     try {

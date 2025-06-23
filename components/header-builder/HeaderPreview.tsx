@@ -2,32 +2,26 @@
 
 import { HeaderConfig } from "@/types/database"
 import { useLanguage } from "@/contexts/LanguageContext"
-import { translations, type NavigationKeys } from "@/translations"
 import { ArrowRightEndOnRectangleIcon } from "@heroicons/react/24/outline"
 import Image from "next/image"
 import SelectableElement from "./SelectableElement"
-import { DragEvent } from 'react'
 
-type ViewportType = "desktop" | "tablet" | "mobile" // Add ViewportType definition
+type ViewportType = "desktop" | "tablet" | "mobile"
 
-const navigation: { name: NavigationKeys; href: string }[] = [
-  { name: "about", href: "/about" },
-  { name: "programs", href: "/programs" },
-  { name: "registration", href: "/registration" },
-  { name: "services", href: "/services" },
-  { name: "content", href: "/content" },
-  { name: "media", href: "/media" },
-]
-
-type HeaderPreviewProps = {
+interface HeaderPreviewProps {
   config: HeaderConfig["config"]
+  viewport: ViewportType
+  selectedElement: string | null
+  onSelectElement: (id: string | null) => void
+  onDrop: (e: React.DragEvent<HTMLDivElement>) => void
+  onDragOver: (e: React.DragEvent<HTMLDivElement>) => void
   isEditing: boolean
-  viewport?: ViewportType
-  onEdit?: () => void
-  onSelectElement?: (elementType: string | null) => void
-  selectedElement?: string | null
-  onDrop?: (e: React.DragEvent<HTMLDivElement>) => void
-  onDragOver?: (e: React.DragEvent<HTMLDivElement>) => void
+}
+
+const containerClasses = {
+  desktop: 'w-full',
+  tablet: 'w-[768px]',
+  mobile: 'w-[375px]'
 }
 
 const getBackgroundClasses = (config: HeaderConfig["config"]) => {
@@ -38,140 +32,138 @@ const getBackgroundClasses = (config: HeaderConfig["config"]) => {
 }
 
 export default function HeaderPreview({ 
-  config, 
+  config,
   viewport,
-  isEditing, 
-  onEdit,
   onSelectElement,
   selectedElement,
   onDrop,
   onDragOver
 }: HeaderPreviewProps) {
   const { language } = useLanguage()
-
-  const containerClasses = {
-    desktop: 'w-full',
-    tablet: 'w-[768px] mx-auto',
-    mobile: 'w-[375px] mx-auto'
-  }
+  const menuItems = config?.navigation?.menuItems || []
 
   return (
     <div 
       className="h-full p-8 overflow-auto"
       onDrop={onDrop}
       onDragOver={onDragOver}
-    >
-      <div className={`${containerClasses[viewport || 'desktop']} transition-all duration-300`}>
-        <header className={`
-          relative bg-white shadow-md
-          ${config?.desktop?.hidden && viewport === 'desktop' ? 'hidden' : ''}
-          ${config?.tablet?.hidden && viewport === 'tablet' ? 'hidden' : ''}
-          ${config?.mobile?.hidden && viewport === 'mobile' ? 'hidden' : ''}
-        `}>
-          {/* Wrapper div untuk rounded tanpa overflow hidden */}
-          <div className={`mx-auto ${config.layout.maxWidth}`}>
-            {/* Inner div untuk efek rounded dengan overflow hidden */}
+    >      <div className={`${containerClasses[viewport || 'desktop']} transition-all duration-300`}>
+        <header>
+          <div className={`mx-auto ${config?.layout?.maxWidth ?? 'max-w-7xl'}`}>
             <div className={`${config.background?.rounded ?? ''} overflow-hidden`}>
+              {/* Main Container */}
               <SelectableElement
-                isSelected={selectedElement === 'navbar'}
-                onClick={() => onSelectElement?.('navbar')}
-                elementType="Navigation Bar"
-              >
-                <nav className={`
-                  ${config.layout.display}
-                  ${config.layout.alignment}
-                  ${config.layout.padding.top}
-                  ${config.layout.padding.bottom}
-                  ${config.layout.padding.left}
-                  ${config.layout.padding.right}
+                id="nav-container"
+                isSelected={selectedElement === 'nav-container'}
+                onClick={() => onSelectElement?.('nav-container')}
+                elementType="Container"
+              >                <nav className={`
+                  ${config?.layout?.display ?? 'flex'}
+                  ${config?.layout?.alignment ?? 'items-center justify-between'}
+                  ${config?.layout?.padding?.top ?? 'py-4'}
+                  ${config?.layout?.padding?.bottom ?? ''}
+                  ${config?.layout?.padding?.left ?? 'px-6'}
+                  ${config?.layout?.padding?.right ?? ''}
                   ${getBackgroundClasses(config)}
                   ${config.background?.blur}
                   ${config.background?.shadow}
                   w-full
                 `}>
+                  {/* Logo Image */}
                   <SelectableElement
-                    isSelected={selectedElement === 'logo'}
-                    onClick={() => onSelectElement?.('logo')}
-                    elementType="Logo"
-                  >
-                    <div className={`${config.logo.width} ${config.logo.height}`}>
-                      <Image
-                        src="/logo.png"
-                        alt="SEF UNSOED"
-                        width={100}
-                        height={48}
-                        className={`${config.logo.brightness} ${config.logo.invert}`}
-                      />
-                    </div>
+                    id="logo-image"
+                    isSelected={selectedElement === 'logo-image'}
+                    onClick={() => onSelectElement?.('logo-image')}
+                    elementType="Image"
+                  >                    <Image
+                      src="/logo.png"
+                      alt="SEF UNSOED"
+                      width={100}
+                      height={48}
+                      className={`${config?.logo?.brightness ?? 'brightness-0'} ${config?.logo?.invert ?? 'invert'}`}
+                    />
                   </SelectableElement>
 
+                  {/* Navigation Links Container */}
                   <SelectableElement
-                    isSelected={selectedElement === 'navigation'}
-                    onClick={() => onSelectElement?.('navigation')}
-                    elementType="Navigation Links"
-                  >
-                    <div className="hidden lg:flex lg:gap-x-12">
-                      {navigation.map((item) => (
-                        <span
-                          key={item.name}
-                          className={`cursor-default text-white ${config.navigation.fontSize} ${config.navigation.fontWeight} ${config.navigation.hoverColor}`}
+                    id="nav-links"
+                    isSelected={selectedElement === 'nav-links'}
+                    onClick={() => onSelectElement?.('nav-links')}
+                    elementType="Container"
+                  >                    <div className={`hidden lg:flex ${config?.navigation?.spacing ?? 'gap-x-8'}`}>
+                      {menuItems.map((item, index) => (
+                        <SelectableElement
+                          key={index}
+                          id={`nav-link-${index}`}
+                          isSelected={selectedElement === `nav-link-${index}`}
+                          onClick={() => onSelectElement?.(`nav-link-${index}`)}
+                          elementType="Text"
                         >
-                          {translations[language].navigation[item.name]}
-                        </span>
+                          <span className={`
+                            cursor-default
+                            ${config?.navigation?.textColor ?? 'text-gray-900'}
+                            ${config?.navigation?.fontSize ?? 'text-sm'}
+                            ${config?.navigation?.fontWeight ?? 'font-semibold'}
+                            ${config?.navigation?.hoverColor ?? 'hover:text-indigo-600'}
+                          `}>
+                            {language === 'en' ? item.name_en : item.name_id}
+                          </span>
+                        </SelectableElement>
                       ))}
                     </div>
                   </SelectableElement>
 
-                  <SelectableElement
-                    isSelected={selectedElement === 'buttons'}
-                    onClick={() => onSelectElement?.('buttons')}
-                    elementType="Action Buttons"
-                  >
-                    <div className="flex items-center gap-4">
-                      <div className="hidden lg:flex items-center gap-6">
-                        <div
-                          className={`flex items-center gap-2 p-3 ${config.buttons.language.borderRadius} ${config.buttons.language.backgroundColor} hover:bg-gray-200 transition-all duration-300`}
-                        >
-                          <div className="flex items-center gap-2 w-[50px] justify-center">
-                            <Image
-                              src={language === "en" ? "/flags/uk.png" : "/flags/id.png"}
-                              alt={language === "en" ? "English" : "Indonesia"}
-                              width={20}
-                              height={20}
-                              className="rounded-full"
-                            />
-                            <span className="text-sm font-medium text-gray-700 min-w-[20px]">
-                              {language.toUpperCase()}
-                            </span>
-                          </div>
-                        </div>
-
-                        <div
-                          className={`flex items-center gap-2 ${config.buttons.primary.padding} ${config.buttons.primary.borderRadius} ${config.buttons.primary.backgroundColor} ${config.buttons.primary.textColor} hover:${config.buttons.primary.hoverBackgroundColor} transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105 cursor-default`}
-                        >
-                          <ArrowRightEndOnRectangleIcon className="w-5 h-5" />
-                          <span className="text-sm font-medium">Sign In</span>
-                        </div>
+                  {/* Action Buttons */}
+                  <div className="flex items-center gap-4">
+                    <SelectableElement
+                      id="lang-button"
+                      isSelected={selectedElement === 'lang-button'}
+                      onClick={() => onSelectElement?.('lang-button')}
+                      elementType="Button"
+                    >                      <div className={`
+                        flex items-center gap-2 p-3
+                        ${config?.buttons?.language?.borderRadius ?? 'rounded-full'}
+                        ${config?.buttons?.language?.backgroundColor ?? 'bg-gray-100'}
+                        ${config?.buttons?.language?.textColor ?? 'text-gray-700'}
+                      `}>
+                        <Image
+                          src={language === "en" ? "/flags/uk.png" : "/flags/id.png"}
+                          alt={language === "en" ? "English" : "Indonesia"}
+                          width={20}
+                          height={20}
+                          className="rounded-full"
+                        />
+                        <span className="text-sm font-medium min-w-[20px]">
+                          {language.toUpperCase()}
+                        </span>
                       </div>
-                    </div>
-                  </SelectableElement>
+                    </SelectableElement>
+
+                    <SelectableElement
+                      id="signin-button"
+                      isSelected={selectedElement === 'signin-button'}
+                      onClick={() => onSelectElement?.('signin-button')}
+                      elementType="Button"
+                    >                      <div className={`
+                        flex items-center gap-2
+                        ${config?.buttons?.primary?.padding ?? 'px-4 py-2'}
+                        ${config?.buttons?.primary?.borderRadius ?? 'rounded-full'}
+                        ${config?.buttons?.primary?.backgroundColor ?? 'bg-indigo-600'}
+                        ${config?.buttons?.primary?.textColor ?? 'text-white'}
+                        ${config?.buttons?.primary?.hoverBackgroundColor ?? 'hover:bg-indigo-700'}
+                        cursor-default
+                      `}>
+                        <ArrowRightEndOnRectangleIcon className="w-5 h-5" />
+                        <span className="text-sm font-medium">Sign In</span>
+                      </div>
+                    </SelectableElement>
+                  </div>
                 </nav>
               </SelectableElement>
             </div>
           </div>
         </header>
       </div>
-
-      {!isEditing && (
-        <div className="flex justify-center">
-          <button
-            onClick={onEdit}
-            className="px-6 py-3 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors"
-          >
-            Edit Header
-          </button>
-        </div>
-      )}
     </div>
   )
 }

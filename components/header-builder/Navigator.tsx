@@ -26,10 +26,10 @@ export default function Navigator({ elements, selectedElement, onSelectElement }
   }
 
   const handleElementClick = (element: NavigatorElement) => {
-    if (element.type === selectedElement) {
+    if (element.id === selectedElement) {
       onSelectElement(null)
     } else {
-      onSelectElement(element.type)
+      onSelectElement(element.id)
     }
   }
 
@@ -42,7 +42,7 @@ export default function Navigator({ elements, selectedElement, onSelectElement }
         <div 
           className={`
             flex items-center px-2 py-1 hover:bg-gray-100 cursor-pointer
-            ${selectedElement === element.type ? 'bg-blue-50 text-blue-600' : ''}
+            ${selectedElement === element.id ? 'bg-blue-50 text-blue-600' : ''}
           `}
           style={{ paddingLeft: `${depth * 12 + 8}px` }}
           onClick={() => handleElementClick(element)}
