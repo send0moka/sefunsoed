@@ -4,6 +4,7 @@ import "./globals.css"
 import React, { Suspense } from "react"
 import ClientLayout from "./client-layout"
 import { Toaster } from "sonner"
+import { Analytics } from "@vercel/analytics/next"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -24,6 +25,7 @@ export default function RootLayout({
           <ClientLayout>{children}</ClientLayout>
         </Suspense>
         <Toaster />
+        <Analytics />
       </body>
     </html>
   )
