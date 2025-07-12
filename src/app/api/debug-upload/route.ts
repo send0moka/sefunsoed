@@ -53,9 +53,23 @@ export async function POST(req: NextRequest) {
     console.log('Media created successfully:', result.id)
     console.log('=== DEBUG UPLOAD END ===')
 
+    // Sanitize result to avoid serialization issues
+    const sanitizedResult = {
+      id: result.id,
+      filename: result.filename,
+      url: result.url,
+      alt: result.alt,
+      mimeType: result.mimeType,
+      filesize: result.filesize,
+      width: result.width,
+      height: result.height,
+      createdAt: result.createdAt,
+      updatedAt: result.updatedAt,
+    }
+
     return NextResponse.json({
       success: true,
-      media: result,
+      media: sanitizedResult,
     })
   } catch (error) {
     console.error('=== DEBUG UPLOAD ERROR ===')
