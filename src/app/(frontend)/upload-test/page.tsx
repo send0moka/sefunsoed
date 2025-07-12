@@ -5,6 +5,7 @@ import { useState } from 'react'
 export default function UploadTest() {
   const [result, setResult] = useState<Record<string, unknown> | null>(null)
   const [isUploading, setIsUploading] = useState(false)
+  const [endpoint, setEndpoint] = useState('/api/debug-upload')
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -20,7 +21,7 @@ export default function UploadTest() {
     }
 
     try {
-      const response = await fetch('/api/media', {
+      const response = await fetch(endpoint, {
         method: 'POST',
         body: formData,
       })
@@ -44,6 +45,18 @@ export default function UploadTest() {
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">Test Media Upload</h1>
+
+      <div className="mb-4">
+        <label className="block text-sm font-medium mb-2">Endpoint:</label>
+        <select
+          value={endpoint}
+          onChange={(e) => setEndpoint(e.target.value)}
+          className="border rounded px-3 py-2"
+        >
+          <option value="/api/debug-upload">Debug Upload (Custom)</option>
+          <option value="/api/media">Official Payload API</option>
+        </select>
+      </div>
 
       <form onSubmit={handleSubmit} className="mb-4">
         <div className="mb-4">
