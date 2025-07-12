@@ -276,6 +276,14 @@ export interface Media {
     };
     [k: string]: unknown;
   } | null;
+  /**
+   * Direct URL to file in Supabase Storage
+   */
+  supabaseUrl?: string | null;
+  /**
+   * File key/path in Supabase Storage
+   */
+  supabaseKey?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -1162,6 +1170,8 @@ export interface PostsSelect<T extends boolean = true> {
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
   caption?: T;
+  supabaseUrl?: T;
+  supabaseKey?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;

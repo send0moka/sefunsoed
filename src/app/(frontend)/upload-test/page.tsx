@@ -57,6 +57,9 @@ export default function UploadTest() {
           <option value="/api/bypass-upload">Bypass Upload (Override Access)</option>
           <option value="/api/direct-upload">Direct Upload (No Database)</option>
           <option value="/api/supabase-upload">Supabase Storage Upload</option>
+          <option value="/api/payload-supabase">Payload + Supabase Upload</option>
+          <option value="/api/admin-supabase-upload">Admin Supabase Upload</option>
+          <option value="/api/test-supabase">Test Supabase Connection</option>
           <option value="/api/media">Official Payload API</option>
         </select>
       </div>

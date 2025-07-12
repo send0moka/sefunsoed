@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import fs from 'fs'
 import path from 'path'
+import { getPayloadHMR } from '@payloadcms/next/utilities'
+import configPromise from '../../../../../payload.config'
 
 export async function GET(
   request: NextRequest,
@@ -12,7 +14,34 @@ export async function GET(
     // Remove query parameters from filename if any
     const cleanFilename = filename.split('?')[0]
 
-    // Get the file path
+    // First try to get media record from database to check for Supabase URL
+    try {
+      const payload = await getPayloadHMR({ config: configPromise })
+
+      const media = await payload.find({
+        collection: 'media',
+        where: {
+          filename: {
+            equals: cleanFilename,
+          },
+        },
+        limit: 1,
+      })
+
+      if (media.docs.length > 0) {
+        const doc = media.docs[0] as any
+
+        // If we have a Supabase URL, redirect to it
+        if (doc.supabaseUrl) {
+          console.log(`Redirecting ${cleanFilename} to Supabase URL: ${doc.supabaseUrl}`)
+          return NextResponse.redirect(doc.supabaseUrl, 302)
+        }
+      }
+    } catch (dbError) {
+      console.log('Database lookup failed, falling back to local file:', dbError)
+    }
+
+    // Fallback to local file serving
     const filePath = path.join(process.cwd(), 'public', 'media', cleanFilename)
 
     // Check if file exists
