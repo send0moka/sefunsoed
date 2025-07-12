@@ -1,7 +1,30 @@
-import type { StorageAdapter } from 'payload'
 import { createClient } from '@supabase/supabase-js'
-import fs from 'fs'
-import path from 'path'
+
+// Define types since Payload doesn't export them
+interface UploadFileArgs {
+  file: {
+    data: Buffer | ArrayBuffer | Uint8Array | Blob
+    type: string
+    name: string
+    size: number
+  }
+  filename: string
+}
+
+interface DeleteFileArgs {
+  filename: string
+}
+
+interface GetFileURLArgs {
+  filename: string
+}
+
+interface StorageAdapter {
+  name: string
+  uploadFile: (args: UploadFileArgs) => Promise<string>
+  deleteFile: (args: DeleteFileArgs) => Promise<void>
+  getFileURL: (args: GetFileURLArgs) => Promise<string>
+}
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -11,7 +34,7 @@ const supabase = createClient(
 export const supabaseAdapter: StorageAdapter = {
   name: 'supabase',
 
-  async uploadFile({ file, filename }): Promise<string> {
+  async uploadFile({ file, filename }: UploadFileArgs): Promise<string> {
     try {
       // Generate unique filename
       const timestamp = Date.now()
@@ -19,10 +42,10 @@ export const supabaseAdapter: StorageAdapter = {
       const fileExtension = filename.split('.').pop()
       const uniqueFilename = `${timestamp}-${randomString}.${fileExtension}`
 
-      // Upload to Supabase
+      // Upload to Supabase using file.data
       const { error: uploadError } = await supabase.storage
         .from('media')
-        .upload(uniqueFilename, file, {
+        .upload(uniqueFilename, file.data, {
           contentType: file.type,
           cacheControl: '3600',
           upsert: false,

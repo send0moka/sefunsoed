@@ -1,12 +1,16 @@
-import type { StaticHandler } from 'payload'
 import { createClient } from '@supabase/supabase-js'
+
+// Define custom interface since Payload doesn't export StaticHandler type
+interface StaticHandlerFunction {
+  (req: Request, context: { params: { filename: string } }): Promise<Response>
+}
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.SUPABASE_SERVICE_ROLE_KEY!,
 )
 
-export const supabaseStaticHandler: StaticHandler = async (req, { params }) => {
+export const supabaseStaticHandler: StaticHandlerFunction = async (req, { params }) => {
   try {
     const { filename } = params
 
