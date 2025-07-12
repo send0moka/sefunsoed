@@ -2,6 +2,11 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
 export function middleware(request: NextRequest) {
+  // Skip CSP for admin routes
+  if (request.nextUrl.pathname.startsWith('/admin')) {
+    return NextResponse.next()
+  }
+
   // Clone the request headers
   const requestHeaders = new Headers(request.headers)
 
@@ -39,11 +44,12 @@ export const config = {
     /*
      * Match all request paths except for the ones starting with:
      * - api (API routes)
+     * - admin (Payload admin)
      * - _next/static (static files)
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
      * - media (media files)
      */
-    '/((?!api|_next/static|_next/image|favicon.ico|media).*)',
+    '/((?!api|admin|_next/static|_next/image|favicon.ico|media).*)',
   ],
 }
