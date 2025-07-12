@@ -2,10 +2,15 @@ import { NextRequest, NextResponse } from 'next/server'
 import fs from 'fs'
 import path from 'path'
 
-export async function GET(request: NextRequest, { params }: { params: { filename: string } }) {
+export async function GET(
+  request: NextRequest,
+  { params }: { params: Promise<{ filename: string }> },
+) {
   try {
+    const { filename } = await params
+
     // Get the file path
-    const filePath = path.join(process.cwd(), 'public', 'media', params.filename)
+    const filePath = path.join(process.cwd(), 'public', 'media', filename)
 
     // Check if file exists
     if (!fs.existsSync(filePath)) {
@@ -16,7 +21,7 @@ export async function GET(request: NextRequest, { params }: { params: { filename
     const fileBuffer = fs.readFileSync(filePath)
 
     // Determine content type
-    const contentType = getContentType(params.filename)
+    const contentType = getContentType(filename)
 
     return new NextResponse(fileBuffer, {
       headers: {

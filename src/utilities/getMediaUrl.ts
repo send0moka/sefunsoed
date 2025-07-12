@@ -14,6 +14,12 @@ export const getMediaUrl = (url: string | null | undefined, cacheTag?: string | 
     return cacheTag ? `${url}?${cacheTag}` : url
   }
 
+  // If URL starts with /media/, it's a relative path from our media route
+  if (url.startsWith('/media/')) {
+    const baseUrl = getClientSideURL()
+    return cacheTag ? `${baseUrl}${url}?${cacheTag}` : `${baseUrl}${url}`
+  }
+
   // Otherwise prepend client-side URL
   const baseUrl = getClientSideURL()
   return cacheTag ? `${baseUrl}${url}?${cacheTag}` : `${baseUrl}${url}`
