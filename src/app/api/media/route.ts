@@ -13,14 +13,17 @@ const supabase = createClient(
 export async function POST(request: NextRequest) {
   try {
     const contentType = request.headers.get('content-type')
+    console.log('POST /api/media - Content-Type:', contentType)
 
     // Handle JSON requests (for admin panel queries)
     if (contentType?.includes('application/json')) {
       const jsonData = await request.json()
+      console.log('JSON request data:', jsonData)
       const payload = await getPayloadHMR({ config: configPromise })
 
       // Handle different JSON operations
-      if (jsonData.query) {
+      if (jsonData.query || jsonData.depth !== undefined || jsonData.limit !== undefined) {
+        console.log('Handling find query request')
         // GraphQL-like query
         const result = await payload.find({
           collection: 'media',
@@ -37,13 +40,31 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({
         message: 'JSON API endpoint ready',
         supported: ['query'],
+        received: jsonData,
       })
+    }
+
+    // Handle URL-encoded form data (some admin panel requests)
+    if (contentType?.includes('application/x-www-form-urlencoded')) {
+      const formData = await request.formData()
+      console.log('Form data received:', Object.fromEntries(formData.entries()))
+
+      const payload = await getPayloadHMR({ config: configPromise })
+      const result = await payload.find({
+        collection: 'media',
+        depth: 0,
+        limit: 10,
+        page: 1,
+        overrideAccess: true,
+      })
+      return NextResponse.json(result)
     }
 
     // Handle multipart form data (file uploads)
     if (!contentType?.includes('multipart/form-data')) {
+      console.log('Unsupported content type:', contentType)
       return NextResponse.json(
-        { errors: [{ message: 'Content-Type must be multipart/form-data or application/json' }] },
+        { errors: [{ message: `Unsupported Content-Type: ${contentType}` }] },
         { status: 400 },
       )
     }
@@ -157,6 +178,7 @@ export async function POST(request: NextRequest) {
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url)
+    console.log('GET /api/media - Query params:', searchParams.toString())
 
     // If there are query parameters, it's a request for media list
     if (searchParams.toString()) {
@@ -167,6 +189,8 @@ export async function GET(request: NextRequest) {
       const limit = searchParams.get('limit') || '10'
       const page = searchParams.get('page') || '1'
       const where = searchParams.get('where')
+
+      console.log('Query params:', { depth, limit, page, where })
 
       // Build query options
       const options = {
@@ -193,6 +217,7 @@ export async function GET(request: NextRequest) {
         ...(whereClause && { where: whereClause }),
       })
 
+      console.log('Found media items:', result.docs?.length || 0)
       return NextResponse.json(result)
     }
 
