@@ -83,39 +83,40 @@ export const Media: CollectionConfig = {
         : path.resolve(dirname, '../../public/media'),
     disableLocalStorage: true, // Always use Supabase now
     adminThumbnail: 'thumbnail',
-    focalPoint: true,
+    focalPoint: false, // Disable to reduce processing
     imageSizes: [
       {
         name: 'thumbnail',
         width: 300,
       },
-      {
-        name: 'square',
-        width: 500,
-        height: 500,
-      },
-      {
-        name: 'small',
-        width: 600,
-      },
-      {
-        name: 'medium',
-        width: 900,
-      },
-      {
-        name: 'large',
-        width: 1400,
-      },
-      {
-        name: 'xlarge',
-        width: 1920,
-      },
-      {
-        name: 'og',
-        width: 1200,
-        height: 630,
-        crop: 'center',
-      },
+      // Disable other sizes to prevent timeout
+      // {
+      //   name: 'square',
+      //   width: 500,
+      //   height: 500,
+      // },
+      // {
+      //   name: 'small',
+      //   width: 600,
+      // },
+      // {
+      //   name: 'medium',
+      //   width: 900,
+      // },
+      // {
+      //   name: 'large',
+      //   width: 1400,
+      // },
+      // {
+      //   name: 'xlarge',
+      //   width: 1920,
+      // },
+      // {
+      //   name: 'og',
+      //   width: 1200,
+      //   height: 630,
+      //   crop: 'center',
+      // },
     ],
   },
   hooks: {
@@ -123,13 +124,19 @@ export const Media: CollectionConfig = {
       async ({ data, operation, req }) => {
         if (operation === 'create' && req.file) {
           try {
+            // Check file size (limit to 5MB to prevent timeout)
+            const maxSize = 5 * 1024 * 1024 // 5MB
+            if (req.file.size > maxSize) {
+              throw new Error('File too large. Maximum size is 5MB.')
+            }
+
             // Generate unique filename for Supabase
             const timestamp = Date.now()
             const randomString = Math.random().toString(36).substring(2, 15)
             const fileExtension = req.file.name.split('.').pop()
             const uniqueFilename = `${timestamp}-${randomString}.${fileExtension}`
 
-            // Upload to Supabase Storage
+            // Upload to Supabase Storage (remove timeout for now to avoid type issues)
             const { error: uploadError } = await supabase.storage
               .from('media')
               .upload(uniqueFilename, req.file.data, {
@@ -149,8 +156,12 @@ export const Media: CollectionConfig = {
             data.supabaseUrl = urlData.publicUrl
             data.supabaseKey = uniqueFilename
             data.url = urlData.publicUrl // Set primary URL to Supabase
+            data.filename = uniqueFilename
           } catch (error) {
-            throw error // This will prevent the media record from being created
+            // Log error for debugging but still throw it
+            console.error('Upload error:', error)
+            const errorMessage = error instanceof Error ? error.message : 'Unknown error'
+            throw new Error(`Upload failed: ${errorMessage}`)
           }
         }
 
