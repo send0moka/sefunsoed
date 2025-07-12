@@ -54,6 +54,7 @@ export default function UploadTest() {
           className="border rounded px-3 py-2"
         >
           <option value="/api/debug-upload">Debug Upload (Custom)</option>
+          <option value="/api/bypass-upload">Bypass Upload (Override Access)</option>
           <option value="/api/media">Official Payload API</option>
         </select>
       </div>
