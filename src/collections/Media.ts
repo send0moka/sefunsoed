@@ -24,7 +24,11 @@ const supabase = createClient(
 export const Media: CollectionConfig = {
   slug: 'media',
   access: {
-    create: authenticated,
+    create: ({ req }) => {
+      console.log('Media create access check - User:', req.user?.id)
+      console.log('Media create access check - Environment:', process.env.NODE_ENV)
+      return authenticated({ req })
+    },
     delete: authenticated,
     read: anyone,
     update: authenticated,
