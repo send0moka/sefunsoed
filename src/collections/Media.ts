@@ -86,67 +86,57 @@ export const Media: CollectionConfig = {
     focalPoint: false, // Disable to reduce processing
     imageSizes: [], // Disable all image sizes to prevent timeout
   },
-  // Disable hooks in production to prevent timeout
-  ...(process.env.NODE_ENV === 'production'
-    ? {}
-    : {
-        hooks: {
-          beforeChange: [
-            async ({ data, operation, req }) => {
-              if (operation === 'create' && req.file) {
-                try {
-                  // Check file size (limit to 5MB to prevent timeout)
-                  const maxSize = 5 * 1024 * 1024 // 5MB
-                  if (req.file.size > maxSize) {
-                    throw new Error('File too large. Maximum size is 5MB.')
-                  }
+  hooks: {
+    beforeChange: [
+      async ({ data, operation, req }) => {
+        if (operation === 'create' && req.file) {
+          try {
+            // Check file size (limit to 5MB to prevent timeout)
+            const maxSize = 5 * 1024 * 1024 // 5MB
+            if (req.file.size > maxSize) {
+              throw new Error('File too large. Maximum size is 5MB.')
+            }
 
-                  // Generate unique filename for Supabase
-                  const timestamp = Date.now()
-                  const randomString = Math.random().toString(36).substring(2, 15)
-                  const fileExtension = req.file.name.split('.').pop()
-                  const uniqueFilename = `${timestamp}-${randomString}.${fileExtension}`
+            // Generate unique filename for Supabase
+            const timestamp = Date.now()
+            const randomString = Math.random().toString(36).substring(2, 15)
+            const fileExtension = req.file.name.split('.').pop()
+            const uniqueFilename = `${timestamp}-${randomString}.${fileExtension}`
 
-                  // Upload to Supabase Storage (remove timeout for now to avoid type issues)
-                  const { error: uploadError } = await supabase.storage
-                    .from('media')
-                    .upload(uniqueFilename, req.file.data, {
-                      contentType: req.file.mimetype,
-                      cacheControl: '3600',
-                      upsert: false,
-                    })
+            // Upload to Supabase Storage
+            const { error: uploadError } = await supabase.storage
+              .from('media')
+              .upload(uniqueFilename, req.file.data, {
+                contentType: req.file.mimetype,
+                cacheControl: '3600',
+                upsert: false,
+              })
 
-                  if (uploadError) {
-                    throw new Error(`Supabase upload failed: ${uploadError.message}`)
-                  }
+            if (uploadError) {
+              throw new Error(`Supabase upload failed: ${uploadError.message}`)
+            }
 
-                  // Get public URL
-                  const { data: urlData } = supabase.storage
-                    .from('media')
-                    .getPublicUrl(uniqueFilename)
+            // Get public URL
+            const { data: urlData } = supabase.storage.from('media').getPublicUrl(uniqueFilename)
 
-                  // Update data with Supabase information
-                  data.supabaseUrl = urlData.publicUrl
-                  data.supabaseKey = uniqueFilename
-                  data.url = urlData.publicUrl // Set primary URL to Supabase
-                  data.filename = uniqueFilename
-                } catch (error) {
-                  // Log error for debugging but still throw it
-                  console.error('Upload error:', error)
-                  const errorMessage = error instanceof Error ? error.message : 'Unknown error'
-                  throw new Error(`Upload failed: ${errorMessage}`)
-                }
-              }
+            // Update data with Supabase information
+            data.supabaseUrl = urlData.publicUrl
+            data.supabaseKey = uniqueFilename
+            data.url = urlData.publicUrl // Set primary URL to Supabase
+            data.filename = uniqueFilename
+          } catch (error) {
+            const errorMessage = error instanceof Error ? error.message : 'Unknown error'
+            throw new Error(`Upload failed: ${errorMessage}`)
+          }
+        }
 
-              return data
-            },
-          ],
-          afterChange: [
-            async ({ doc }) => {
-              // Silent hook, no logging to avoid private member errors
-              return doc
-            },
-          ],
-        },
-      }),
+        return data
+      },
+    ],
+    afterChange: [
+      async ({ doc }) => {
+        return doc
+      },
+    ],
+  },
 }
