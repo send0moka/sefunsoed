@@ -17,7 +17,7 @@ const dirname = path.dirname(filename)
 export const Media: CollectionConfig = {
   slug: 'media',
   access: {
-    create: anyone, // Temporarily allow public upload for testing
+    create: authenticated,
     delete: authenticated,
     read: anyone,
     update: authenticated,
