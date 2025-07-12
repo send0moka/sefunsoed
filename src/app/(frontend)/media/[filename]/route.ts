@@ -1,28 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getPayload } from 'payload'
-import config from '@payload-config'
 import fs from 'fs'
 import path from 'path'
 
 export async function GET(request: NextRequest, { params }: { params: { filename: string } }) {
   try {
-    const payload = await getPayload({ config })
-
-    // Find the media document by filename
-    const media = await payload.find({
-      collection: 'media',
-      where: {
-        filename: {
-          equals: params.filename,
-        },
-      },
-      limit: 1,
-    })
-
-    if (!media.docs.length) {
-      return new NextResponse('Media not found', { status: 404 })
-    }
-
     // Get the file path
     const filePath = path.join(process.cwd(), 'public', 'media', params.filename)
 
@@ -41,6 +22,7 @@ export async function GET(request: NextRequest, { params }: { params: { filename
       headers: {
         'Content-Type': contentType,
         'Cache-Control': 'public, max-age=31536000, immutable',
+        'Access-Control-Allow-Origin': '*',
       },
     })
   } catch (error) {
