@@ -27,7 +27,30 @@ export const Media: CollectionConfig = {
     create: ({ req }) => {
       console.log('Media create access check - User:', req.user?.id)
       console.log('Media create access check - Environment:', process.env.NODE_ENV)
-      return authenticated({ req })
+      console.log('Media create access check - Headers:', req.headers)
+
+      // Allow if user is authenticated
+      if (req.user) {
+        console.log('User authenticated, allowing access')
+        return true
+      }
+
+      // In production, allow if request comes from admin panel
+      if (process.env.NODE_ENV === 'production') {
+        const userAgent = req.headers.get('user-agent')
+        const referer = req.headers.get('referer')
+        console.log('Production check - User Agent:', userAgent)
+        console.log('Production check - Referer:', referer)
+
+        // Allow if coming from admin panel
+        if (referer && referer.includes('/admin/')) {
+          console.log('Request from admin panel, allowing access')
+          return true
+        }
+      }
+
+      console.log('Access denied')
+      return false
     },
     delete: authenticated,
     read: anyone,
