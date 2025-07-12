@@ -65,7 +65,24 @@ export default buildConfig({
     },
   }),
   collections: [Pages, Posts, Media, Categories, Users],
-  cors: [getServerSideURL()].filter(Boolean),
+  cors: [
+    getServerSideURL(),
+    'https://sefunsoed.site',
+    'https://www.sefunsoed.site',
+    'https://sefunsoed.vercel.app',
+    process.env.VERCEL_PROJECT_PRODUCTION_URL
+      ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+      : '',
+  ].filter(Boolean),
+  csrf: [
+    getServerSideURL(),
+    'https://sefunsoed.site',
+    'https://www.sefunsoed.site',
+    'https://sefunsoed.vercel.app',
+    process.env.VERCEL_PROJECT_PRODUCTION_URL
+      ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+      : '',
+  ].filter(Boolean),
   globals: [Header, Footer],
   plugins: [
     ...plugins,
