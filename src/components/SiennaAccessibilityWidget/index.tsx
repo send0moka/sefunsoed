@@ -9,6 +9,9 @@ export function SiennaAccessibilityWidget() {
     script.src = 'https://website-widgets.pages.dev/dist/sienna.min.js'
     script.defer = true
 
+    // Configure the widget position to bottom-right
+    script.setAttribute('data-asw-position', 'bottom-right')
+
     // Add script to document head
     document.head.appendChild(script)
 
