@@ -13,12 +13,12 @@ export function middleware(request: NextRequest) {
   // Add CSP headers
   const cspPolicy = [
     "default-src 'self'",
-    "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
-    "style-src 'self' 'unsafe-inline'",
+    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://website-widgets.pages.dev",
+    "style-src 'self' 'unsafe-inline' https://website-widgets.pages.dev",
     "font-src 'self' data:",
     "img-src 'self' data: blob: https://sefunsoed.site https://www.sefunsoed.site https://sefunsoed.vercel.app https://*.vercel.app",
     "media-src 'self' data: blob: https://sefunsoed.site https://www.sefunsoed.site https://sefunsoed.vercel.app https://*.vercel.app",
-    "connect-src 'self' https://sefunsoed.site https://www.sefunsoed.site https://sefunsoed.vercel.app https://*.vercel.app",
+    "connect-src 'self' https://sefunsoed.site https://www.sefunsoed.site https://sefunsoed.vercel.app https://*.vercel.app https://website-widgets.pages.dev",
     "frame-src 'self'",
     "object-src 'none'",
     "base-uri 'self'",

@@ -6,12 +6,12 @@ import { GeistSans } from 'geist/font/sans'
 import React from 'react'
 
 import { AdminBar } from '@/components/AdminBar'
-import { AccessibilityWidget } from '@/components/AccessibilityWidget'
 import { Footer } from '@/Footer/Component'
 import { Header } from '@/Header/Component'
 import { Providers } from '@/providers'
 import { InitTheme } from '@/providers/Theme/InitTheme'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
+import { SiennaAccessibilityWidget } from '@/components/SiennaAccessibilityWidget'
 import { draftMode } from 'next/headers'
 
 import './globals.css'
@@ -38,9 +38,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <Header />
           {children}
           <Footer />
-
-          {/* Accessibility Widget */}
-          <AccessibilityWidget />
+          <SiennaAccessibilityWidget />
         </Providers>
       </body>
     </html>
