@@ -7,10 +7,14 @@ const defaultOpenGraph: Metadata['openGraph'] = {
   images: [
     {
       url: `${getServerSideURL()}/website-template-OG.webp`,
+      width: 1200,
+      height: 630,
+      alt: 'SEF UNSOED Website',
     },
   ],
-  siteName: 'Payload Website Template',
-  title: 'Payload Website Template',
+  siteName: 'SEF UNSOED',
+  title: 'SEF UNSOED',
+  locale: 'id_ID',
 }
 
 export const mergeOpenGraph = (og?: Metadata['openGraph']): Metadata['openGraph'] => {
