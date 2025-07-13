@@ -19,7 +19,11 @@
     "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
     "test": "pnpm run test:int && pnpm run test:e2e",
     "test:e2e": "cross-env NODE_OPTIONS=\"--no-deprecation --no-experimental-strip-types\" pnpm exec playwright test --config=playwright.config.ts",
-    "test:int": "cross-env NODE_OPTIONS=--no-deprecation vitest run --config ./vitest.config.mts"
+    "test:int": "cross-env NODE_OPTIONS=--no-deprecation vitest run --config ./vitest.config.mts",
+    "test:unit": "cross-env NODE_OPTIONS=--no-deprecation tsx scripts/run-tests.ts",
+    "test:collections": "cross-env NODE_OPTIONS=--no-deprecation vitest run tests/int/collections.int.spec.ts --config ./vitest.config.mts",
+    "test:supabase": "cross-env NODE_OPTIONS=--no-deprecation vitest run tests/int/supabase-api.int.spec.ts --config ./vitest.config.mts",
+    "test:api": "cross-env NODE_OPTIONS=--no-deprecation vitest run tests/int/api-validation.int.spec.ts --config ./vitest.config.mts"
   },
   "dependencies": {
     "@payloadcms/admin-bar": "3.46.0",
@@ -49,6 +53,7 @@
     "next": "15.3.3",
     "next-sitemap": "^4.2.3",
     "payload": "3.46.0",
+    "pnpm": "^10.13.1",
     "prism-react-renderer": "^2.3.1",
     "react": "19.1.0",
     "react-dom": "19.1.0",
