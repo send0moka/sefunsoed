@@ -66,6 +66,9 @@ export const PostHero: React.FC<{
         {heroImage && typeof heroImage !== 'string' && (
           <Media fill priority imgClassName="-z-10 object-cover" resource={heroImage} />
         )}
+        {/* Gradient overlay at the top */}
+        <div className="absolute pointer-events-none left-0 top-0 w-full h-20 bg-gradient-to-b from-black to-transparent" />
+        {/* Gradient overlay at the bottom */}
         <div className="absolute pointer-events-none left-0 bottom-0 w-full h-1/2 bg-gradient-to-t from-black to-transparent" />
       </div>
     </div>
