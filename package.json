@@ -22,6 +22,7 @@
     "test:e2e": "cross-env NODE_OPTIONS=\"--no-deprecation --no-experimental-strip-types\" pnpm exec playwright test --config=playwright.config.ts",
     "test:int": "cross-env NODE_OPTIONS=--no-deprecation vitest run --config ./vitest.config.mts",
     "test:unit": "cross-env NODE_OPTIONS=--no-deprecation tsx scripts/run-tests.ts",
+    "test:lang": "cross-env NODE_OPTIONS=--no-deprecation vitest run tests/unit/language-translation.unit.spec.ts --config ./vitest.config.mts --reporter=verbose",
     "test:collections": "cross-env NODE_OPTIONS=--no-deprecation vitest run tests/int/collections.int.spec.ts --config ./vitest.config.mts",
     "test:supabase": "cross-env NODE_OPTIONS=--no-deprecation vitest run tests/int/supabase-api.int.spec.ts --config ./vitest.config.mts",
     "test:api": "cross-env NODE_OPTIONS=--no-deprecation vitest run tests/int/api-validation.int.spec.ts --config ./vitest.config.mts"
