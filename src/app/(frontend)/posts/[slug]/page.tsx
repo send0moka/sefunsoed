@@ -65,7 +65,7 @@ export default async function Post({ params: paramsPromise }: Args) {
           <LanguageAwareRichText
             className="max-w-[48rem] mx-auto"
             englishContent={post.content}
-            indonesianContent={post.content_id}
+            indonesianContent={post.content_id || post.content}
             enableGutter={false}
           />
           {post.relatedPosts && post.relatedPosts.length > 0 && (

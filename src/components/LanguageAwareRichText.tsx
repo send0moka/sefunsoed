@@ -7,7 +7,7 @@ import { Post } from '@/payload-types'
 
 interface LanguageAwareRichTextProps {
   englishContent: Post['content']
-  indonesianContent: Post['content']
+  indonesianContent: Post['content'] | null | undefined
   className?: string
   enableGutter?: boolean
 }
@@ -20,7 +20,8 @@ export const LanguageAwareRichText: React.FC<LanguageAwareRichTextProps> = ({
 }) => {
   const { language } = useLanguage()
 
-  const currentContent = language === 'en' ? englishContent : indonesianContent
+  // Fallback to English content if Indonesian content is null/undefined
+  const currentContent = language === 'en' ? englishContent : indonesianContent || englishContent
 
   return <RichText className={className} data={currentContent} enableGutter={enableGutter} />
 }
