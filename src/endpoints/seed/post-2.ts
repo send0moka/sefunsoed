@@ -10,6 +10,7 @@ export const post2: (args: PostArgs) => RequiredDataFromCollectionSlug<'posts'> 
     slug: 'global-gaze',
     _status: 'published',
     authors: [author],
+    title_id: 'Pandangan Global: Perspektif Baru dalam Era Digital',
     content: {
       root: {
         type: 'root',
@@ -211,6 +212,54 @@ export const post2: (args: PostArgs) => RequiredDataFromCollectionSlug<'posts'> 
             },
             format: '',
             version: 2,
+          },
+        ],
+        direction: 'ltr',
+        format: '',
+        indent: 0,
+        version: 1,
+      },
+    },
+    content_id: {
+      root: {
+        type: 'root',
+        children: [
+          {
+            type: 'heading',
+            children: [
+              {
+                type: 'text',
+                detail: 0,
+                format: 0,
+                mode: 'normal',
+                style: '',
+                text: 'Pandangan Global: Melampaui Berita Utama',
+                version: 1,
+              },
+            ],
+            direction: 'ltr',
+            format: '',
+            indent: 0,
+            tag: 'h1',
+            version: 1,
+          },
+          {
+            type: 'paragraph',
+            children: [
+              {
+                type: 'text',
+                detail: 0,
+                format: 0,
+                mode: 'normal',
+                style: '',
+                text: 'Jelajahi yang tak terungkap dan tak terabaikan. Pandangan yang diperbesar ke sudut-sudut dunia.',
+                version: 1,
+              },
+            ],
+            direction: 'ltr',
+            format: '',
+            indent: 0,
+            version: 1,
           },
         ],
         direction: 'ltr',

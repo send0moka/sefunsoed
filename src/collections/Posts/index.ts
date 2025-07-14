@@ -73,6 +73,13 @@ export const Posts: CollectionConfig<'posts'> = {
       name: 'title',
       type: 'text',
       required: true,
+      label: 'Title (English)',
+    },
+    {
+      name: 'title_id',
+      type: 'text',
+      required: false,
+      label: 'Title (Indonesian)',
     },
     {
       type: 'tabs',
@@ -99,8 +106,26 @@ export const Posts: CollectionConfig<'posts'> = {
                   ]
                 },
               }),
-              label: false,
+              label: 'Content (English)',
               required: true,
+            },
+            {
+              name: 'content_id',
+              type: 'richText',
+              editor: lexicalEditor({
+                features: ({ rootFeatures }) => {
+                  return [
+                    ...rootFeatures,
+                    HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
+                    BlocksFeature({ blocks: [Banner, Code, MediaBlock] }),
+                    FixedToolbarFeature(),
+                    InlineToolbarFeature(),
+                    HorizontalRuleFeature(),
+                  ]
+                },
+              }),
+              label: 'Content (Indonesian)',
+              required: false,
             },
           ],
           label: 'Content',

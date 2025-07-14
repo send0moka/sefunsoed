@@ -214,6 +214,7 @@ export interface Page {
 export interface Post {
   id: number;
   title: string;
+  title_id?: string | null;
   heroImage?: (number | null) | Media;
   content: {
     root: {
@@ -230,6 +231,21 @@ export interface Post {
     };
     [k: string]: unknown;
   };
+  content_id?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   relatedPosts?: (number | Post)[] | null;
   categories?: (number | Category)[] | null;
   meta?: {
@@ -1081,8 +1097,10 @@ export interface FormBlockSelect<T extends boolean = true> {
  */
 export interface PostsSelect<T extends boolean = true> {
   title?: T;
+  title_id?: T;
   heroImage?: T;
   content?: T;
+  content_id?: T;
   relatedPosts?: T;
   categories?: T;
   meta?:

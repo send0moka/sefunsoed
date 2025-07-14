@@ -7,18 +7,22 @@ import type { Post } from '@/payload-types'
 
 import { Media } from '@/components/Media'
 import { formatAuthors } from '@/utilities/formatAuthors'
+import { useLanguage } from '@/providers/LanguageProvider'
 import '/node_modules/flag-icons/css/flag-icons.min.css'
 
 export const PostHero: React.FC<{
   post: Post
 }> = ({ post }) => {
-  const { categories, heroImage, populatedAuthors, publishedAt, title } = post
+  const { categories, heroImage, populatedAuthors, publishedAt, title, title_id } = post
+  const { language, setLanguage } = useLanguage()
 
   const hasAuthors =
     populatedAuthors && populatedAuthors.length > 0 && formatAuthors(populatedAuthors) !== ''
 
   const [isDropdownOpen, setIsDropdownOpen] = React.useState(false)
-  const [selectedLanguage, setSelectedLanguage] = React.useState('en')
+
+  // Get current title based on selected language
+  const currentTitle = language === 'en' ? title : title_id
 
   return (
     <div className="relative -mt-[10.4rem] flex items-end">
@@ -45,7 +49,7 @@ export const PostHero: React.FC<{
           </div>
 
           <div className="">
-            <h1 className="mb-6 text-3xl font-semibold md:text-5xl lg:text-6xl">{title}</h1>
+            <h1 className="mb-6 text-3xl font-semibold md:text-5xl lg:text-6xl">{currentTitle}</h1>
           </div>
 
           <div className="flex flex-col gap-4 md:flex-row md:gap-16">
@@ -73,7 +77,7 @@ export const PostHero: React.FC<{
                   className="flex items-center gap-2"
                   onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                 >
-                  {selectedLanguage === 'en' ? (
+                  {language === 'en' ? (
                     <span className="fi fi-gb"></span>
                   ) : (
                     <span className="fi fi-id"></span>
@@ -98,7 +102,7 @@ export const PostHero: React.FC<{
                     <button
                       className="flex items-center w-full gap-2 px-3 py-2 transition-colors hover:bg-white/20"
                       onClick={() => {
-                        setSelectedLanguage('en')
+                        setLanguage('en')
                         setIsDropdownOpen(false)
                       }}
                     >
@@ -107,7 +111,7 @@ export const PostHero: React.FC<{
                     <button
                       className="flex items-center w-full gap-2 px-3 py-2 transition-colors hover:bg-white/20"
                       onClick={() => {
-                        setSelectedLanguage('id')
+                        setLanguage('id')
                         setIsDropdownOpen(false)
                       }}
                     >

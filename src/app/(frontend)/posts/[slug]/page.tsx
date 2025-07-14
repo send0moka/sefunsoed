@@ -2,11 +2,11 @@ import type { Metadata } from 'next'
 
 import { RelatedPosts } from '@/blocks/RelatedPosts/Component'
 import { PayloadRedirects } from '@/components/PayloadRedirects'
+import { LanguageAwareRichText } from '@/components/LanguageAwareRichText'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import { draftMode } from 'next/headers'
 import React, { cache } from 'react'
-import RichText from '@/components/RichText'
 
 import type { Post } from '@/payload-types'
 
@@ -62,7 +62,12 @@ export default async function Post({ params: paramsPromise }: Args) {
 
       <div className="flex flex-col items-center gap-4 pt-8">
         <div className="container">
-          <RichText className="max-w-[48rem] mx-auto" data={post.content} enableGutter={false} />
+          <LanguageAwareRichText
+            className="max-w-[48rem] mx-auto"
+            englishContent={post.content}
+            indonesianContent={post.content_id}
+            enableGutter={false}
+          />
           {post.relatedPosts && post.relatedPosts.length > 0 && (
             <RelatedPosts
               className="mt-12 max-w-[52rem] lg:grid lg:grid-cols-subgrid col-start-1 col-span-3 grid-rows-[2fr]"
@@ -97,6 +102,23 @@ const queryPostBySlug = cache(async ({ slug }: { slug: string }) => {
       slug: {
         equals: slug,
       },
+    },
+    select: {
+      title: true,
+      title_id: true,
+      content: true,
+      content_id: true,
+      heroImage: true,
+      categories: true,
+      publishedAt: true,
+      authors: true,
+      populatedAuthors: true,
+      relatedPosts: true,
+      meta: true,
+      slug: true,
+      updatedAt: true,
+      createdAt: true,
+      _status: true,
     },
   })
 

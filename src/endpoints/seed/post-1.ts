@@ -16,6 +16,7 @@ export const post1: (args: PostArgs) => RequiredDataFromCollectionSlug<'posts'> 
     slug: 'digital-horizons',
     _status: 'published',
     authors: [author],
+    title_id: 'Digital Horizons: Menjembatani Kesenjangan Teknologi',
     content: {
       root: {
         type: 'root',
@@ -294,6 +295,54 @@ export const post1: (args: PostArgs) => RequiredDataFromCollectionSlug<'posts'> 
             },
             format: '',
             version: 2,
+          },
+        ],
+        direction: 'ltr',
+        format: '',
+        indent: 0,
+        version: 1,
+      },
+    },
+    content_id: {
+      root: {
+        type: 'root',
+        children: [
+          {
+            type: 'heading',
+            children: [
+              {
+                type: 'text',
+                detail: 0,
+                format: 0,
+                mode: 'normal',
+                style: '',
+                text: 'Horison Digital: Sekilas ke Masa Depan',
+                version: 1,
+              },
+            ],
+            direction: 'ltr',
+            format: '',
+            indent: 0,
+            tag: 'h1',
+            version: 1,
+          },
+          {
+            type: 'paragraph',
+            children: [
+              {
+                type: 'text',
+                detail: 0,
+                format: 0,
+                mode: 'normal',
+                style: '',
+                text: 'Selamat datang di era yang didefinisikan oleh konvergensi teknologi dan kreativitas manusia.',
+                version: 1,
+              },
+            ],
+            direction: 'ltr',
+            format: '',
+            indent: 0,
+            version: 1,
           },
         ],
         direction: 'ltr',
