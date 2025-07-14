@@ -191,7 +191,7 @@ export interface Page {
       | null;
     media?: (number | null) | Media;
   };
-  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock | TimelineBlock)[];
+  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock | TimelineBlock | AccordionBlock)[];
   meta?: {
     title?: string | null;
     /**
@@ -759,6 +759,58 @@ export interface TimelineBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AccordionBlock".
+ */
+export interface AccordionBlock {
+  /**
+   * Optional title for the accordion section
+   */
+  title?: string | null;
+  /**
+   * Allow multiple accordion panels to be open at the same time
+   */
+  allowMultiple?: boolean | null;
+  panels?:
+    | {
+        /**
+         * The header text for this accordion panel
+         */
+        title: string;
+        /**
+         * The content that will be shown when panel is expanded
+         */
+        content: {
+          root: {
+            type: string;
+            children: {
+              type: string;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        };
+        /**
+         * Whether this panel should be open when the page loads
+         */
+        isOpenByDefault?: boolean | null;
+        /**
+         * Visual style variant for this panel
+         */
+        variant?: ('default' | 'bordered' | 'filled' | 'ghost') | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'accordion';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -1049,6 +1101,7 @@ export interface PagesSelect<T extends boolean = true> {
         archive?: T | ArchiveBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
         timeline?: T | TimelineBlockSelect<T>;
+        accordion?: T | AccordionBlockSelect<T>;
       };
   meta?:
     | T
@@ -1163,6 +1216,25 @@ export interface TimelineBlockSelect<T extends boolean = true> {
         description?: T;
         status?: T;
         icon?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AccordionBlock_select".
+ */
+export interface AccordionBlockSelect<T extends boolean = true> {
+  title?: T;
+  allowMultiple?: T;
+  panels?:
+    | T
+    | {
+        title?: T;
+        content?: T;
+        isOpenByDefault?: T;
+        variant?: T;
         id?: T;
       };
   id?: T;
