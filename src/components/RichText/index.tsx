@@ -135,10 +135,7 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
           type: field.type,
           required: Boolean(field.required),
           placeholder: field.placeholder || undefined,
-          options: field.options?.map((opt) => ({
-            label: opt.label,
-            value: opt.value,
-          })),
+          selectOptions: field.selectOptions || undefined,
         }))}
         submitButtonText={node.fields.submitButtonText || undefined}
       />
