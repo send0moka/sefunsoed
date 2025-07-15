@@ -72,6 +72,7 @@ export interface Config {
     media: Media;
     categories: Category;
     users: User;
+    'registration-submissions': RegistrationSubmission;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -88,6 +89,7 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
+    'registration-submissions': RegistrationSubmissionsSelect<false> | RegistrationSubmissionsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -191,7 +193,16 @@ export interface Page {
       | null;
     media?: (number | null) | Media;
   };
-  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock | TimelineBlock | AccordionBlock)[];
+  layout: (
+    | CallToActionBlock
+    | ContentBlock
+    | MediaBlock
+    | ArchiveBlock
+    | FormBlock
+    | TimelineBlock
+    | AccordionBlock
+    | RegistrationFormBlock
+  )[];
   meta?: {
     title?: string | null;
     /**
@@ -811,6 +822,165 @@ export interface AccordionBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RegistrationFormBlock".
+ */
+export interface RegistrationFormBlock {
+  /**
+   * Select the form that will receive submissions from this registration form
+   */
+  formId?: (number | null) | Form;
+  /**
+   * Title displayed at the top of the registration form
+   */
+  title?: string | null;
+  programs?:
+    | {
+        /**
+         * Unique identifier for this program
+         */
+        programId: string;
+        /**
+         * Display name of the program
+         */
+        title: string;
+        /**
+         * Detailed description shown in collapsible section
+         */
+        description: {
+          root: {
+            type: string;
+            children: {
+              type: string;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        };
+        /**
+         * Price in IDR (optional)
+         */
+        price?: number | null;
+        /**
+         * e.g., "6 months", "1 year"
+         */
+        duration?: string | null;
+        /**
+         * Whether this program is currently accepting registrations
+         */
+        isAvailable?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Configure which fields to show in step 2
+   */
+  personalFields?:
+    | {
+        /**
+         * Internal field identifier (camelCase)
+         */
+        fieldName: string;
+        /**
+         * Label shown to users
+         */
+        label: string;
+        type: 'text' | 'email' | 'tel' | 'number' | 'date' | 'textarea' | 'select';
+        required?: boolean | null;
+        /**
+         * Placeholder text for input fields
+         */
+        placeholder?: string | null;
+        /**
+         * Options for select dropdown in JSON format: [{"label":"Option 1","value":"option1"},{"label":"Option 2","value":"option2"}]
+         */
+        selectOptions?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Terms that users must agree to before submitting
+   */
+  termsAndConditions?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Text displayed on the final submit button
+   */
+  submitButtonText?: string | null;
+  /**
+   * Message shown after successful form submission
+   */
+  successMessage?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'registrationForm';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "registration-submissions".
+ */
+export interface RegistrationSubmission {
+  id: number;
+  /**
+   * Program yang dipilih oleh pendaftar
+   */
+  selectedProgram?: string | null;
+  /**
+   * Informasi pribadi pendaftar dalam format JSON
+   */
+  personalInfo?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  termsAgreed?: boolean | null;
+  submissionData?:
+    | {
+        field: string;
+        value: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -1003,6 +1173,10 @@ export interface PayloadLockedDocument {
         value: number | User;
       } | null)
     | ({
+        relationTo: 'registration-submissions';
+        value: number | RegistrationSubmission;
+      } | null)
+    | ({
         relationTo: 'redirects';
         value: number | Redirect;
       } | null)
@@ -1102,6 +1276,7 @@ export interface PagesSelect<T extends boolean = true> {
         formBlock?: T | FormBlockSelect<T>;
         timeline?: T | TimelineBlockSelect<T>;
         accordion?: T | AccordionBlockSelect<T>;
+        registrationForm?: T | RegistrationFormBlockSelect<T>;
       };
   meta?:
     | T
@@ -1242,6 +1417,41 @@ export interface AccordionBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RegistrationFormBlock_select".
+ */
+export interface RegistrationFormBlockSelect<T extends boolean = true> {
+  formId?: T;
+  title?: T;
+  programs?:
+    | T
+    | {
+        programId?: T;
+        title?: T;
+        description?: T;
+        price?: T;
+        duration?: T;
+        isAvailable?: T;
+        id?: T;
+      };
+  personalFields?:
+    | T
+    | {
+        fieldName?: T;
+        label?: T;
+        type?: T;
+        required?: T;
+        placeholder?: T;
+        selectOptions?: T;
+        id?: T;
+      };
+  termsAndConditions?: T;
+  submitButtonText?: T;
+  successMessage?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "posts_select".
  */
 export interface PostsSelect<T extends boolean = true> {
@@ -1337,6 +1547,24 @@ export interface UsersSelect<T extends boolean = true> {
         createdAt?: T;
         expiresAt?: T;
       };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "registration-submissions_select".
+ */
+export interface RegistrationSubmissionsSelect<T extends boolean = true> {
+  selectedProgram?: T;
+  personalInfo?: T;
+  termsAgreed?: T;
+  submissionData?:
+    | T
+    | {
+        field?: T;
+        value?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
