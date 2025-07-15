@@ -56,7 +56,7 @@ export default function AdminTestPage() {
           </div>
         )}
 
-        <div className="bg-gray-100 p-4 rounded">
+        <div className="bg-neutral-100 p-4 rounded">
           <h3 className="font-semibold mb-2">Debug Info:</h3>
           <p>
             <strong>Current URL:</strong>{' '}

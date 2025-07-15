@@ -51,7 +51,7 @@ export default function MediaTestPage() {
 
         <div>
           <h2 className="text-xl font-semibold mb-4">Test 4: URL Debug Info</h2>
-          <div className="bg-gray-100 p-4 rounded">
+          <div className="bg-neutral-100 p-4 rounded">
             <p>
               <strong>Mock Media URL:</strong> {testMedia.url}
             </p>

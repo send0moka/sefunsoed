@@ -71,7 +71,7 @@ export default function UploadTest() {
             name="file"
             accept="image/*"
             required
-            className="block w-full text-sm text-gray-500
+            className="block w-full text-sm text-neutral-500
                             file:mr-4 file:py-2 file:px-4
                             file:rounded-full file:border-0
                             file:text-sm file:font-semibold
@@ -91,7 +91,7 @@ export default function UploadTest() {
       {result && (
         <div className="mt-4">
           <h2 className="text-lg font-semibold mb-2">Result:</h2>
-          <pre className="bg-gray-100 p-4 rounded overflow-x-auto text-sm">
+          <pre className="bg-neutral-100 p-4 rounded overflow-x-auto text-sm">
             {JSON.stringify(result, null, 2)}
           </pre>
         </div>

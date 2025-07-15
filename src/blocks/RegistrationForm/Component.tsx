@@ -226,15 +226,15 @@ const RegistrationFormComponent: React.FC<RegistrationFormProps> = ({
 
   if (isSubmitted) {
     return (
-      <div className="max-w-4xl mx-auto p-6 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
+      <div className="max-w-4xl mx-auto p-6 bg-white dark:bg-neutral-800 rounded-lg shadow-lg">
         <div className="text-center py-12">
           <div className="mx-auto flex items-center justify-center w-16 h-16 rounded-full bg-green-100 dark:bg-green-900 mb-6">
             <Check className="w-8 h-8 text-green-600 dark:text-green-400" />
           </div>
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+          <h2 className="text-2xl font-bold text-neutral-900 dark:text-white mb-2">
             Registration Submitted!
           </h2>
-          <p className="text-gray-600 dark:text-gray-300">
+          <p className="text-neutral-600 dark:text-neutral-300">
             Thank you for your registration. We will contact you soon.
           </p>
         </div>
@@ -243,10 +243,10 @@ const RegistrationFormComponent: React.FC<RegistrationFormProps> = ({
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
+    <div className="max-w-4xl mx-auto p-6 bg-white dark:bg-neutral-800 rounded-lg shadow-lg">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">{title}</h1>
+        <h1 className="text-3xl font-bold text-neutral-900 dark:text-white mb-4">{title}</h1>
       </div>
 
       {/* Progress Stepper */}
@@ -265,7 +265,7 @@ const RegistrationFormComponent: React.FC<RegistrationFormProps> = ({
                       ? 'bg-green-500 border-green-500 text-white'
                       : isActive
                         ? 'bg-blue-500 border-blue-500 text-white'
-                        : 'bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-500 dark:text-gray-400'
+                        : 'bg-neutral-100 dark:bg-neutral-700 border-neutral-300 dark:border-neutral-600 text-neutral-500 dark:text-neutral-400'
                   }`}
                 >
                   {isCompleted ? <Check className="w-5 h-5" /> : <Icon className="w-5 h-5" />}
@@ -277,7 +277,7 @@ const RegistrationFormComponent: React.FC<RegistrationFormProps> = ({
                         ? 'text-blue-600 dark:text-blue-400'
                         : isCompleted
                           ? 'text-green-600 dark:text-green-400'
-                          : 'text-gray-500 dark:text-gray-400'
+                          : 'text-neutral-500 dark:text-neutral-400'
                     }`}
                   >
                     Step {step.id}
@@ -285,8 +285,8 @@ const RegistrationFormComponent: React.FC<RegistrationFormProps> = ({
                   <div
                     className={`text-xs ${
                       isActive || isCompleted
-                        ? 'text-gray-900 dark:text-gray-100'
-                        : 'text-gray-500 dark:text-gray-400'
+                        ? 'text-neutral-900 dark:text-neutral-100'
+                        : 'text-neutral-500 dark:text-neutral-400'
                     }`}
                   >
                     {step.title}
@@ -294,7 +294,7 @@ const RegistrationFormComponent: React.FC<RegistrationFormProps> = ({
                 </div>
                 {index < steps.length - 1 && (
                   <div
-                    className={`flex-1 h-0.5 mx-4 ${isCompleted ? 'bg-green-500' : 'bg-gray-200 dark:bg-gray-600'}`}
+                    className={`flex-1 h-0.5 mx-4 ${isCompleted ? 'bg-green-500' : 'bg-neutral-200 dark:bg-neutral-600'}`}
                   />
                 )}
               </div>
@@ -307,7 +307,7 @@ const RegistrationFormComponent: React.FC<RegistrationFormProps> = ({
       <div className="min-h-[400px]">
         {currentStep === 1 && (
           <div>
-            <h2 className="text-xl font-semibold mb-6 text-gray-900 dark:text-white">
+            <h2 className="text-xl font-semibold mb-6 text-neutral-900 dark:text-white">
               Select a Program
             </h2>
             <div className="space-y-4">
@@ -326,7 +326,7 @@ const RegistrationFormComponent: React.FC<RegistrationFormProps> = ({
                       className={`border rounded-lg transition-all duration-200 ${
                         isSelected
                           ? 'border-blue-500 bg-blue-50 dark:border-blue-400 dark:bg-blue-950'
-                          : 'border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500 bg-white dark:bg-gray-800'
+                          : 'border-neutral-200 dark:border-neutral-600 hover:border-neutral-300 dark:hover:border-neutral-500 bg-white dark:bg-neutral-800'
                       } ${!program.isAvailable ? 'opacity-50' : ''}`}
                     >
                       <div
@@ -348,7 +348,7 @@ const RegistrationFormComponent: React.FC<RegistrationFormProps> = ({
                                 className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
                                   isSelected
                                     ? 'border-blue-500 bg-blue-500'
-                                    : 'border-gray-300 dark:border-gray-600'
+                                    : 'border-neutral-300 dark:border-neutral-600'
                                 }`}
                               >
                                 {isSelected && <Check className="w-3 h-3 text-white" />}
@@ -357,10 +357,10 @@ const RegistrationFormComponent: React.FC<RegistrationFormProps> = ({
 
                             {/* Program content */}
                             <div className="flex-1">
-                              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                              <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-2">
                                 {program.title}
                               </h3>
-                              <div className="flex items-center space-x-4 text-sm text-gray-600 dark:text-gray-300">
+                              <div className="flex items-center space-x-4 text-sm text-neutral-600 dark:text-neutral-300">
                                 {program.duration && <span>Duration: {program.duration}</span>}
                                 {program.price && (
                                   <span>Price: IDR {program.price.toLocaleString()}</span>
@@ -383,12 +383,12 @@ const RegistrationFormComponent: React.FC<RegistrationFormProps> = ({
                                   e.stopPropagation()
                                   setExpandedProgram(isExpanded ? null : program.programId)
                                 }}
-                                className="p-1 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                                className="p-1 rounded-full hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors"
                               >
                                 {isExpanded ? (
-                                  <ChevronUp className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+                                  <ChevronUp className="w-5 h-5 text-neutral-600 dark:text-neutral-400" />
                                 ) : (
-                                  <ChevronDown className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+                                  <ChevronDown className="w-5 h-5 text-neutral-600 dark:text-neutral-400" />
                                 )}
                               </button>
                             )}
@@ -404,8 +404,8 @@ const RegistrationFormComponent: React.FC<RegistrationFormProps> = ({
                           }`}
                         >
                           <div className="px-6 pb-6 pt-0">
-                            <div className="border-t border-gray-200 dark:border-gray-600 pt-4">
-                              <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
+                            <div className="border-t border-neutral-200 dark:border-neutral-600 pt-4">
+                              <p className="text-neutral-700 dark:text-neutral-300 text-sm leading-relaxed">
                                 {program.description}
                               </p>
                             </div>
@@ -417,8 +417,8 @@ const RegistrationFormComponent: React.FC<RegistrationFormProps> = ({
                 })
               ) : (
                 <div className="text-center py-8">
-                  <FileText className="w-12 h-12 text-gray-400 dark:text-gray-500 mx-auto mb-4" />
-                  <p className="text-gray-500 dark:text-gray-400">
+                  <FileText className="w-12 h-12 text-neutral-400 dark:text-neutral-500 mx-auto mb-4" />
+                  <p className="text-neutral-500 dark:text-neutral-400">
                     No programs available at the moment.
                   </p>
                 </div>
@@ -429,7 +429,7 @@ const RegistrationFormComponent: React.FC<RegistrationFormProps> = ({
 
         {currentStep === 2 && (
           <div>
-            <h2 className="text-xl font-semibold mb-6 text-gray-900 dark:text-white">
+            <h2 className="text-xl font-semibold mb-6 text-neutral-900 dark:text-white">
               Personal Information
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -441,7 +441,7 @@ const RegistrationFormComponent: React.FC<RegistrationFormProps> = ({
                   >
                     <label
                       htmlFor={field.fieldName}
-                      className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                      className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2"
                     >
                       {field.label}
                       {field.required && <span className="text-red-500 ml-1">*</span>}
@@ -464,7 +464,7 @@ const RegistrationFormComponent: React.FC<RegistrationFormProps> = ({
                             },
                           }))
                         }
-                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                        className="w-full px-3 py-2 border border-neutral-300 dark:border-neutral-600 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-neutral-700 text-neutral-900 dark:text-white"
                       />
                     ) : field.type === 'select' ? (
                       <select
@@ -481,7 +481,7 @@ const RegistrationFormComponent: React.FC<RegistrationFormProps> = ({
                             },
                           }))
                         }
-                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                        className="w-full px-3 py-2 border border-neutral-300 dark:border-neutral-600 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-neutral-700 text-neutral-900 dark:text-white"
                       >
                         <option value="">Select {field.label}</option>
                         {parseSelectOptions(field.selectOptions)?.map((option) => (
@@ -508,15 +508,15 @@ const RegistrationFormComponent: React.FC<RegistrationFormProps> = ({
                             },
                           }))
                         }
-                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                        className="w-full px-3 py-2 border border-neutral-300 dark:border-neutral-600 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-neutral-700 text-neutral-900 dark:text-white"
                       />
                     )}
                   </div>
                 ))
               ) : (
                 <div className="md:col-span-2 text-center py-8">
-                  <User className="w-12 h-12 text-gray-400 dark:text-gray-500 mx-auto mb-4" />
-                  <p className="text-gray-500 dark:text-gray-400">
+                  <User className="w-12 h-12 text-neutral-400 dark:text-neutral-500 mx-auto mb-4" />
+                  <p className="text-neutral-500 dark:text-neutral-400">
                     No personal information fields configured.
                   </p>
                 </div>
@@ -527,16 +527,16 @@ const RegistrationFormComponent: React.FC<RegistrationFormProps> = ({
 
         {currentStep === 3 && (
           <div>
-            <h2 className="text-xl font-semibold mb-6 text-gray-900 dark:text-white">
+            <h2 className="text-xl font-semibold mb-6 text-neutral-900 dark:text-white">
               Review & Submit
             </h2>
 
             {/* Selected Program Review */}
             <div className="mb-8">
-              <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
+              <h3 className="text-lg font-medium text-neutral-900 dark:text-white mb-4">
                 Selected Program
               </h3>
-              <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+              <div className="bg-neutral-50 dark:bg-neutral-700 p-4 rounded-lg">
                 {formData.selectedProgram ? (
                   <div>
                     {(() => {
@@ -545,10 +545,10 @@ const RegistrationFormComponent: React.FC<RegistrationFormProps> = ({
                       )
                       return selectedProgram ? (
                         <div>
-                          <h4 className="font-semibold text-gray-900 dark:text-white">
+                          <h4 className="font-semibold text-neutral-900 dark:text-white">
                             {selectedProgram.title}
                           </h4>
-                          <div className="flex items-center space-x-4 text-sm text-gray-600 dark:text-gray-300 mt-1">
+                          <div className="flex items-center space-x-4 text-sm text-neutral-600 dark:text-neutral-300 mt-1">
                             {selectedProgram.duration && (
                               <span>Duration: {selectedProgram.duration}</span>
                             )}
@@ -558,22 +558,22 @@ const RegistrationFormComponent: React.FC<RegistrationFormProps> = ({
                           </div>
                         </div>
                       ) : (
-                        <p className="text-gray-600 dark:text-gray-300">Program not found</p>
+                        <p className="text-neutral-600 dark:text-neutral-300">Program not found</p>
                       )
                     })()}
                   </div>
                 ) : (
-                  <p className="text-gray-600 dark:text-gray-300">No program selected</p>
+                  <p className="text-neutral-600 dark:text-neutral-300">No program selected</p>
                 )}
               </div>
             </div>
 
             {/* Personal Information Review */}
             <div className="mb-8">
-              <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
+              <h3 className="text-lg font-medium text-neutral-900 dark:text-white mb-4">
                 Personal Information
               </h3>
-              <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+              <div className="bg-neutral-50 dark:bg-neutral-700 p-4 rounded-lg">
                 {Object.keys(formData.personalInfo).length > 0 ? (
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {personalFields.map((field) => {
@@ -582,10 +582,10 @@ const RegistrationFormComponent: React.FC<RegistrationFormProps> = ({
 
                       return (
                         <div key={field.fieldName}>
-                          <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                          <dt className="text-sm font-medium text-neutral-500 dark:text-neutral-400">
                             {field.label}
                           </dt>
-                          <dd className="text-sm text-gray-900 dark:text-white mt-1">
+                          <dd className="text-sm text-neutral-900 dark:text-white mt-1">
                             {field.type === 'select'
                               ? parseSelectOptions(field.selectOptions).find(
                                   (opt) => opt.value === value,
@@ -597,7 +597,7 @@ const RegistrationFormComponent: React.FC<RegistrationFormProps> = ({
                     })}
                   </div>
                 ) : (
-                  <p className="text-gray-600 dark:text-gray-300">
+                  <p className="text-neutral-600 dark:text-neutral-300">
                     No personal information provided
                   </p>
                 )}
@@ -616,9 +616,9 @@ const RegistrationFormComponent: React.FC<RegistrationFormProps> = ({
                       agreeToTerms: e.target.checked,
                     }))
                   }
-                  className="mt-1 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700"
+                  className="mt-1 h-4 w-4 text-blue-600 focus:ring-blue-500 border-neutral-300 dark:border-neutral-600 rounded bg-white dark:bg-neutral-700"
                 />
-                <span className="text-sm text-gray-700 dark:text-gray-300">
+                <span className="text-sm text-neutral-700 dark:text-neutral-300">
                   I agree to the{' '}
                   <a
                     href="#"
@@ -650,14 +650,14 @@ const RegistrationFormComponent: React.FC<RegistrationFormProps> = ({
       </div>
 
       {/* Navigation Buttons */}
-      <div className="flex justify-between pt-6 border-t border-gray-200 dark:border-gray-600">
+      <div className="flex justify-between pt-6 border-t border-neutral-200 dark:border-neutral-600">
         <button
           onClick={handlePrevious}
           disabled={currentStep === 1}
           className={`flex items-center px-4 py-2 rounded-md ${
             currentStep === 1
-              ? 'bg-gray-100 dark:bg-gray-700 text-gray-400 dark:text-gray-500 cursor-not-allowed'
-              : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-500'
+              ? 'bg-neutral-100 dark:bg-neutral-700 text-neutral-400 dark:text-neutral-500 cursor-not-allowed'
+              : 'bg-neutral-200 dark:bg-neutral-600 text-neutral-700 dark:text-neutral-200 hover:bg-neutral-300 dark:hover:bg-neutral-500'
           }`}
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
@@ -671,7 +671,7 @@ const RegistrationFormComponent: React.FC<RegistrationFormProps> = ({
             className={`flex items-center px-4 py-2 rounded-md ${
               canProceedToNext()
                 ? 'bg-blue-600 text-white hover:bg-blue-700'
-                : 'bg-gray-300 dark:bg-gray-600 text-gray-500 dark:text-gray-400 cursor-not-allowed'
+                : 'bg-neutral-300 dark:bg-neutral-600 text-neutral-500 dark:text-neutral-400 cursor-not-allowed'
             }`}
           >
             Next
@@ -683,7 +683,7 @@ const RegistrationFormComponent: React.FC<RegistrationFormProps> = ({
             disabled={isSubmitting || !canSubmit()}
             className={`flex items-center px-6 py-2 rounded-md ${
               isSubmitting || !canSubmit()
-                ? 'bg-gray-400 dark:bg-gray-600 cursor-not-allowed'
+                ? 'bg-neutral-400 dark:bg-neutral-600 cursor-not-allowed'
                 : 'bg-green-600 hover:bg-green-700'
             } text-white`}
           >

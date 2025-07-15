@@ -72,7 +72,7 @@ const TimelineIcon: React.FC<{ icon: string; status: string }> = ({ icon, status
       case 'cancelled':
         return 'text-red-600 bg-red-100'
       default:
-        return 'text-gray-600 bg-gray-100'
+        return 'text-neutral-600 bg-neutral-100'
     }
   }
 
@@ -167,7 +167,7 @@ export const TimelineBlock: React.FC<TimelineBlockProps> = ({ title, events }) =
                             'bg-blue-100 text-blue-800': status === 'in-progress',
                             'bg-yellow-100 text-yellow-800': status === 'upcoming',
                             'bg-red-100 text-red-800': status === 'cancelled',
-                            'bg-gray-100 text-gray-800': !status || status === 'completed',
+                            'bg-neutral-100 text-neutral-800': !status || status === 'completed',
                           },
                         )}
                       >

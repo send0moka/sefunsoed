@@ -108,8 +108,8 @@ export default function RegistrationFormDemo() {
   return (
     <div className="container mx-auto py-8">
       <div className="mb-8">
-        <h1 className="text-4xl font-bold text-gray-900 mb-4">Registration Form Demo</h1>
-        <p className="text-lg text-gray-600">
+        <h1 className="text-4xl font-bold text-neutral-900 mb-4">Registration Form Demo</h1>
+        <p className="text-lg text-neutral-600">
           Complex multi-step registration form with program selection (accordion layout), personal
           information form (grid layout), and review summary with stepper navigation.
         </p>
