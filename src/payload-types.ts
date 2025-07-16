@@ -202,6 +202,7 @@ export interface Page {
     | TimelineBlock
     | AccordionBlock
     | RegistrationFormBlock
+    | PlanLayoutBlock
   )[];
   meta?: {
     title?: string | null;
@@ -948,6 +949,80 @@ export interface RegistrationFormBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PlanLayoutBlock".
+ */
+export interface PlanLayoutBlock {
+  /**
+   * Main title for the plan section
+   */
+  title?: string | null;
+  /**
+   * Subtitle or description text below the main title
+   */
+  subtitle?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  plans?:
+    | {
+        /**
+         * Name of the service plan
+         */
+        title: string;
+        /**
+         * Brief description of the service plan
+         */
+        description: string;
+        /**
+         * Price in IDR
+         */
+        price: number;
+        /**
+         * e.g., "3 months", "6 weeks"
+         */
+        duration?: string | null;
+        /**
+         * Lucide icon name (e.g., "BookOpen", "Globe", "Award")
+         */
+        icon?: string | null;
+        features?:
+          | {
+              feature: string;
+              id?: string | null;
+            }[]
+          | null;
+        /**
+         * Show "Most Popular" badge on this plan
+         */
+        isPopular?: boolean | null;
+        /**
+         * Text displayed on the register button
+         */
+        buttonText?: string | null;
+        /**
+         * URL or path for the register button
+         */
+        buttonLink?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'planLayout';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "registration-submissions".
  */
 export interface RegistrationSubmission {
@@ -1277,6 +1352,7 @@ export interface PagesSelect<T extends boolean = true> {
         timeline?: T | TimelineBlockSelect<T>;
         accordion?: T | AccordionBlockSelect<T>;
         registrationForm?: T | RegistrationFormBlockSelect<T>;
+        planLayout?: T | PlanLayoutBlockSelect<T>;
       };
   meta?:
     | T
@@ -1447,6 +1523,35 @@ export interface RegistrationFormBlockSelect<T extends boolean = true> {
   termsAndConditions?: T;
   submitButtonText?: T;
   successMessage?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PlanLayoutBlock_select".
+ */
+export interface PlanLayoutBlockSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  plans?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        price?: T;
+        duration?: T;
+        icon?: T;
+        features?:
+          | T
+          | {
+              feature?: T;
+              id?: T;
+            };
+        isPopular?: T;
+        buttonText?: T;
+        buttonLink?: T;
+        id?: T;
+      };
   id?: T;
   blockName?: T;
 }

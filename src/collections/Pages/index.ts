@@ -15,6 +15,7 @@ import { populatePublishedAt } from '../../hooks/populatePublishedAt'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
 import { revalidateDelete, revalidatePage } from './hooks/revalidatePage'
 import { RegistrationForm } from '../../blocks/RegistrationForm/config'
+import { PlanLayout } from '../../blocks/PlanLayout/config'
 
 import {
   MetaDescriptionField,
@@ -87,6 +88,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 Timeline,
                 Accordion,
                 RegistrationForm,
+                PlanLayout,
               ],
               required: true,
               admin: {
