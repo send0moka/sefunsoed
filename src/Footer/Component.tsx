@@ -7,7 +7,6 @@ import type { Footer } from '@/payload-types'
 import { ThemeSelector } from '@/providers/Theme/ThemeSelector'
 import { CMSLink } from '@/components/Link'
 import { Logo } from '@/components/Logo/Logo'
-import { VisitorsTable } from '@/components/VisitorsTable'
 
 export async function Footer() {
   const footerData: Footer = await getCachedGlobal('footer', 1)()
@@ -21,11 +20,6 @@ export async function Footer() {
           <Link className="flex items-center" href="/">
             <Logo />
           </Link>
-
-          {/* Visitors Table */}
-          <div className="lg:max-w-xs">
-            <VisitorsTable />
-          </div>
         </div>
 
         <div className="flex flex-col-reverse items-start lg:flex-row gap-4 lg:items-center">
