@@ -26,6 +26,7 @@ import { BannerBlock } from '@/blocks/Banner/Component'
 import { CallToActionBlock } from '@/blocks/CallToAction/Component'
 import { TimelineBlock } from '@/blocks/Timeline/Component'
 import { AccordionBlock } from '@/blocks/Accordion/Component'
+import { CarouselBlock } from '@/blocks/CarouselBlock/Component'
 import { cn } from '@/utilities/ui'
 
 // Helper function to extract plain text from RichText content

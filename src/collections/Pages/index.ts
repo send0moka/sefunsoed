@@ -10,6 +10,7 @@ import { MediaBlock } from '../../blocks/MediaBlock/config'
 import { Timeline } from '../../blocks/Timeline/config'
 import { Accordion } from '../../blocks/Accordion/config'
 import { ContactInformationBlock } from '../../blocks/ContactInformation/config'
+import { CarouselBlock } from '../../blocks/CarouselBlock/config'
 import { hero } from '@/heros/config'
 import { slugField } from '@/fields/slug'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
@@ -91,6 +92,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 RegistrationForm,
                 PlanLayout,
                 ContactInformationBlock,
+                CarouselBlock,
               ],
               required: true,
               admin: {

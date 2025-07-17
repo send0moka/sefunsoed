@@ -221,6 +221,7 @@ export interface Page {
         blockName?: string | null;
         blockType: 'contactInformation';
       }
+    | CarouselBlock
   )[];
   meta?: {
     title?: string | null;
@@ -1044,6 +1045,28 @@ export interface PlanLayoutBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CarouselBlock".
+ */
+export interface CarouselBlock {
+  images: {
+    image: number | Media;
+    title?: string | null;
+    subtitle?: string | null;
+    alt: string;
+    id?: string | null;
+  }[];
+  /**
+   * How many seconds between automatic slide transitions
+   */
+  autoPlayInterval?: number | null;
+  showDots?: boolean | null;
+  pauseOnHover?: boolean | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'carousel';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "registration-submissions".
  */
 export interface RegistrationSubmission {
@@ -1393,6 +1416,7 @@ export interface PagesSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
+        carousel?: T | CarouselBlockSelect<T>;
       };
   meta?:
     | T
@@ -1595,6 +1619,26 @@ export interface PlanLayoutBlockSelect<T extends boolean = true> {
         buttonLink?: T;
         id?: T;
       };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CarouselBlock_select".
+ */
+export interface CarouselBlockSelect<T extends boolean = true> {
+  images?:
+    | T
+    | {
+        image?: T;
+        title?: T;
+        subtitle?: T;
+        alt?: T;
+        id?: T;
+      };
+  autoPlayInterval?: T;
+  showDots?: T;
+  pauseOnHover?: T;
   id?: T;
   blockName?: T;
 }
