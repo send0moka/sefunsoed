@@ -203,6 +203,24 @@ export interface Page {
     | AccordionBlock
     | RegistrationFormBlock
     | PlanLayoutBlock
+    | {
+        title: string;
+        subtitle?: string | null;
+        layout?: ('horizontal' | 'vertical') | null;
+        showHoverEffect?: boolean | null;
+        contacts?:
+          | {
+              iconType: 'email' | 'phone' | 'address' | 'whatsapp' | 'website' | 'time';
+              title: string;
+              content: string;
+              colorScheme?: ('blue' | 'green' | 'purple' | 'emerald' | 'indigo' | 'orange' | 'red' | 'pink') | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'contactInformation';
+      }
   )[];
   meta?: {
     title?: string | null;
@@ -1353,6 +1371,25 @@ export interface PagesSelect<T extends boolean = true> {
         accordion?: T | AccordionBlockSelect<T>;
         registrationForm?: T | RegistrationFormBlockSelect<T>;
         planLayout?: T | PlanLayoutBlockSelect<T>;
+        contactInformation?:
+          | T
+          | {
+              title?: T;
+              subtitle?: T;
+              layout?: T;
+              showHoverEffect?: T;
+              contacts?:
+                | T
+                | {
+                    iconType?: T;
+                    title?: T;
+                    content?: T;
+                    colorScheme?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
       };
   meta?:
     | T

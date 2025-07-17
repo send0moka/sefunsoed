@@ -226,7 +226,7 @@ const RegistrationFormComponent: React.FC<RegistrationFormProps> = ({
 
   if (isSubmitted) {
     return (
-      <div className="max-w-4xl mx-auto p-6 bg-white dark:bg-neutral-800 rounded-lg shadow-lg">
+      <div className="max-w-4xl mx-auto p-6 bg-white dark:bg-neutral-900 rounded-lg shadow-lg">
         <div className="text-center py-12">
           <div className="mx-auto flex items-center justify-center w-16 h-16 rounded-full bg-green-100 dark:bg-green-900 mb-6">
             <Check className="w-8 h-8 text-green-600 dark:text-green-400" />
@@ -243,7 +243,7 @@ const RegistrationFormComponent: React.FC<RegistrationFormProps> = ({
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-white dark:bg-neutral-800 rounded-lg shadow-lg">
+    <div className="max-w-4xl mx-auto p-6 bg-white dark:bg-neutral-900 rounded-lg shadow-lg">
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-neutral-900 dark:text-white mb-4">{title}</h1>
@@ -326,7 +326,7 @@ const RegistrationFormComponent: React.FC<RegistrationFormProps> = ({
                       className={`border rounded-lg transition-all duration-200 ${
                         isSelected
                           ? 'border-blue-500 bg-blue-50 dark:border-blue-400 dark:bg-blue-950'
-                          : 'border-neutral-200 dark:border-neutral-600 hover:border-neutral-300 dark:hover:border-neutral-500 bg-white dark:bg-neutral-800'
+                          : 'border-neutral-200 dark:border-neutral-600 hover:border-neutral-300 dark:hover:border-neutral-500 bg-white dark:bg-neutral-900'
                       } ${!program.isAvailable ? 'opacity-50' : ''}`}
                     >
                       <div

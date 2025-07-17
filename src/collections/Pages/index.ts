@@ -9,6 +9,7 @@ import { FormBlock } from '../../blocks/Form/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
 import { Timeline } from '../../blocks/Timeline/config'
 import { Accordion } from '../../blocks/Accordion/config'
+import { ContactInformationBlock } from '../../blocks/ContactInformation/config'
 import { hero } from '@/heros/config'
 import { slugField } from '@/fields/slug'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
@@ -89,6 +90,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 Accordion,
                 RegistrationForm,
                 PlanLayout,
+                ContactInformationBlock,
               ],
               required: true,
               admin: {

@@ -1,0 +1,95 @@
+/* Contact Information Panel Custom Styles */
+.contact-card {
+  @apply bg-white rounded-lg border border-neutral-200 p-6 shadow-sm transition-all duration-300;
+}
+
+.contact-card:hover {
+  @apply shadow-lg transform scale-105;
+}
+
+.contact-card-static {
+  @apply bg-white rounded-lg border border-neutral-200 p-6 shadow-sm;
+}
+
+.contact-icon-container {
+  @apply p-3 rounded-lg flex-shrink-0;
+}
+
+.contact-content {
+  @apply flex-1 min-w-0;
+}
+
+.contact-title {
+  @apply text-lg font-semibold text-neutral-900 mb-2;
+}
+
+.contact-text {
+  @apply text-sm leading-relaxed;
+}
+
+.contact-panel-header {
+  @apply text-center mb-8;
+}
+
+.contact-panel-title {
+  @apply text-3xl font-bold text-neutral-900 mb-3;
+}
+
+.contact-panel-subtitle {
+  @apply text-neutral-600 text-lg;
+}
+
+.contact-grid-horizontal {
+  @apply grid gap-6 md:grid-cols-1 lg:grid-cols-3;
+}
+
+.contact-grid-vertical {
+  @apply grid gap-6 md:grid-cols-1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .contact-card {
+    @apply p-4;
+  }
+  
+  .contact-panel-title {
+    @apply text-2xl;
+  }
+  
+  .contact-panel-subtitle {
+    @apply text-base;
+  }
+}
+
+/* Animation keyframes */
+@keyframes contactCardHover {
+  from {
+    transform: scale(1);
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  }
+  to {
+    transform: scale(1.05);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+}
+
+/* Accessibility improvements */
+.contact-card:focus {
+  @apply outline-none ring-2 ring-blue-500 ring-offset-2;
+}
+
+.contact-card[role="button"] {
+  @apply cursor-pointer;
+}
+
+/* Print styles */
+@media print {
+  .contact-card {
+    @apply shadow-none border-2 border-neutral-300;
+  }
+  
+  .contact-card:hover {
+    @apply transform-none;
+  }
+}

@@ -58,10 +58,10 @@ const PlanLayoutComponent: React.FC<PlanLayoutProps> = ({ title, subtitle, plans
       {(title || subtitle) && (
         <div className="text-center mb-16">
           {title && (
-            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">{title}</h2>
+            <h2 className="text-4xl font-bold text-neutral-900 dark:text-white mb-4">{title}</h2>
           )}
           {subtitle && (
-            <div className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+            <div className="text-lg text-neutral-600 dark:text-neutral-300 max-w-3xl mx-auto">
               {typeof subtitle === 'string' ? (
                 <p>{subtitle}</p>
               ) : (
@@ -81,10 +81,10 @@ const PlanLayoutComponent: React.FC<PlanLayoutProps> = ({ title, subtitle, plans
           return (
             <div
               key={plan.id || index}
-              className={`relative bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden ${
+              className={`relative bg-white dark:bg-neutral-900 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden ${
                 isPopular
                   ? 'border-2 border-blue-500'
-                  : 'border border-gray-200 dark:border-gray-700'
+                  : 'border border-neutral-200 dark:border-neutral-700'
               }`}
             >
               {/* Popular Badge */}
@@ -106,12 +106,12 @@ const PlanLayoutComponent: React.FC<PlanLayoutProps> = ({ title, subtitle, plans
                 </div>
 
                 {/* Plan Title */}
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
+                <h3 className="text-xl font-bold text-neutral-900 dark:text-white mb-3">
                   {plan.title}
                 </h3>
 
                 {/* Plan Description */}
-                <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
+                <p className="text-neutral-600 dark:text-neutral-300 mb-6 leading-relaxed">
                   {plan.description}
                 </p>
 
@@ -124,7 +124,7 @@ const PlanLayoutComponent: React.FC<PlanLayoutProps> = ({ title, subtitle, plans
                           <div className="flex-shrink-0 w-5 h-5 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mt-0.5 mr-3">
                             <Check className="w-3 h-3 text-green-600 dark:text-green-400" />
                           </div>
-                          <span className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
+                          <span className="text-neutral-700 dark:text-neutral-300 text-sm leading-relaxed">
                             {feature.feature}
                           </span>
                         </li>
@@ -135,11 +135,11 @@ const PlanLayoutComponent: React.FC<PlanLayoutProps> = ({ title, subtitle, plans
 
                 {/* Price Section */}
                 <div className="text-center mb-6">
-                  <div className="text-3xl font-bold text-gray-900 dark:text-white">
+                  <div className="text-3xl font-bold text-neutral-900 dark:text-white">
                     {formatPrice(plan.price)}
                   </div>
                   {plan.duration && (
-                    <div className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                    <div className="text-sm text-neutral-500 dark:text-neutral-400 mt-1">
                       {plan.duration}
                     </div>
                   )}
@@ -171,10 +171,10 @@ const PlanLayoutComponent: React.FC<PlanLayoutProps> = ({ title, subtitle, plans
       {/* Empty State */}
       {plans.length === 0 && (
         <div className="text-center py-12">
-          <div className="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4">
-            <Target className="w-8 h-8 text-gray-400 dark:text-gray-500" />
+          <div className="w-16 h-16 bg-neutral-100 dark:bg-neutral-700 rounded-full flex items-center justify-center mx-auto mb-4">
+            <Target className="w-8 h-8 text-neutral-400 dark:text-neutral-500" />
           </div>
-          <p className="text-gray-500 dark:text-gray-400 text-lg">No plans configured yet.</p>
+          <p className="text-neutral-500 dark:text-neutral-400 text-lg">No plans configured yet.</p>
         </div>
       )}
     </div>

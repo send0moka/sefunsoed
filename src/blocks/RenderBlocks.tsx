@@ -11,6 +11,7 @@ import { TimelineBlock } from '@/blocks/Timeline/Component'
 import { AccordionBlock } from '@/blocks/Accordion/Component'
 import RegistrationFormComponent from '@/blocks/RegistrationForm/Component'
 import PlanLayoutComponent from '@/blocks/PlanLayout/Component'
+import ContactInformationComponent from '@/blocks/ContactInformation/Component'
 
 const blockComponents = {
   archive: ArchiveBlock,
@@ -22,6 +23,7 @@ const blockComponents = {
   accordion: AccordionBlock,
   registrationForm: RegistrationFormComponent,
   planLayout: PlanLayoutComponent,
+  contactInformation: ContactInformationComponent,
 }
 
 // Helper function to extract plain text from RichText content
