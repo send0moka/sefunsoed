@@ -15,6 +15,7 @@ import {
   Calendar,
   FileText,
   Info,
+  Printer,
 } from 'lucide-react'
 import { ContactInfo } from './ContactInformationPanel'
 
@@ -25,6 +26,7 @@ export type ContactType =
   | 'whatsapp'
   | 'website'
   | 'hours'
+  | 'fax'
   | 'instagram'
   | 'facebook'
   | 'twitter'
@@ -49,208 +51,171 @@ export type ColorScheme =
   | 'teal'
   | 'cyan'
 
-const getIcon = (type: ContactType) => {
-  switch (type) {
-    case 'email':
-      return <Mail size={24} />
-    case 'phone':
-      return <Phone size={24} />
-    case 'address':
-      return <MapPin size={24} />
-    case 'whatsapp':
-      return <MessageCircle size={24} />
-    case 'website':
-      return <Globe size={24} />
-    case 'hours':
-      return <Clock size={24} />
-    case 'instagram':
-      return <Instagram size={24} />
-    case 'facebook':
-      return <Facebook size={24} />
-    case 'twitter':
-      return <Twitter size={24} />
-    case 'linkedin':
-      return <Linkedin size={24} />
-    case 'youtube':
-      return <Youtube size={24} />
-    case 'support':
-      return <Users size={24} />
-    case 'appointment':
-      return <Calendar size={24} />
-    case 'document':
-      return <FileText size={24} />
-    case 'info':
-      return <Info size={24} />
-    default:
-      return <Mail size={24} />
-  }
+interface ContactConfig {
+  icon: React.ReactNode
+  defaultTitle: string
+  defaultColorScheme: ColorScheme
+  hrefPrefix?: string
 }
 
-const getColorScheme = (colorScheme: ColorScheme) => {
-  const colorMap = {
-    blue: {
-      iconColor: 'text-blue-600 dark:text-blue-400',
-      textColor: 'text-blue-700 dark:text-blue-300',
-      bgColor: 'bg-blue-50 dark:bg-blue-950/40',
-    },
-    green: {
-      iconColor: 'text-green-600 dark:text-green-400',
-      textColor: 'text-green-700 dark:text-green-300',
-      bgColor: 'bg-green-50 dark:bg-green-950/40',
-    },
-    purple: {
-      iconColor: 'text-purple-600 dark:text-purple-400',
-      textColor: 'text-purple-700 dark:text-purple-300',
-      bgColor: 'bg-purple-50 dark:bg-purple-950/40',
-    },
-    emerald: {
-      iconColor: 'text-emerald-600 dark:text-emerald-400',
-      textColor: 'text-emerald-700 dark:text-emerald-300',
-      bgColor: 'bg-emerald-50 dark:bg-emerald-950/40',
-    },
-    indigo: {
-      iconColor: 'text-indigo-600 dark:text-indigo-400',
-      textColor: 'text-indigo-700 dark:text-indigo-300',
-      bgColor: 'bg-indigo-50 dark:bg-indigo-950/40',
-    },
-    orange: {
-      iconColor: 'text-orange-600 dark:text-orange-400',
-      textColor: 'text-orange-700 dark:text-orange-300',
-      bgColor: 'bg-orange-50 dark:bg-orange-950/40',
-    },
-    red: {
-      iconColor: 'text-red-600 dark:text-red-400',
-      textColor: 'text-red-700 dark:text-red-300',
-      bgColor: 'bg-red-50 dark:bg-red-950/40',
-    },
-    pink: {
-      iconColor: 'text-pink-600 dark:text-pink-400',
-      textColor: 'text-pink-700 dark:text-pink-300',
-      bgColor: 'bg-pink-50 dark:bg-pink-950/40',
-    },
-    neutral: {
-      iconColor: 'text-neutral-600 dark:text-neutral-400',
-      textColor: 'text-neutral-700 dark:text-neutral-300',
-      bgColor: 'bg-neutral-50 dark:bg-neutral-900/60',
-    },
-    yellow: {
-      iconColor: 'text-yellow-600 dark:text-yellow-400',
-      textColor: 'text-yellow-700 dark:text-yellow-300',
-      bgColor: 'bg-yellow-50 dark:bg-yellow-950/40',
-    },
-    teal: {
-      iconColor: 'text-teal-600 dark:text-teal-400',
-      textColor: 'text-teal-700 dark:text-teal-300',
-      bgColor: 'bg-teal-50 dark:bg-teal-950/40',
-    },
-    cyan: {
-      iconColor: 'text-cyan-600 dark:text-cyan-400',
-      textColor: 'text-cyan-700 dark:text-cyan-300',
-      bgColor: 'bg-cyan-50 dark:bg-cyan-950/40',
-    },
-  }
-  return colorMap[colorScheme] || colorMap.blue
+const contactConfigs: Record<ContactType, ContactConfig> = {
+  email: {
+    icon: <Mail size={24} />,
+    defaultTitle: 'Email',
+    defaultColorScheme: 'blue',
+    hrefPrefix: 'mailto:',
+  },
+  phone: {
+    icon: <Phone size={24} />,
+    defaultTitle: 'Telepon',
+    defaultColorScheme: 'green',
+    hrefPrefix: 'tel:',
+  },
+  address: {
+    icon: <MapPin size={24} />,
+    defaultTitle: 'Alamat',
+    defaultColorScheme: 'purple',
+    hrefPrefix: 'https://maps.google.com/?q=',
+  },
+  whatsapp: {
+    icon: <MessageCircle size={24} />,
+    defaultTitle: 'WhatsApp',
+    defaultColorScheme: 'emerald',
+    hrefPrefix: 'https://wa.me/',
+  },
+  website: {
+    icon: <Globe size={24} />,
+    defaultTitle: 'Website',
+    defaultColorScheme: 'indigo',
+    hrefPrefix: 'https://',
+  },
+  hours: {
+    icon: <Clock size={24} />,
+    defaultTitle: 'Jam Operasional',
+    defaultColorScheme: 'orange',
+  },
+  fax: {
+    icon: <Printer size={24} />,
+    defaultTitle: 'Fax',
+    defaultColorScheme: 'neutral',
+    hrefPrefix: 'tel:',
+  },
+  instagram: {
+    icon: <Instagram size={24} />,
+    defaultTitle: 'Instagram',
+    defaultColorScheme: 'pink',
+    hrefPrefix: 'https://instagram.com/',
+  },
+  facebook: {
+    icon: <Facebook size={24} />,
+    defaultTitle: 'Facebook',
+    defaultColorScheme: 'blue',
+    hrefPrefix: 'https://facebook.com/',
+  },
+  twitter: {
+    icon: <Twitter size={24} />,
+    defaultTitle: 'Twitter',
+    defaultColorScheme: 'cyan',
+    hrefPrefix: 'https://twitter.com/',
+  },
+  linkedin: {
+    icon: <Linkedin size={24} />,
+    defaultTitle: 'LinkedIn',
+    defaultColorScheme: 'blue',
+    hrefPrefix: 'https://linkedin.com/in/',
+  },
+  youtube: {
+    icon: <Youtube size={24} />,
+    defaultTitle: 'YouTube',
+    defaultColorScheme: 'red',
+    hrefPrefix: 'https://youtube.com/@',
+  },
+  support: {
+    icon: <Users size={24} />,
+    defaultTitle: 'Support',
+    defaultColorScheme: 'blue',
+  },
+  appointment: {
+    icon: <Calendar size={24} />,
+    defaultTitle: 'Jadwalkan Pertemuan',
+    defaultColorScheme: 'green',
+  },
+  document: {
+    icon: <FileText size={24} />,
+    defaultTitle: 'Dokumen',
+    defaultColorScheme: 'neutral',
+  },
+  info: {
+    icon: <Info size={24} />,
+    defaultTitle: 'Informasi',
+    defaultColorScheme: 'blue',
+  },
 }
 
-const getHrefPrefix = (type: ContactType) => {
-  switch (type) {
-    case 'email':
-      return 'mailto:'
-    case 'phone':
-      return 'tel:'
-    case 'address':
-      return 'https://maps.google.com/?q='
-    case 'whatsapp':
-      return 'https://wa.me/'
-    case 'website':
-      return 'https://'
-    case 'instagram':
-      return 'https://instagram.com/'
-    case 'facebook':
-      return 'https://facebook.com/'
-    case 'twitter':
-      return 'https://twitter.com/'
-    case 'linkedin':
-      return 'https://linkedin.com/in/'
-    case 'youtube':
-      return 'https://youtube.com/@'
-    default:
-      return ''
-  }
-}
-
-const getDefaultTitle = (type: ContactType) => {
-  switch (type) {
-    case 'email':
-      return 'Email'
-    case 'phone':
-      return 'Telepon'
-    case 'address':
-      return 'Alamat'
-    case 'whatsapp':
-      return 'WhatsApp'
-    case 'website':
-      return 'Website'
-    case 'hours':
-      return 'Jam Operasional'
-    case 'instagram':
-      return 'Instagram'
-    case 'facebook':
-      return 'Facebook'
-    case 'twitter':
-      return 'Twitter'
-    case 'linkedin':
-      return 'LinkedIn'
-    case 'youtube':
-      return 'YouTube'
-    case 'support':
-      return 'Support'
-    case 'appointment':
-      return 'Jadwalkan Pertemuan'
-    case 'document':
-      return 'Dokumen'
-    case 'info':
-      return 'Informasi'
-    default:
-      return 'Contact'
-  }
-}
-
-const getDefaultColorScheme = (type: ContactType): ColorScheme => {
-  switch (type) {
-    case 'email':
-      return 'blue'
-    case 'phone':
-      return 'green'
-    case 'address':
-      return 'purple'
-    case 'whatsapp':
-      return 'emerald'
-    case 'website':
-      return 'indigo'
-    case 'hours':
-      return 'orange'
-    case 'instagram':
-      return 'pink'
-    case 'facebook':
-      return 'blue'
-    case 'twitter':
-      return 'cyan'
-    case 'linkedin':
-      return 'blue'
-    case 'youtube':
-      return 'red'
-    case 'support':
-      return 'blue'
-    case 'appointment':
-      return 'green'
-    case 'document':
-      return 'neutral'
-    case 'info':
-      return 'blue'
-    default:
-      return 'blue'
-  }
+const colorSchemeMap: Record<
+  ColorScheme,
+  { iconColor: string; textColor: string; bgColor: string }
+> = {
+  blue: {
+    iconColor: 'text-blue-600 dark:text-blue-400',
+    textColor: 'text-blue-600 dark:text-blue-400',
+    bgColor: 'bg-blue-50 dark:bg-blue-950/40',
+  },
+  green: {
+    iconColor: 'text-green-600 dark:text-green-400',
+    textColor: 'text-green-600 dark:text-green-400',
+    bgColor: 'bg-green-50 dark:bg-green-950/40',
+  },
+  purple: {
+    iconColor: 'text-purple-600 dark:text-purple-400',
+    textColor: 'text-purple-600 dark:text-purple-400',
+    bgColor: 'bg-purple-50 dark:bg-purple-950/40',
+  },
+  emerald: {
+    iconColor: 'text-emerald-600 dark:text-emerald-400',
+    textColor: 'text-emerald-600 dark:text-emerald-400',
+    bgColor: 'bg-emerald-50 dark:bg-emerald-950/40',
+  },
+  indigo: {
+    iconColor: 'text-indigo-600 dark:text-indigo-400',
+    textColor: 'text-indigo-600 dark:text-indigo-400',
+    bgColor: 'bg-indigo-50 dark:bg-indigo-950/40',
+  },
+  orange: {
+    iconColor: 'text-orange-600 dark:text-orange-400',
+    textColor: 'text-orange-600 dark:text-orange-400',
+    bgColor: 'bg-orange-50 dark:bg-orange-950/40',
+  },
+  red: {
+    iconColor: 'text-red-600 dark:text-red-400',
+    textColor: 'text-red-600 dark:text-red-400',
+    bgColor: 'bg-red-50 dark:bg-red-950/40',
+  },
+  pink: {
+    iconColor: 'text-pink-600 dark:text-pink-400',
+    textColor: 'text-pink-600 dark:text-pink-400',
+    bgColor: 'bg-pink-50 dark:bg-pink-950/40',
+  },
+  neutral: {
+    iconColor: 'text-neutral-600 dark:text-neutral-400',
+    textColor: 'text-neutral-600 dark:text-neutral-400',
+    bgColor: 'bg-neutral-50 dark:bg-neutral-950/40',
+  },
+  yellow: {
+    iconColor: 'text-yellow-600 dark:text-yellow-400',
+    textColor: 'text-yellow-600 dark:text-yellow-400',
+    bgColor: 'bg-yellow-50 dark:bg-yellow-950/40',
+  },
+  teal: {
+    iconColor: 'text-teal-600 dark:text-teal-400',
+    textColor: 'text-teal-600 dark:text-teal-400',
+    bgColor: 'bg-teal-50 dark:bg-teal-950/40',
+  },
+  cyan: {
+    iconColor: 'text-cyan-600 dark:text-cyan-400',
+    textColor: 'text-cyan-600 dark:text-cyan-400',
+    bgColor: 'bg-cyan-50 dark:bg-cyan-950/40',
+  },
 }
 
 interface CreateContactParams {
@@ -272,27 +237,25 @@ export const createContact = ({
   onClick,
   ariaLabel,
 }: CreateContactParams): ContactInfo => {
-  const finalColorScheme = colorScheme || getDefaultColorScheme(type)
-  const colors = getColorScheme(finalColorScheme)
+  const config = contactConfigs[type]
+  const finalColorScheme = colorScheme || config.defaultColorScheme
+  const colors = colorSchemeMap[finalColorScheme]
 
   let finalHref = href
-  if (!finalHref && !onClick) {
-    const prefix = getHrefPrefix(type)
-    if (prefix) {
-      finalHref = prefix + content
-    }
+  if (!finalHref && config.hrefPrefix && !onClick) {
+    finalHref = config.hrefPrefix + content
   }
 
   return {
-    icon: getIcon(type),
-    title: title || getDefaultTitle(type),
+    icon: config.icon,
+    title: title || config.defaultTitle,
     content,
     iconColor: colors.iconColor,
     textColor: colors.textColor,
     bgColor: colors.bgColor,
     href: finalHref,
     onClick,
-    ariaLabel: ariaLabel || `${title || getDefaultTitle(type)}: ${content}`,
+    ariaLabel: ariaLabel || `${title || config.defaultTitle}: ${content}`,
   }
 }
 
@@ -351,6 +314,13 @@ export const templates = {
         'Lokasi',
       ),
     ],
+    social: [
+      createSocialContact('instagram', 'sefunsoed', 'Instagram'),
+      createSocialContact('facebook', 'sefunsoed', 'Facebook'),
+      createSocialContact('twitter', 'sefunsoed', 'Twitter'),
+      createSocialContact('linkedin', 'company/sefunsoed', 'LinkedIn'),
+      createSocialContact('youtube', 'sefunsoed', 'YouTube'),
+    ],
   },
 }
 
@@ -365,6 +335,8 @@ const ContactUtils = {
   createSocialContact,
   createInteractiveContact,
   templates,
+  contactConfigs,
+  colorSchemeMap,
 }
 
 export default ContactUtils

@@ -165,7 +165,7 @@ import {
   createEmailContact, 
   createPhoneContact, 
   createAddressContact 
-} from './ContactUtils'
+} from '../../../components/ContactInformationPanel/ContactUtils'
 
 // Create contacts easily
 const contacts = [

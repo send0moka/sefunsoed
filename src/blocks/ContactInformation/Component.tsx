@@ -9,15 +9,6 @@ interface ContactItem {
   colorScheme: 'blue' | 'green' | 'purple' | 'emerald' | 'indigo' | 'orange' | 'red' | 'pink'
 }
 
-interface ContactInformationBlockType {
-  title?: string
-  subtitle?: string
-  layout?: 'horizontal' | 'vertical'
-  showHoverEffect?: boolean
-  contacts?: ContactItem[]
-  blockType?: 'contactInformation'
-}
-
 interface ContactInformationProps {
   className?: string
   title?: string
