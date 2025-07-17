@@ -86,6 +86,30 @@ export const Archive: Block = {
       label: 'Selection',
       relationTo: ['posts'],
     },
+    {
+      name: 'showViewAllButton',
+      type: 'checkbox',
+      defaultValue: true,
+      label: 'Show "View All Posts" Button',
+    },
+    {
+      name: 'viewAllButtonText',
+      type: 'text',
+      defaultValue: 'View All Posts',
+      label: 'Button Text',
+      admin: {
+        condition: (_, siblingData) => siblingData.showViewAllButton,
+      },
+    },
+    {
+      name: 'viewAllButtonUrl',
+      type: 'text',
+      defaultValue: '/posts',
+      label: 'Button URL',
+      admin: {
+        condition: (_, siblingData) => siblingData.showViewAllButton,
+      },
+    },
   ],
   labels: {
     plural: 'Archives',

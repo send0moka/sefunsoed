@@ -527,6 +527,9 @@ export interface ArchiveBlock {
         value: number | Post;
       }[]
     | null;
+  showViewAllButton?: boolean | null;
+  viewAllButtonText?: string | null;
+  viewAllButtonUrl?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'archive';
@@ -1475,6 +1478,9 @@ export interface ArchiveBlockSelect<T extends boolean = true> {
   categories?: T;
   limit?: T;
   selectedDocs?: T;
+  showViewAllButton?: T;
+  viewAllButtonText?: T;
+  viewAllButtonUrl?: T;
   id?: T;
   blockName?: T;
 }

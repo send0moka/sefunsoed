@@ -4,6 +4,7 @@ import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import React from 'react'
 import RichText from '@/components/RichText'
+import Link from 'next/link'
 
 import { CollectionArchive } from '@/components/CollectionArchive'
 
@@ -12,7 +13,17 @@ export const ArchiveBlock: React.FC<
     id?: string
   }
 > = async (props) => {
-  const { id, categories, introContent, limit: limitFromProps, populateBy, selectedDocs } = props
+  const {
+    id,
+    categories,
+    introContent,
+    limit: limitFromProps,
+    populateBy,
+    selectedDocs,
+    showViewAllButton,
+    viewAllButtonText,
+    viewAllButtonUrl,
+  } = props
 
   const limit = limitFromProps || 3
 
@@ -60,6 +71,16 @@ export const ArchiveBlock: React.FC<
         </div>
       )}
       <CollectionArchive posts={posts} />
+      {showViewAllButton && (
+        <div className="container mt-8 text-center">
+          <Link
+            href={viewAllButtonUrl || '/posts'}
+            className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-black hover:bg-gray-800 dark:text-black dark:bg-white dark:hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black dark:focus:ring-white transition-colors duration-200"
+          >
+            {viewAllButtonText || 'View All Posts'}
+          </Link>
+        </div>
+      )}
     </div>
   )
 }
