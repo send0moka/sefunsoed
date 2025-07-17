@@ -67,7 +67,7 @@ export const CarouselBlock: React.FC<
   return (
     <div className="my-16" id={`block-${id}`}>
       <div
-        className="relative container w-full h-96 md:h-[32rem] lg:h-[40rem] overflow-hidden group"
+        className="relative container w-full h-[40rem] overflow-hidden group"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
