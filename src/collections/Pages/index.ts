@@ -14,6 +14,7 @@ import { CarouselBlock } from '../../blocks/CarouselBlock/config'
 import { PodcastBlock } from '../../blocks/PodcastBlock/config'
 import { CalendarBlock } from '../../blocks/CalendarBlock/config'
 import { PartnershipBlock } from '../../blocks/PartnershipBlock/config'
+import { AccordionPeopleBlock } from '../../blocks/AccordionPeopleBlock/config'
 import { hero } from '@/heros/config'
 import { slugField } from '@/fields/slug'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
@@ -99,6 +100,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 PodcastBlock,
                 CalendarBlock,
                 PartnershipBlock,
+                AccordionPeopleBlock,
               ],
               required: true,
               admin: {

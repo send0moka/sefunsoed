@@ -1,0 +1,6 @@
+{
+  "scripts": {
+    "schema:push": "cross-env NODE_OPTIONS=--no-deprecation payload migrate:reset && cross-env NODE_OPTIONS=--no-deprecation payload generate:types",
+    "dev:clean": "npm run schema:push && cross-env NODE_OPTIONS=--no-deprecation next dev"
+  }
+}

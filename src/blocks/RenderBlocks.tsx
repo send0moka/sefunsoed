@@ -16,6 +16,7 @@ import { CarouselBlock } from '@/blocks/CarouselBlock/Component'
 import { PodcastBlock } from '@/blocks/PodcastBlock/Component'
 import { CalendarBlock } from '@/blocks/CalendarBlock/Component'
 import { PartnershipBlock } from '@/blocks/PartnershipBlock/Component'
+import { AccordionPeopleBlock } from '@/blocks/AccordionPeopleBlock/Component'
 
 const blockComponents = {
   archive: ArchiveBlock,
@@ -32,6 +33,7 @@ const blockComponents = {
   podcastBlock: PodcastBlock,
   calendarBlock: CalendarBlock,
   partnershipBlock: PartnershipBlock,
+  accordionPeopleBlock: AccordionPeopleBlock,
 }
 
 // Helper function to extract plain text from RichText content

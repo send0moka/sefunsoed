@@ -300,6 +300,7 @@ export interface Page {
         blockType: 'calendarBlock';
       }
     | PartnershipBlock
+    | AccordionPeopleBlock
   )[];
   meta?: {
     title?: string | null;
@@ -1163,6 +1164,37 @@ export interface PartnershipBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AccordionPeopleBlock".
+ */
+export interface AccordionPeopleBlock {
+  title?: string | null;
+  sections?:
+    | {
+        title: string;
+        subtitle: string;
+        description: string;
+        image: number | Media;
+        people?:
+          | {
+              name: string;
+              position: string;
+              major: string;
+              year: string;
+              photo: number | Media;
+              linkedin?: string | null;
+              instagram?: string | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'accordionPeopleBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "registration-submissions".
  */
 export interface RegistrationSubmission {
@@ -1554,6 +1586,7 @@ export interface PagesSelect<T extends boolean = true> {
               blockName?: T;
             };
         partnershipBlock?: T | PartnershipBlockSelect<T>;
+        accordionPeopleBlock?: T | AccordionPeopleBlockSelect<T>;
       };
   meta?:
     | T
@@ -1791,6 +1824,36 @@ export interface PartnershipBlockSelect<T extends boolean = true> {
         name?: T;
         logo?: T;
         website?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AccordionPeopleBlock_select".
+ */
+export interface AccordionPeopleBlockSelect<T extends boolean = true> {
+  title?: T;
+  sections?:
+    | T
+    | {
+        title?: T;
+        subtitle?: T;
+        description?: T;
+        image?: T;
+        people?:
+          | T
+          | {
+              name?: T;
+              position?: T;
+              major?: T;
+              year?: T;
+              photo?: T;
+              linkedin?: T;
+              instagram?: T;
+              id?: T;
+            };
         id?: T;
       };
   id?: T;
