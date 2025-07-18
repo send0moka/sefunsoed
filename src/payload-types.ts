@@ -299,6 +299,7 @@ export interface Page {
         blockName?: string | null;
         blockType: 'calendarBlock';
       }
+    | PartnershipBlock
   )[];
   meta?: {
     title?: string | null;
@@ -1144,6 +1145,24 @@ export interface CarouselBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PartnershipBlock".
+ */
+export interface PartnershipBlock {
+  title?: string | null;
+  partners?:
+    | {
+        name: string;
+        logo: number | Media;
+        website?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'partnershipBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "registration-submissions".
  */
 export interface RegistrationSubmission {
@@ -1534,6 +1553,7 @@ export interface PagesSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
+        partnershipBlock?: T | PartnershipBlockSelect<T>;
       };
   meta?:
     | T
@@ -1756,6 +1776,23 @@ export interface CarouselBlockSelect<T extends boolean = true> {
   autoPlayInterval?: T;
   showDots?: T;
   pauseOnHover?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PartnershipBlock_select".
+ */
+export interface PartnershipBlockSelect<T extends boolean = true> {
+  title?: T;
+  partners?:
+    | T
+    | {
+        name?: T;
+        logo?: T;
+        website?: T;
+        id?: T;
+      };
   id?: T;
   blockName?: T;
 }
