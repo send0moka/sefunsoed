@@ -13,6 +13,7 @@ import RegistrationFormComponent from '@/blocks/RegistrationForm/Component'
 import PlanLayoutComponent from '@/blocks/PlanLayout/Component'
 import ContactInformationComponent from '@/blocks/ContactInformation/Component'
 import { CarouselBlock } from '@/blocks/CarouselBlock/Component'
+import { PodcastBlock } from '@/blocks/PodcastBlock/Component'
 
 const blockComponents = {
   archive: ArchiveBlock,
@@ -26,6 +27,7 @@ const blockComponents = {
   planLayout: PlanLayoutComponent,
   contactInformation: ContactInformationComponent,
   carousel: CarouselBlock,
+  podcastBlock: PodcastBlock,
 }
 
 // Helper function to extract plain text from RichText content

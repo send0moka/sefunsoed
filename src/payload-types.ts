@@ -222,6 +222,32 @@ export interface Page {
         blockType: 'contactInformation';
       }
     | CarouselBlock
+    | {
+        title?: string | null;
+        spotifyUrl?: string | null;
+        useCustomPlayer?: boolean | null;
+        /**
+         * Paste the Spotify embed iframe code here
+         */
+        spotifyEmbedCode?: string | null;
+        episode?: {
+          title: string;
+          description: string;
+          publishedDate: string;
+          coverImage?: (number | null) | Media;
+          /**
+           * Path to MP3 file in public folder (e.g., /media/episode1.mp3)
+           */
+          audioFile?: string | null;
+          /**
+           * Episode duration in seconds
+           */
+          duration?: number | null;
+        };
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'podcastBlock';
+      }
   )[];
   meta?: {
     title?: string | null;
@@ -1417,6 +1443,26 @@ export interface PagesSelect<T extends boolean = true> {
               blockName?: T;
             };
         carousel?: T | CarouselBlockSelect<T>;
+        podcastBlock?:
+          | T
+          | {
+              title?: T;
+              spotifyUrl?: T;
+              useCustomPlayer?: T;
+              spotifyEmbedCode?: T;
+              episode?:
+                | T
+                | {
+                    title?: T;
+                    description?: T;
+                    publishedDate?: T;
+                    coverImage?: T;
+                    audioFile?: T;
+                    duration?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
       };
   meta?:
     | T
