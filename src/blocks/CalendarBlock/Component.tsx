@@ -181,6 +181,35 @@ export const CalendarBlock: React.FC<CalendarBlockProps> = (props) => {
     setSelectedEvent(null)
   }
 
+  // Generate Google Calendar URL
+  const generateGoogleCalendarUrl = (event: CalendarEvent) => {
+    const baseUrl = 'https://calendar.google.com/calendar/render?action=TEMPLATE'
+
+    // Format date and time for Google Calendar
+    const eventDate = new Date(`${event.date}T${event.time}:00`)
+    const startTime = eventDate.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z'
+
+    // End time (1 hour after start time by default)
+    const endDate = new Date(eventDate.getTime() + 60 * 60 * 1000)
+    const endTime = endDate.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z'
+
+    const params = new URLSearchParams({
+      text: event.title,
+      dates: `${startTime}/${endTime}`,
+      details: event.description,
+      location: event.place,
+      ctz: 'Asia/Jakarta', // Indonesia timezone
+    })
+
+    return `${baseUrl}&${params.toString()}`
+  }
+
+  // Handle add to Google Calendar
+  const handleAddToGoogleCalendar = (event: CalendarEvent) => {
+    const googleCalendarUrl = generateGoogleCalendarUrl(event)
+    window.open(googleCalendarUrl, '_blank')
+  }
+
   // Helper function to validate image src
   const isValidSrc = (src?: string | null | unknown): src is string => {
     if (typeof src === 'string') {
@@ -424,10 +453,14 @@ export const CalendarBlock: React.FC<CalendarBlockProps> = (props) => {
                   >
                     Close
                   </button>
-                  <button className="px-6 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors">
-                    {selectedEvent.audience === 'members-only'
-                      ? 'Register (Members)'
-                      : 'Register Now'}
+                  <button
+                    onClick={() => handleAddToGoogleCalendar(selectedEvent)}
+                    className="px-6 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors flex items-center gap-2"
+                  >
+                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z" />
+                    </svg>
+                    Add to Google Calendar
                   </button>
                 </div>
               </div>
