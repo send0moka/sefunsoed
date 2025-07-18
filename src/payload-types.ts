@@ -248,6 +248,57 @@ export interface Page {
         blockName?: string | null;
         blockType: 'podcastBlock';
       }
+    | {
+        /**
+         * The title that appears above the calendar
+         */
+        title: string;
+        /**
+         * Add events to display on the calendar
+         */
+        events?:
+          | {
+              /**
+               * Event title that appears on the calendar
+               */
+              title: string;
+              /**
+               * Detailed description shown in the event modal
+               */
+              description: string;
+              /**
+               * Event date (YYYY-MM-DD format)
+               */
+              date: string;
+              /**
+               * Event time in 24-hour format (e.g., 14:30)
+               */
+              time: string;
+              /**
+               * Event location or venue
+               */
+              place: string;
+              /**
+               * Optional event image shown in the modal
+               */
+              image?: (number | null) | Media;
+              /**
+               * Who can attend this event
+               */
+              audience: 'public' | 'members-only';
+              /**
+               * Event category for organization
+               */
+              category?:
+                | ('workshop' | 'study-group' | 'cultural' | 'class' | 'seminar' | 'entertainment' | 'other')
+                | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'calendarBlock';
+      }
   )[];
   meta?: {
     title?: string | null;
@@ -1459,6 +1510,26 @@ export interface PagesSelect<T extends boolean = true> {
                     coverImage?: T;
                     audioFile?: T;
                     duration?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        calendarBlock?:
+          | T
+          | {
+              title?: T;
+              events?:
+                | T
+                | {
+                    title?: T;
+                    description?: T;
+                    date?: T;
+                    time?: T;
+                    place?: T;
+                    image?: T;
+                    audience?: T;
+                    category?: T;
+                    id?: T;
                   };
               id?: T;
               blockName?: T;
