@@ -44,12 +44,52 @@ export const PodcastBlock: React.FC<PodcastBlockProps> = (props) => {
     title: 'Sample Podcast Episode',
     description: 'This is a sample podcast episode description.',
     publishedDate: '2024-01-15',
-    coverImage: '/media/podcast-cover.jpg',
+    coverImage: '/media/3f8fc3122181811.60d459971b6a2-500x500.jpg',
     audioFile: '/media/sample-podcast.mp3',
     duration: 381, // 6:21 in seconds
   }
 
   const currentEpisode = episode || defaultEpisode
+
+  // Helper function to validate and extract image src (for images and audio)
+  const isValidSrc = (src?: string | null | unknown): src is string => {
+    // Handle string directly
+    if (typeof src === 'string') {
+      return src.trim() !== ''
+    }
+
+    // Handle object with url property (from CMS uploads)
+    if (src && typeof src === 'object') {
+      const obj = src as Record<string, unknown>
+      if (typeof obj.url === 'string') {
+        return obj.url.trim() !== ''
+      }
+      if (typeof obj.filename === 'string') {
+        return obj.filename.trim() !== ''
+      }
+    }
+
+    return false
+  }
+
+  // Extract actual URL from various data formats
+  const extractUrl = (src?: string | null | unknown): string | undefined => {
+    if (typeof src === 'string' && src.trim() !== '') {
+      return src
+    }
+
+    if (src && typeof src === 'object') {
+      const obj = src as Record<string, unknown>
+      if (typeof obj.url === 'string' && obj.url.trim() !== '') {
+        return obj.url
+      }
+      if (typeof obj.filename === 'string' && obj.filename.trim() !== '') {
+        return `/api/media/file/${obj.filename}`
+      }
+    }
+
+    return undefined
+  }
 
   // Initialize duration from episode data if available
   useEffect(() => {
@@ -222,7 +262,7 @@ export const PodcastBlock: React.FC<PodcastBlockProps> = (props) => {
     <div className="my-16" id={`block-${id}`}>
       <div className="container">
         <h2 className="text-3xl font-bold text-center mb-8">{title}</h2>
-        <div className="max-w-2xl mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden relative">
+        <div className="max-w-2xl mx-auto bg-white dark:bg-neutral-800 rounded-xl shadow-lg overflow-hidden relative">
           {/* Spotify Icon - Top Right */}
           <div className="absolute top-4 right-4 z-10">
             <Image
@@ -236,9 +276,9 @@ export const PodcastBlock: React.FC<PodcastBlockProps> = (props) => {
 
           <div className="md:flex">
             <div className="md:w-48 md:h-48 relative">
-              {currentEpisode.coverImage ? (
+              {isValidSrc(currentEpisode.coverImage) ? (
                 <Image
-                  src={currentEpisode.coverImage}
+                  src={extractUrl(currentEpisode.coverImage)!}
                   alt={`Cover for ${currentEpisode.title}`}
                   fill
                   className="object-cover"
@@ -251,22 +291,22 @@ export const PodcastBlock: React.FC<PodcastBlockProps> = (props) => {
               )}
             </div>
             <div className="p-6 flex-1">
-              <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">
+              <h3 className="text-xl font-semibold mb-2 text-neutral-900 dark:text-white">
                 {currentEpisode.title}
               </h3>
-              <p className="text-gray-600 dark:text-gray-300 mb-4 text-sm">
+              <p className="text-neutral-600 dark:text-neutral-300 mb-4 text-sm">
                 {currentEpisode.description}
               </p>
-              <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">
-                Published: {new Date(currentEpisode.publishedDate).toLocaleDateString()}
-              </p>
+                <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-6">
+                Published: {new Date(currentEpisode.publishedDate).toLocaleDateString('en-US', { 
+                  year: 'numeric', 
+                  month: 'short', 
+                  day: 'numeric' 
+                })}
+                </p>
 
               {/* Audio Controls */}
-              <audio
-                ref={audioRef}
-                src={currentEpisode.audioFile || undefined}
-                preload="metadata"
-              />
+              <audio ref={audioRef} src={extractUrl(currentEpisode.audioFile)} preload="metadata" />
 
               {/* Player Controls - Spotify Style */}
               <div className="space-y-4">
@@ -275,7 +315,7 @@ export const PodcastBlock: React.FC<PodcastBlockProps> = (props) => {
                   <button
                     onClick={togglePlayPause}
                     disabled={isLoading || !currentEpisode.audioFile}
-                    className="w-12 h-12 bg-green-500 hover:bg-green-600 disabled:bg-gray-400 rounded-full flex items-center justify-center transition-colors shadow-md"
+                    className="w-12 h-12 bg-green-500 hover:bg-green-600 disabled:bg-neutral-400 rounded-full flex items-center justify-center transition-colors shadow-md"
                   >
                     {isLoading ? (
                       <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
@@ -285,8 +325,8 @@ export const PodcastBlock: React.FC<PodcastBlockProps> = (props) => {
                       <Play className="w-5 h-5 text-white ml-0.5" />
                     )}
                   </button>
-                  <div className="text-sm text-gray-600 dark:text-gray-400 font-mono">
-                    <span className="text-gray-900 dark:text-white">{formatTime(currentTime)}</span>
+                  <div className="text-sm text-neutral-600 dark:text-neutral-400 font-mono">
+                    <span className="text-neutral-900 dark:text-white">{formatTime(currentTime)}</span>
                     <span className="mx-2">/</span>
                     <span>{formatTime(duration)}</span>
                   </div>
@@ -295,7 +335,7 @@ export const PodcastBlock: React.FC<PodcastBlockProps> = (props) => {
                 {/* Progress Bar - Spotify Style */}
                 <div className="group">
                   <div
-                    className="w-full h-1 bg-gray-300 dark:bg-gray-600 rounded-full cursor-pointer group-hover:h-2 transition-all duration-200"
+                    className="w-full h-1 bg-neutral-300 dark:bg-neutral-600 rounded-full cursor-pointer group-hover:h-2 transition-all duration-200"
                     onClick={handleProgressClick}
                   >
                     <div
@@ -313,7 +353,7 @@ export const PodcastBlock: React.FC<PodcastBlockProps> = (props) => {
                     href={spotifyUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 text-sm rounded-full transition-colors border"
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-neutral-100 hover:bg-neutral-200 dark:bg-neutral-700 dark:hover:bg-neutral-600 text-neutral-700 dark:text-neutral-300 text-sm rounded-full transition-colors border"
                   >
                     <ExternalLink className="w-4 h-4" />
                     Listen on Spotify
