@@ -9,7 +9,7 @@ const getImageURL = (image?: Media | Config['db']['defaultIDType'] | null) => {
   const serverUrl = getServerSideURL()
 
   // Default fallback image
-  let url = serverUrl + '/website-template-OG.webp'
+  let url = serverUrl + '/cover.png'
 
   if (image && typeof image === 'object' && 'url' in image) {
     // Ensure the URL is absolute
