@@ -201,7 +201,7 @@ export const AccordionPeopleBlock: React.FC<AccordionPeopleBlockProps> = (props)
             return (
               <div
                 key={section.id}
-                className="bg-white dark:bg-neutral-800 rounded-xl shadow-lg overflow-hidden border border-neutral-200 dark:border-neutral-700"
+                className="bg-white dark:bg-neutral-950 rounded-xl shadow-lg overflow-hidden border border-neutral-200 dark:border-neutral-700"
               >
                 {/* Accordion Header */}
                 <div className="flex min-h-[200px]">
@@ -210,7 +210,7 @@ export const AccordionPeopleBlock: React.FC<AccordionPeopleBlockProps> = (props)
                     {sectionImage ? (
                       <Image src={sectionImage} alt={section.title} fill className="object-cover" />
                     ) : (
-                      <div className="w-full h-full bg-neutral-200 dark:bg-neutral-700 flex items-center justify-center">
+                      <div className="w-full h-full bg-neutral-200 dark:bg-neutral-900 flex items-center justify-center">
                         <span className="text-neutral-400">No Image</span>
                       </div>
                     )}
@@ -229,7 +229,7 @@ export const AccordionPeopleBlock: React.FC<AccordionPeopleBlockProps> = (props)
 
                     <button
                       onClick={() => toggleSection(section.id || '')}
-                      className="p-3 hover:bg-neutral-100 dark:hover:bg-neutral-700 rounded-lg transition-colors"
+                      className="p-3 hover:bg-neutral-100 dark:hover:bg-neutral-900 rounded-lg transition-colors"
                     >
                       {isActive ? (
                         <ChevronUp className="w-6 h-6 text-neutral-600 dark:text-neutral-400" />
@@ -261,7 +261,7 @@ export const AccordionPeopleBlock: React.FC<AccordionPeopleBlockProps> = (props)
                             onMouseEnter={() => setHoveredPerson(person.id || '')}
                             onMouseLeave={() => setHoveredPerson(null)}
                           >
-                            <div className="bg-neutral-50 dark:bg-neutral-700 rounded-xl p-6 text-center transition-all duration-300 hover:shadow-lg">
+                            <div className="bg-neutral-50 dark:bg-neutral-900 rounded-xl p-6 text-center transition-all duration-300 hover:shadow-lg">
                               {/* Profile Photo */}
                               <div className="relative w-20 h-20 mx-auto mb-4">
                                 {personPhoto ? (
