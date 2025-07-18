@@ -227,11 +227,11 @@ export const CalendarBlock: React.FC<CalendarBlockProps> = (props) => {
         <h2 className="text-3xl font-bold text-center mb-8">{title}</h2>
 
         {/* Calendar Header Controls */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
-          <div className="p-6 border-b border-gray-200 dark:border-gray-700">
+        <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-lg overflow-hidden">
+          <div className="p-6 border-b border-neutral-200 dark:border-neutral-700">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
-                <h3 className="text-2xl font-semibold text-gray-900 dark:text-white">
+                <h3 className="text-2xl font-semibold text-neutral-900 dark:text-white">
                   {monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}
                 </h3>
                 <button
@@ -245,15 +245,15 @@ export const CalendarBlock: React.FC<CalendarBlockProps> = (props) => {
               <div className="flex items-center gap-2">
                 <button
                   onClick={goToPreviousMonth}
-                  className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+                  className="p-2 hover:bg-neutral-100 dark:hover:bg-neutral-700 rounded-lg transition-colors"
                 >
-                  <ChevronLeft className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+                  <ChevronLeft className="w-5 h-5 text-neutral-600 dark:text-neutral-400" />
                 </button>
                 <button
                   onClick={goToNextMonth}
-                  className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+                  className="p-2 hover:bg-neutral-100 dark:hover:bg-neutral-700 rounded-lg transition-colors"
                 >
-                  <ChevronRight className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+                  <ChevronRight className="w-5 h-5 text-neutral-600 dark:text-neutral-400" />
                 </button>
               </div>
             </div>
@@ -266,7 +266,7 @@ export const CalendarBlock: React.FC<CalendarBlockProps> = (props) => {
               {dayNames.map((day) => (
                 <div
                   key={day}
-                  className="p-3 text-center text-sm font-medium text-gray-500 dark:text-gray-400"
+                  className="p-3 text-center text-sm font-medium text-neutral-500 dark:text-neutral-400"
                 >
                   {day}
                 </div>
@@ -283,10 +283,10 @@ export const CalendarBlock: React.FC<CalendarBlockProps> = (props) => {
                 return (
                   <div
                     key={index}
-                    className={`min-h-[120px] p-2 border border-gray-200 dark:border-gray-700 rounded-lg ${
+                    className={`min-h-[120px] p-2 border border-neutral-200 dark:border-neutral-700 rounded-lg ${
                       isTodayCell
                         ? 'bg-blue-50 dark:bg-blue-900/20 border-blue-300 dark:border-blue-600'
-                        : 'bg-white dark:bg-gray-800'
+                        : 'bg-white dark:bg-neutral-800'
                     } ${!isCurrentMonthCell ? 'opacity-40' : ''}`}
                   >
                     <div
@@ -294,8 +294,8 @@ export const CalendarBlock: React.FC<CalendarBlockProps> = (props) => {
                         isTodayCell
                           ? 'text-blue-600 dark:text-blue-400'
                           : isCurrentMonthCell
-                            ? 'text-gray-900 dark:text-white'
-                            : 'text-gray-400 dark:text-gray-600'
+                            ? 'text-neutral-900 dark:text-white'
+                            : 'text-neutral-400 dark:text-neutral-600'
                       }`}
                     >
                       {day.getDate()}
@@ -317,7 +317,7 @@ export const CalendarBlock: React.FC<CalendarBlockProps> = (props) => {
                         </button>
                       ))}
                       {dayEvents.length > 3 && (
-                        <div className="text-xs text-gray-500 dark:text-gray-400">
+                        <div className="text-xs text-neutral-500 dark:text-neutral-400">
                           +{dayEvents.length - 3} more
                         </div>
                       )}
@@ -333,12 +333,12 @@ export const CalendarBlock: React.FC<CalendarBlockProps> = (props) => {
       {/* Event Detail Modal */}
       {isModalOpen && selectedEvent && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+          <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-6">
               {/* Modal Header */}
               <div className="flex items-start justify-between mb-6">
                 <div className="flex-1">
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+                  <h3 className="text-2xl font-bold text-neutral-900 dark:text-white mb-2">
                     {selectedEvent.title}
                   </h3>
                   <div
@@ -356,9 +356,9 @@ export const CalendarBlock: React.FC<CalendarBlockProps> = (props) => {
                 </div>
                 <button
                   onClick={closeModal}
-                  className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+                  className="p-2 hover:bg-neutral-100 dark:hover:bg-neutral-700 rounded-lg transition-colors"
                 >
-                  <X className="w-6 h-6 text-gray-600 dark:text-gray-400" />
+                  <X className="w-6 h-6 text-neutral-600 dark:text-neutral-400" />
                 </button>
               </div>
 
@@ -378,23 +378,25 @@ export const CalendarBlock: React.FC<CalendarBlockProps> = (props) => {
               {/* Event Details */}
               <div className="space-y-4">
                 <div>
-                  <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                  <h4 className="text-lg font-semibold text-neutral-900 dark:text-white mb-2">
                     Description
                   </h4>
-                  <p className="text-gray-600 dark:text-gray-300">{selectedEvent.description}</p>
+                  <p className="text-neutral-600 dark:text-neutral-300">
+                    {selectedEvent.description}
+                  </p>
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
-                    <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                    <h4 className="text-lg font-semibold text-neutral-900 dark:text-white mb-2">
                       Date & Time
                     </h4>
                     <div className="space-y-2">
-                      <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300">
+                      <div className="flex items-center gap-2 text-neutral-600 dark:text-neutral-300">
                         <Clock className="w-4 h-4" />
                         {formatDate(selectedEvent.date)}
                       </div>
-                      <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300">
+                      <div className="flex items-center gap-2 text-neutral-600 dark:text-neutral-300">
                         <Clock className="w-4 h-4" />
                         {selectedEvent.time}
                       </div>
@@ -402,10 +404,10 @@ export const CalendarBlock: React.FC<CalendarBlockProps> = (props) => {
                   </div>
 
                   <div>
-                    <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                    <h4 className="text-lg font-semibold text-neutral-900 dark:text-white mb-2">
                       Location
                     </h4>
-                    <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300">
+                    <div className="flex items-center gap-2 text-neutral-600 dark:text-neutral-300">
                       <MapPin className="w-4 h-4" />
                       {selectedEvent.place}
                     </div>
@@ -414,11 +416,11 @@ export const CalendarBlock: React.FC<CalendarBlockProps> = (props) => {
               </div>
 
               {/* Modal Actions */}
-              <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+              <div className="mt-6 pt-6 border-t border-neutral-200 dark:border-neutral-700">
                 <div className="flex gap-3 justify-end">
                   <button
                     onClick={closeModal}
-                    className="px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+                    className="px-4 py-2 text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 rounded-lg transition-colors"
                   >
                     Close
                   </button>

@@ -96,7 +96,7 @@ export const CarouselBlock: React.FC<
                   </h3>
                 )}
                 {currentImage.subtitle && (
-                  <p className="text-lg text-gray-200 dark:text-gray-800">
+                  <p className="text-lg text-neutral-200 dark:text-neutral-800">
                     {currentImage.subtitle}
                   </p>
                 )}
@@ -112,7 +112,7 @@ export const CarouselBlock: React.FC<
           </div>
         </div>
       </div>
-      
+
       {/* Navigation Dots */}
       {showDots && images.length > 1 && (
         <div className="absolute left-1/2 mt-4 transform -translate-x-1/2 flex space-x-2">

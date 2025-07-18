@@ -32,14 +32,14 @@ Auto-playing image carousel block dengan navigation dots dan theme-adaptive over
 ### Light Theme
 - **Overlay Background**: `bg-black/50` (hitam transparan 50%)
 - **Title Text**: `text-white` (putih)
-- **Subtitle Text**: `text-gray-200` (abu-abu terang)
+- **Subtitle Text**: `text-neutral-200` (abu-abu terang)
 - **Active Dot**: `bg-white` (putih solid)
 - **Inactive Dot**: `bg-white/50` (putih transparan 50%)
 
 ### Dark Theme
 - **Overlay Background**: `bg-white/50` (putih transparan 50%)
 - **Title Text**: `text-black` (hitam)
-- **Subtitle Text**: `text-gray-800` (abu-abu gelap)
+- **Subtitle Text**: `text-neutral-800` (abu-abu gelap)
 - **Active Dot**: `bg-black` (hitam solid)
 - **Inactive Dot**: `bg-black/50` (hitam transparan 50%)
 

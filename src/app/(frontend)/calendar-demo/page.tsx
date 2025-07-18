@@ -3,7 +3,7 @@ import { CalendarBlock } from '@/blocks/CalendarBlock/Component'
 
 const CalendarDemo = () => {
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-12">
+    <div className="min-h-screen bg-neutral-50 dark:bg-neutral-900 py-12">
       <CalendarBlock
         id="calendar-demo"
         title="SEF Events Calendar"

@@ -51,10 +51,10 @@ const PodcastCustomDemo = () => {
 // Demo page component
 const PodcastDemoPage = () => {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-neutral-50">
       <div className="container mx-auto py-12">
         <h1 className="text-4xl font-bold text-center mb-4">Podcast Block Demo</h1>
-        <p className="text-gray-600 text-center mb-12 max-w-2xl mx-auto">
+        <p className="text-neutral-600 text-center mb-12 max-w-2xl mx-auto">
           This page demonstrates two ways to use the PodcastBlock component: with Spotify embed and
           with a custom audio player.
         </p>
@@ -63,7 +63,7 @@ const PodcastDemoPage = () => {
         <div className="mb-16">
           <div className="text-center mb-8">
             <h2 className="text-2xl font-semibold mb-2">Spotify Embed Version</h2>
-            <p className="text-gray-600">Uses Spotify&apos;s embedded player</p>
+            <p className="text-neutral-600">Uses Spotify&apos;s embedded player</p>
           </div>
           <PodcastSpotifyDemo />
         </div>
@@ -72,7 +72,7 @@ const PodcastDemoPage = () => {
         <div className="mb-16">
           <div className="text-center mb-8">
             <h2 className="text-2xl font-semibold mb-2">Custom Audio Player Version</h2>
-            <p className="text-gray-600">Uses a custom player with local MP3 files</p>
+            <p className="text-neutral-600">Uses a custom player with local MP3 files</p>
           </div>
           <PodcastCustomDemo />
         </div>
@@ -84,7 +84,7 @@ const PodcastDemoPage = () => {
           <div className="grid md:grid-cols-2 gap-8">
             <div>
               <h4 className="text-lg font-semibold mb-4">For Spotify Embed:</h4>
-              <ol className="list-decimal list-inside space-y-2 text-gray-700">
+              <ol className="list-decimal list-inside space-y-2 text-neutral-700">
                 <li>Go to your Spotify podcast page</li>
                 <li>Click &quot;Share&quot; → &quot;Embed episode&quot;</li>
                 <li>Copy the iframe code</li>
@@ -95,10 +95,10 @@ const PodcastDemoPage = () => {
 
             <div>
               <h4 className="text-lg font-semibold mb-4">For Custom Player:</h4>
-              <ol className="list-decimal list-inside space-y-2 text-gray-700">
+              <ol className="list-decimal list-inside space-y-2 text-neutral-700">
                 <li>
                   Upload MP3 file to{' '}
-                  <code className="bg-gray-100 px-2 py-1 rounded text-sm">/public/media/</code>
+                  <code className="bg-neutral-100 px-2 py-1 rounded text-sm">/public/media/</code>
                 </li>
                 <li>Set &quot;Use Custom Player&quot; to true</li>
                 <li>Fill in episode details (title, description, date)</li>
@@ -110,7 +110,7 @@ const PodcastDemoPage = () => {
 
           <div className="mt-8 p-4 bg-blue-50 rounded-lg">
             <h5 className="font-semibold mb-2">Features of Custom Player:</h5>
-            <ul className="list-disc list-inside space-y-1 text-gray-700">
+            <ul className="list-disc list-inside space-y-1 text-neutral-700">
               <li>✅ Play/Pause button with visual feedback</li>
               <li>✅ Progress bar with click-to-seek</li>
               <li>✅ Time display (current / total)</li>
