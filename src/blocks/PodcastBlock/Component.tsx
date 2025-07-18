@@ -221,14 +221,19 @@ export const PodcastBlock: React.FC<PodcastBlockProps> = (props) => {
   return (
     <div className="my-16" id={`block-${id}`}>
       <div className="container">
-        <div className="mb-4 p-4 bg-purple-500 text-white rounded">
-          <h4 className="font-bold">CUSTOM PLAYER MODE</h4>
-          <p>useCustomPlayer: {useCustomPlayer.toString()}</p>
-          <p>spotifyEmbedCode: {spotifyEmbedCode ? 'PROVIDED' : 'NOT PROVIDED'}</p>
-          <p>episode.audioFile: {currentEpisode.audioFile || 'NOT PROVIDED'}</p>
-        </div>
         <h2 className="text-3xl font-bold text-center mb-8">{title}</h2>
-        <div className="max-w-2xl mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
+        <div className="max-w-2xl mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden relative">
+          {/* Spotify Icon - Top Right */}
+          <div className="absolute top-4 right-4 z-10">
+            <Image
+              src="/media/spotify.svg"
+              alt="Spotify"
+              width={32}
+              height={32}
+              className="opacity-70 hover:opacity-100 transition-opacity"
+            />
+          </div>
+
           <div className="md:flex">
             <div className="md:w-48 md:h-48 relative">
               {currentEpisode.coverImage ? (
@@ -252,79 +257,69 @@ export const PodcastBlock: React.FC<PodcastBlockProps> = (props) => {
               <p className="text-gray-600 dark:text-gray-300 mb-4 text-sm">
                 {currentEpisode.description}
               </p>
-              <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
+              <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">
                 Published: {new Date(currentEpisode.publishedDate).toLocaleDateString()}
               </p>
 
-              {/* DEBUG: Show progress calculation */}
-              <div className="mb-4 p-4 bg-red-500 text-white rounded">
-                <h4 className="font-bold">AUDIO CONTROLS DEBUG</h4>
-                <p>Audio file: {currentEpisode.audioFile}</p>
-                <p>
-                  Duration: {duration} seconds ({formatTime(duration)})
-                </p>
-                <p>
-                  Current time: {currentTime} seconds ({formatTime(currentTime)})
-                </p>
-                <p>Progress: {progress.toFixed(2)}%</p>
-                <p>Is playing: {isPlaying.toString()}</p>
-                <p>Is loading: {isLoading.toString()}</p>
-              </div>
-
-              {/* Audio Controls - Always show if episode has audio */}
+              {/* Audio Controls */}
               <audio
                 ref={audioRef}
                 src={currentEpisode.audioFile || undefined}
                 preload="metadata"
               />
 
-              <div className="flex items-center gap-4 mb-4 p-4 bg-blue-500 rounded">
-                <button
-                  onClick={togglePlayPause}
-                  disabled={isLoading || !currentEpisode.audioFile}
-                  className="w-12 h-12 bg-white rounded-full flex items-center justify-center"
-                >
-                  {isLoading ? (
-                    <div className="w-5 h-5 border-2 border-gray-500 border-t-transparent rounded-full animate-spin" />
-                  ) : isPlaying ? (
-                    <Pause className="w-5 h-5 text-gray-700" />
-                  ) : (
-                    <Play className="w-5 h-5 text-gray-700 ml-0.5" />
-                  )}
-                </button>
-                <div className="text-white">
-                  {formatTime(currentTime)} / {formatTime(duration)}
-                  {duration > 0 && (
-                    <span className="text-xs ml-2">
-                      ({formatTime(duration - currentTime)} left)
-                    </span>
-                  )}
+              {/* Player Controls - Spotify Style */}
+              <div className="space-y-4">
+                {/* Play Button and Time Display */}
+                <div className="flex items-center gap-4">
+                  <button
+                    onClick={togglePlayPause}
+                    disabled={isLoading || !currentEpisode.audioFile}
+                    className="w-12 h-12 bg-green-500 hover:bg-green-600 disabled:bg-gray-400 rounded-full flex items-center justify-center transition-colors shadow-md"
+                  >
+                    {isLoading ? (
+                      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    ) : isPlaying ? (
+                      <Pause className="w-5 h-5 text-white" />
+                    ) : (
+                      <Play className="w-5 h-5 text-white ml-0.5" />
+                    )}
+                  </button>
+                  <div className="text-sm text-gray-600 dark:text-gray-400 font-mono">
+                    <span className="text-gray-900 dark:text-white">{formatTime(currentTime)}</span>
+                    <span className="mx-2">/</span>
+                    <span>{formatTime(duration)}</span>
+                  </div>
                 </div>
-              </div>
 
-              <div className="mb-4 p-2 bg-green-500 rounded">
-                <div className="text-white text-xs mb-1">
-                  Progress: {progress.toFixed(1)}% | Width: {progress}%
-                </div>
-                <div
-                  className="w-full h-4 bg-white rounded-full cursor-pointer"
-                  onClick={handleProgressClick}
-                >
+                {/* Progress Bar - Spotify Style */}
+                <div className="group">
                   <div
-                    className="h-full bg-red-500 rounded-full transition-all duration-100"
-                    style={{ width: `${Math.max(0, Math.min(100, progress))}%` }}
-                  />
+                    className="w-full h-1 bg-gray-300 dark:bg-gray-600 rounded-full cursor-pointer group-hover:h-2 transition-all duration-200"
+                    onClick={handleProgressClick}
+                  >
+                    <div
+                      className="h-full bg-green-500 rounded-full transition-all duration-100 relative"
+                      style={{ width: `${Math.max(0, Math.min(100, progress))}%` }}
+                    >
+                      <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-3 h-3 bg-white rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Spotify Link */}
+                <div className="pt-2">
+                  <a
+                    href={spotifyUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 text-sm rounded-full transition-colors border"
+                  >
+                    <ExternalLink className="w-4 h-4" />
+                    Listen on Spotify
+                  </a>
                 </div>
               </div>
-              <a
-                href={spotifyUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 bg-green-500 hover:bg-green-600 text-white text-sm rounded-lg transition-colors"
-              >
-                <ExternalLink className="w-4 h-4" />
-                View More on Spotify
-              </a>
             </div>
           </div>
         </div>
