@@ -1,12 +1,12 @@
 -- Aggressive optimization for production publish operations
--- Run this ONLY on production database
+-- Run each command SEPARATELY in Supabase SQL Editor (tidak dalam transaction)
 
--- 1. Create indexes for faster lookups
-CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_pages_status ON pages(_status);
-CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_pages_updated_at ON pages(updated_at);
-CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_pages_v_version_status ON pages_v(version__status);
+-- 1. Create indexes for faster lookups (run one by one)
+-- CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_pages_status ON pages(_status);
+-- CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_pages_updated_at ON pages(updated_at);
+-- CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_pages_v_version_status ON pages_v(version__status);
 
--- 2. Clean up old versions (keep only last 10 per page)
+-- 2. Clean up old versions (keep only last 10 per page) - run this separately
 WITH version_cleanup AS (
   SELECT id,
          ROW_NUMBER() OVER (PARTITION BY parent_id ORDER BY updated_at DESC) as rn
