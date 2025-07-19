@@ -1,4 +1,4 @@
-// Test script untuk quick publish API
+// const API_BASE = 'http://localhost:3000'; // Change to localhost:3000 for local testingest script untuk quick publish API
 // Jalankan dengan: node test-quick-publish.mjs
 
 const API_BASE = 'https://sefunsoed.site' // Change to localhost:3000 for local testing
