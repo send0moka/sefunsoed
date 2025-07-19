@@ -1,0 +1,21 @@
+# Production Environment Variables untuk Vercel
+# Pastikan semua ini sudah di-set di Vercel Dashboard
+
+# Database (harus sama dengan localhost)
+DATABASE_URI=postgresql://postgres.zpepmvbjkbdpjaprhypy:D2pmzVtcMIXhHRGC@aws-0-ap-southeast-1.pooler.supabase.com:6543/postgres
+
+# Payload Configuration  
+PAYLOAD_SECRET=4ff53e888ba47fed873e5ef4
+PREVIEW_SECRET=e7ffb4e328f7f370cc16a4e0f92141779a416e2a4d6bd9ad83079d515e420a5c
+
+# Production URLs
+NEXT_PUBLIC_SERVER_URL=https://sefunsoed.site
+VERCEL_PROJECT_PRODUCTION_URL=sefunsoed.site
+
+# Supabase
+NEXT_PUBLIC_SUPABASE_URL=https://zpepmvbjkbdpjaprhypy.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpwZXBtdmJqa2JkcGphcHJoeXB5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTIxODE2NDgsImV4cCI6MjA2Nzc1NzY0OH0.VMlQPMERMZFb1hI8kzd-aPlQvZ4jMUmQ52ubAt-cub0
+SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpwZXBtdmJqa2JkcGphcHJoeXB5Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1MjE4MTY0OCwiZXhwIjoyMDY3NzU3NjQ4fQ.WKrc4nwgVCUth658F_MQGtgxdj_RIFbQDGKjuqnXFcE
+
+# Performance
+NODE_ENV=production
