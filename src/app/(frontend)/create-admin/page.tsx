@@ -1,9 +1,9 @@
-import { getPayloadHMR } from '@payloadcms/next/utilities'
+import { getPayload } from 'payload'
 import configPromise from '@/payload.config'
 import Link from 'next/link'
 
 export default async function CreateAdminPage() {
-  const payload = await getPayloadHMR({
+  const payload = await getPayload({
     config: configPromise,
   })
 

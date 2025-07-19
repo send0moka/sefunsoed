@@ -14,6 +14,9 @@ importers:
       '@payloadcms/db-postgres':
         specifier: 3.46.0
         version: 3.46.0(payload@3.46.0(graphql@16.11.0)(typescript@5.7.3))
+      '@payloadcms/email-nodemailer':
+        specifier: ^3.48.0
+        version: 3.48.0(payload@3.46.0(graphql@16.11.0)(typescript@5.7.3))
       '@payloadcms/live-preview-react':
         specifier: 3.46.0
         version: 3.46.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -1441,6 +1444,12 @@ packages:
     engines: {node: ^18.20.2 || >=20.9.0}
     peerDependencies:
       payload: 3.46.0
+
+  '@payloadcms/email-nodemailer@3.48.0':
+    resolution: {integrity: sha512-DSdh8y8t46e2pb8qoWn2bgWEMnhD8/ZZOF/XG1Gcqn6ErVYlQZP9DhVrv1rEC8rylYoXOrPf/yJ+eJIXEPKleQ==}
+    engines: {node: ^18.20.2 || >=20.9.0}
+    peerDependencies:
+      payload: 3.48.0
 
   '@payloadcms/graphql@3.46.0':
     resolution: {integrity: sha512-RJhmiORJHy1ZZVe84kZbeRrgRxU/KQKYoKD92nMgWD7baJJVg6bfO7Zw8GFaNNKbyYQD4ojDGCPsel+9ZyYLyQ==}
@@ -6962,6 +6971,11 @@ snapshots:
       - sqlite3
 
   '@payloadcms/email-nodemailer@3.46.0(payload@3.46.0(graphql@16.11.0)(typescript@5.7.3))':
+    dependencies:
+      nodemailer: 6.9.16
+      payload: 3.46.0(graphql@16.11.0)(typescript@5.7.3)
+
+  '@payloadcms/email-nodemailer@3.48.0(payload@3.46.0(graphql@16.11.0)(typescript@5.7.3))':
     dependencies:
       nodemailer: 6.9.16
       payload: 3.46.0(graphql@16.11.0)(typescript@5.7.3)

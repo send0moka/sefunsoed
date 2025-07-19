@@ -1,8 +1,8 @@
-import { getPayloadHMR } from '@payloadcms/next/utilities'
+import { getPayload } from 'payload'
 import configPromise from '../src/payload.config'
 
 export default async function checkAuth() {
-  const payload = await getPayloadHMR({ config: configPromise })
+  const payload = await getPayload({ config: configPromise })
 
   try {
     // Check if any users exist

@@ -1,5 +1,6 @@
 // storage-adapter-import-placeholder
 import { postgresAdapter } from '@payloadcms/db-postgres'
+import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
 
 import sharp from 'sharp' // sharp-import
 import path from 'path'
@@ -90,6 +91,16 @@ export default buildConfig({
     ...plugins,
     // storage-adapter-placeholder
   ],
+  email: nodemailerAdapter({
+    defaultFromAddress: 'noreply@sefunsoed.site',
+    defaultFromName: 'SEF Unsoed',
+    // Use streamTransport for development to avoid SMTP connection
+    transportOptions: {
+      streamTransport: true,
+      newline: 'unix',
+      buffer: true,
+    },
+  }),
   secret: process.env.PAYLOAD_SECRET,
   sharp,
   typescript: {

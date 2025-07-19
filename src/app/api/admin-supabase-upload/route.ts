@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
-import { getPayloadHMR } from '@payloadcms/next/utilities'
+import { getPayload } from 'payload'
 import configPromise from '@/payload.config'
 
 const supabase = createClient(
@@ -49,7 +49,7 @@ export async function POST(request: NextRequest) {
     const { data: urlData } = supabase.storage.from('media').getPublicUrl(uniqueFilename)
 
     // Create record in Payload CMS
-    const payload = await getPayloadHMR({ config: configPromise })
+    const payload = await getPayload({ config: configPromise })
 
     const mediaRecord = await payload.create({
       collection: 'media',
