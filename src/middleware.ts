@@ -12,6 +12,17 @@ export function middleware(request: NextRequest) {
     if (request.nextUrl.pathname.includes('/pages/') && request.url.includes('draft=true')) {
       response.headers.set('X-API-Timeout', '60000') // 60 seconds for draft operations
     }
+
+    // Add graceful degradation headers for admin operations
+    if (
+      request.nextUrl.pathname.includes('/admin') ||
+      request.nextUrl.pathname.includes('/collections')
+    ) {
+      response.headers.set('X-Admin-Graceful-Errors', 'true')
+      response.headers.set('X-Cache-Control', 'no-cache, no-store, must-revalidate')
+    }
+
+    return response
   }
 
   // Skip CSP for admin routes
