@@ -31,6 +31,9 @@ export default buildConfig({
       // The `BeforeDashboard` component renders the 'welcome' block that you see after logging into your admin panel.
       // Feel free to delete this at any time. Simply remove the line below.
       // beforeDashboard: ['@/components/BeforeDashboard'],
+
+      // Add React Crash Preventer to all admin pages
+      afterNavLinks: ['@/components/ReactCrashPreventer'],
     },
     importMap: {
       baseDir: path.resolve(dirname),
