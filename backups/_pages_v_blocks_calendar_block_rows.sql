@@ -1,1 +1,1 @@
-INSERT INTO "public"."_pages_v_blocks_calendar_block" ("_order", "_parent_id", "_path", "id", "title", "_uuid", "block_name") VALUES ('5', '8', 'version.layout', '42', 'SEF Events Calendar', '687af0086147c455d70b3ead', null);
+INSERT INTO "public"."_pages_v_blocks_calendar_block" ("_order", "_parent_id", "_path", "id", "title", "_uuid", "block_name") VALUES ('3', '20', 'version.layout', '52', 'Upcoming Events', '687c4986c55896bb41bc689b', null);

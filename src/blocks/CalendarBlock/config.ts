@@ -10,7 +10,7 @@ export const CalendarBlock: Block = {
     {
       name: 'title',
       type: 'text',
-      required: true,
+      required: false, // Changed to false to prevent immediate validation
       defaultValue: 'SEF Events Calendar',
       admin: {
         description: 'The title that appears above the calendar',
@@ -23,11 +23,14 @@ export const CalendarBlock: Block = {
         singular: 'Event',
         plural: 'Events',
       },
+      minRows: 0, // Allow empty events initially
+      defaultValue: [], // Empty array by default
       fields: [
         {
           name: 'title',
           type: 'text',
-          required: true,
+          required: false, // Changed to false
+          defaultValue: 'New Event',
           admin: {
             description: 'Event title that appears on the calendar',
           },
@@ -35,7 +38,8 @@ export const CalendarBlock: Block = {
         {
           name: 'description',
           type: 'textarea',
-          required: true,
+          required: false, // Changed to false
+          defaultValue: 'Event description',
           admin: {
             description: 'Detailed description shown in the event modal',
           },
@@ -43,7 +47,12 @@ export const CalendarBlock: Block = {
         {
           name: 'date',
           type: 'date',
-          required: true,
+          required: false, // Changed to false
+          defaultValue: () => {
+            // Default to today's date
+            const today = new Date()
+            return today.toISOString().split('T')[0]
+          },
           admin: {
             description: 'Event date (YYYY-MM-DD format)',
             date: {
@@ -55,13 +64,14 @@ export const CalendarBlock: Block = {
         {
           name: 'time',
           type: 'text',
-          required: true,
+          required: false, // Changed to false
+          defaultValue: '10:00',
           admin: {
             description: 'Event time in 24-hour format (e.g., 14:30)',
             placeholder: '14:30',
           },
           validate: (value: string | null | undefined) => {
-            if (!value) return 'Time is required'
+            if (!value) return true // Allow empty since not required
             const timeRegex = /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/
             if (!timeRegex.test(value)) {
               return 'Time must be in HH:MM format (e.g., 14:30)'
@@ -72,7 +82,8 @@ export const CalendarBlock: Block = {
         {
           name: 'place',
           type: 'text',
-          required: true,
+          required: false, // Changed to false
+          defaultValue: 'SEF Building',
           admin: {
             description: 'Event location or venue',
           },
@@ -88,7 +99,7 @@ export const CalendarBlock: Block = {
         {
           name: 'audience',
           type: 'select',
-          required: true,
+          required: false, // Changed to false
           defaultValue: 'public',
           options: [
             {
@@ -107,6 +118,8 @@ export const CalendarBlock: Block = {
         {
           name: 'category',
           type: 'select',
+          required: false, // Changed to false
+          defaultValue: 'other',
           options: [
             { label: 'Workshop', value: 'workshop' },
             { label: 'Study Group', value: 'study-group' },

@@ -24,10 +24,12 @@ interface CalendarBlockProps {
 export const CalendarBlock: React.FC<CalendarBlockProps> = (props) => {
   const { id, title = 'SEF Events Calendar', events = [] } = props
 
-  // Debug logging untuk melihat data yang diterima dari CMS
-  console.log('CalendarBlock props:', props)
-  console.log('Events array:', events)
-  console.log('Events length:', events?.length)
+  // Only log in development
+  if (process.env.NODE_ENV === 'development') {
+    console.log('CalendarBlock props:', props)
+    console.log('Events array:', events)
+    console.log('Events length:', events?.length)
+  }
 
   const [currentDate, setCurrentDate] = useState(new Date())
   const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(null)
@@ -89,8 +91,11 @@ export const CalendarBlock: React.FC<CalendarBlockProps> = (props) => {
 
   const currentEvents = transformedEvents.length > 0 ? transformedEvents : defaultEvents
 
-  console.log('Transformed events:', transformedEvents)
-  console.log('Current events being used:', currentEvents)
+  // Only log in development
+  if (process.env.NODE_ENV === 'development') {
+    console.log('Transformed events:', transformedEvents)
+    console.log('Current events being used:', currentEvents)
+  }
 
   // Calendar navigation
   const monthNames = [
