@@ -32,8 +32,8 @@ export default buildConfig({
       // Feel free to delete this at any time. Simply remove the line below.
       // beforeDashboard: ['@/components/BeforeDashboard'],
 
-      // Add React Crash Preventer to all admin pages
-      afterNavLinks: ['@/components/ReactCrashPreventer'],
+      // Add Script Injector to all admin pages
+      afterNavLinks: ['@/components/AdminScriptInjector'],
     },
     importMap: {
       baseDir: path.resolve(dirname),

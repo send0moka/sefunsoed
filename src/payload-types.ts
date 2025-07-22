@@ -252,7 +252,7 @@ export interface Page {
         /**
          * The title that appears above the calendar
          */
-        title: string;
+        title?: string | null;
         /**
          * Add events to display on the calendar
          */
@@ -261,23 +261,23 @@ export interface Page {
               /**
                * Event title that appears on the calendar
                */
-              title: string;
+              title?: string | null;
               /**
                * Detailed description shown in the event modal
                */
-              description: string;
+              description?: string | null;
               /**
                * Event date (YYYY-MM-DD format)
                */
-              date: string;
+              date?: string | null;
               /**
                * Event time in 24-hour format (e.g., 14:30)
                */
-              time: string;
+              time?: string | null;
               /**
                * Event location or venue
                */
-              place: string;
+              place?: string | null;
               /**
                * Optional event image shown in the modal
                */
@@ -285,7 +285,7 @@ export interface Page {
               /**
                * Who can attend this event
                */
-              audience: 'public' | 'members-only';
+              audience?: ('public' | 'members-only') | null;
               /**
                * Event category for organization
                */
