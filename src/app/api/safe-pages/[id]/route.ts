@@ -19,7 +19,10 @@ export async function PATCH(request: NextRequest, context: { params: Promise<{ i
 
     // Increase timeout and add retry logic
     const timeoutPromise = new Promise((_, reject) => {
-      setTimeout(() => reject(new Error('Safe timeout')), 20000) // Increased to 20 seconds
+      setTimeout(
+        () => reject(new Error('Safe timeout')),
+        process.env.NODE_ENV === 'production' ? 40000 : 20000,
+      ) // 40s production, 20s dev
     })
 
     const patchPromise = async () => {
@@ -58,19 +61,36 @@ export async function PATCH(request: NextRequest, context: { params: Promise<{ i
       try {
         const payload = await getPayload({ config })
 
-        // Simple update without depth
-        const basicResult = await payload.update({
-          collection: 'pages',
-          id,
-          data: body,
-        })
+        // Ultra-minimal update for production - only essential fields
+        const minimalData =
+          process.env.NODE_ENV === 'production'
+            ? {
+                ...(body.layout && { layout: body.layout }),
+                ...(body.title && { title: body.title }),
+                updatedAt: new Date().toISOString(),
+              }
+            : body // Full data in development
+
+        const basicResult = (await Promise.race([
+          payload.update({
+            collection: 'pages',
+            id,
+            data: minimalData,
+          }),
+          new Promise((_, reject) => setTimeout(() => reject(new Error('Basic timeout')), 15000)),
+        ])) as { id: string; title?: string; updatedAt?: string } // PayloadCMS update result type
 
         console.log('=== BASIC SAVE SUCCESS ===')
         return NextResponse.json({
-          ...basicResult,
-          message: 'Updated successfully (basic save)',
+          id: basicResult?.id || id,
+          title: basicResult?.title || body?.title,
+          message:
+            process.env.NODE_ENV === 'production'
+              ? 'Updated successfully (minimal save)'
+              : 'Updated successfully (basic save)',
           _method: 'safe_patch_basic',
           _saved: true,
+          updatedAt: basicResult?.updatedAt || new Date().toISOString(),
         })
       } catch (basicError) {
         console.error('Basic save also failed:', basicError)
