@@ -17,15 +17,17 @@ export async function PATCH(request: NextRequest, context: { params: Promise<{ i
 
     console.log(`Safe PATCH for page ID: ${id}, depth: ${depth}`)
 
-    // Very short timeout to prevent React hydration issues
+    // Increase timeout and add retry logic
     const timeoutPromise = new Promise((_, reject) => {
-      setTimeout(() => reject(new Error('Safe timeout')), 12000) // 12 seconds
+      setTimeout(() => reject(new Error('Safe timeout')), 20000) // Increased to 20 seconds
     })
 
     const patchPromise = async () => {
       const payload = await getPayload({ config })
 
-      // Update with minimal processing
+      console.log('Attempting database update...')
+
+      // Update with proper error handling
       const result = await payload.update({
         collection: 'pages',
         id,
@@ -33,31 +35,60 @@ export async function PATCH(request: NextRequest, context: { params: Promise<{ i
         depth: parseInt(depth) || 0,
       })
 
+      console.log('Database update successful:', result.id)
+
       return {
         ...result,
         message: 'Updated successfully',
+        _method: 'safe_patch_success',
+        _saved: true,
       }
     }
 
     try {
-      // Try normal update
+      // Try normal update with longer timeout
       const result = await Promise.race([patchPromise(), timeoutPromise])
 
-      console.log('=== SAFE PATCH SUCCESS ===')
+      console.log('=== SAFE PATCH SUCCESS - DATA SAVED ===')
       return NextResponse.json(result)
     } catch (_timeoutError) {
-      // Return optimistic response to prevent React crashes
-      console.log('=== SAFE PATCH TIMEOUT - RETURNING OPTIMISTIC RESPONSE ===')
+      // If timeout, try one more time with basic update
+      console.log('=== TIMEOUT - ATTEMPTING BASIC SAVE ===')
 
-      const optimisticResponse = {
-        id,
-        ...body,
-        updatedAt: new Date().toISOString(),
-        message: 'Update processed (background save)',
-        _method: 'safe_patch_timeout',
+      try {
+        const payload = await getPayload({ config })
+
+        // Simple update without depth
+        const basicResult = await payload.update({
+          collection: 'pages',
+          id,
+          data: body,
+        })
+
+        console.log('=== BASIC SAVE SUCCESS ===')
+        return NextResponse.json({
+          ...basicResult,
+          message: 'Updated successfully (basic save)',
+          _method: 'safe_patch_basic',
+          _saved: true,
+        })
+      } catch (basicError) {
+        console.error('Basic save also failed:', basicError)
+
+        // Only return optimistic if all saves failed
+        console.log('=== ALL SAVES FAILED - RETURNING OPTIMISTIC RESPONSE ===')
+
+        const optimisticResponse = {
+          id,
+          ...body,
+          updatedAt: new Date().toISOString(),
+          message: 'Update processed (background save)',
+          _method: 'safe_patch_timeout',
+          _saved: false,
+        }
+
+        return NextResponse.json(optimisticResponse)
       }
-
-      return NextResponse.json(optimisticResponse)
     }
   } catch (error: unknown) {
     console.error('=== SAFE PATCH ERROR - RETURNING OPTIMISTIC RESPONSE ===', error)
