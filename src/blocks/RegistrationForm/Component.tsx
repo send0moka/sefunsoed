@@ -12,6 +12,7 @@ import {
   ChevronUp,
 } from 'lucide-react'
 import { getClientSideURL } from '@/utilities/getURL'
+import RegistrationFormDebugger from '@/components/RegistrationFormDebugger'
 
 // Faculty and Major data
 const FACULTY_MAJOR_DATA = {
@@ -357,6 +358,9 @@ const RegistrationFormComponent: React.FC<RegistrationFormProps> = ({
 
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white dark:bg-neutral-900 rounded-lg shadow-lg">
+      {/* Debug Component */}
+      <RegistrationFormDebugger personalFields={personalFields} />
+
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-neutral-900 dark:text-white mb-4">{title}</h1>
