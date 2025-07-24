@@ -150,6 +150,8 @@ export const RegistrationForm: Block = {
             { label: 'Date', value: 'date' },
             { label: 'Textarea', value: 'textarea' },
             { label: 'Select', value: 'select' },
+            { label: 'Faculty', value: 'faculty' },
+            { label: 'Major', value: 'major' },
           ],
         },
         {

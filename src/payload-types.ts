@@ -991,7 +991,7 @@ export interface RegistrationFormBlock {
          * Label shown to users
          */
         label: string;
-        type: 'text' | 'email' | 'tel' | 'number' | 'date' | 'textarea' | 'select';
+        type: 'text' | 'email' | 'tel' | 'number' | 'date' | 'textarea' | 'select' | 'faculty' | 'major';
         required?: boolean | null;
         /**
          * Placeholder text for input fields

@@ -13,6 +13,119 @@ import {
 } from 'lucide-react'
 import { getClientSideURL } from '@/utilities/getURL'
 
+// Faculty and Major data
+const FACULTY_MAJOR_DATA = {
+  'fakultas-pertanian': {
+    label: 'Fakultas Pertanian',
+    majors: [
+      { value: 'd3-agrobisnis', label: 'D3 Agrobisnis' },
+      { value: 'd3-ilmu-tanah', label: 'D3 Ilmu Tanah' },
+      { value: 'teknik-pertanian', label: 'Teknik Pertanian' },
+      { value: 'teknologi-pangan', label: 'Teknologi Pangan' },
+      { value: 'agribisnis', label: 'Agribisnis' },
+      { value: 'agroteknologi', label: 'Agroteknologi' },
+    ],
+  },
+  'fakultas-biologi': {
+    label: 'Fakultas Biologi',
+    majors: [
+      { value: 'd3-biologi', label: 'D3 Biologi' },
+      { value: 'biologi', label: 'Biologi' },
+    ],
+  },
+  'fakultas-ekonomi-dan-bisnis': {
+    label: 'Fakultas Ekonomi dan Bisnis',
+    majors: [
+      { value: 'd3-administrasi-perkantoran', label: 'D3 Administrasi Perkantoran' },
+      { value: 'd3-administrasi-bisnis', label: 'D3 Administrasi Bisnis' },
+      { value: 'd3-akuntansi', label: 'D3 Akuntansi' },
+      { value: 'd3-bisnis-internasional', label: 'D3 Bisnis Internasional' },
+      { value: 'akuntansi', label: 'Akuntansi' },
+      { value: 'manajemen', label: 'Manajemen' },
+      { value: 'pendidikan-ekonomi', label: 'Pendidikan Ekonomi' },
+      { value: 'ekonomi-pembangunan', label: 'Ekonomi Pembangunan' },
+    ],
+  },
+  'fakultas-peternakan': {
+    label: 'Fakultas Peternakan',
+    majors: [
+      { value: 'd3-budidaya-ternak', label: 'D3 Budidaya Ternak' },
+      { value: 'peternakan', label: 'Peternakan' },
+    ],
+  },
+  'fakultas-hukum': {
+    label: 'Fakultas Hukum',
+    majors: [{ value: 'ilmu-hukum', label: 'Ilmu Hukum' }],
+  },
+  'fakultas-fisip': {
+    label: 'Fakultas Ilmu Sosial dan Ilmu Politik',
+    majors: [
+      { value: 'ilmu-komunikasi', label: 'Ilmu Komunikasi' },
+      { value: 'sosiologi', label: 'Sosiologi' },
+      { value: 'ilmu-politik', label: 'Ilmu Politik' },
+      { value: 'hubungan-internasional', label: 'Hubungan Internasional' },
+      { value: 'administrasi-publik', label: 'Administrasi Publik' },
+    ],
+  },
+  'fakultas-kedokteran': {
+    label: 'Fakultas Kedokteran',
+    majors: [
+      { value: 'kedokteran-umum', label: 'Kedokteran Umum' },
+      { value: 'kedokteran-gigi', label: 'Kedokteran Gigi' },
+    ],
+  },
+  'fakultas-teknik': {
+    label: 'Fakultas Teknik',
+    majors: [
+      { value: 'informatika', label: 'Informatika' },
+      { value: 'teknik-komputer', label: 'Teknik Komputer' },
+      { value: 'teknik-sipil', label: 'Teknik Sipil' },
+      { value: 'teknik-geologi', label: 'Teknik Geologi' },
+      { value: 'teknik-elektro', label: 'Teknik Elektro' },
+      { value: 'teknik-industri', label: 'Teknik Industri' },
+      { value: 'teknik-mesin', label: 'Teknik Mesin' },
+    ],
+  },
+  'fakultas-perikanan': {
+    label: 'Fakultas Perikanan dan Ilmu Kelautan',
+    majors: [
+      { value: 'budidaya-perairan', label: 'Budidaya Perairan' },
+      { value: 'ilmu-kelautan', label: 'Ilmu Kelautan' },
+      { value: 'manajemen-sumberdaya-perairan', label: 'Manajemen Sumberdaya Perairan' },
+    ],
+  },
+  'fakultas-mipa': {
+    label: 'Fakultas Matematika dan Ilmu Pengetahuan Alam',
+    majors: [
+      { value: 'matematika', label: 'Matematika' },
+      { value: 'fisika', label: 'Fisika' },
+      { value: 'kimia', label: 'Kimia' },
+    ],
+  },
+  'fakultas-ilmu-kesehatan': {
+    label: 'Fakultas Ilmu-Ilmu Kesehatan',
+    majors: [
+      { value: 'ilmu-gizi', label: 'Ilmu Gizi' },
+      { value: 'keperawatan', label: 'Keperawatan' },
+      { value: 'farmasi', label: 'Farmasi' },
+      { value: 'kesehatan-masyarakat', label: 'Kesehatan Masyarakat' },
+      { value: 'pendidikan-jasmani', label: 'Pendidikan Jasmani' },
+    ],
+  },
+  'fakultas-ilmu-budaya': {
+    label: 'Fakultas Ilmu Budaya',
+    majors: [
+      { value: 'd3-bahasa-mandarin', label: 'D3 Bahasa Mandarin' },
+      { value: 'd3-bahasa-inggris', label: 'D3 Bahasa Inggris' },
+      { value: 'sastra-jepang', label: 'Sastra Jepang' },
+      { value: 'pendidikan-bahasa-inggris', label: 'Pendidikan Bahasa Inggris' },
+      { value: 'pendidikan-bahasa-indonesia', label: 'Pendidikan Bahasa Indonesia' },
+      { value: 'sastra-inggris', label: 'Sastra Inggris' },
+      { value: 'sastra-indonesia', label: 'Sastra Indonesia' },
+    ],
+  },
+} as const
+
 type RegistrationFormProps = {
   title?: string
   formId?: number // Add formId prop to connect with form-builder
@@ -27,7 +140,7 @@ type RegistrationFormProps = {
   personalFields?: Array<{
     fieldName: string
     label: string
-    type: 'text' | 'email' | 'tel' | 'number' | 'date' | 'textarea' | 'select'
+    type: 'text' | 'email' | 'tel' | 'number' | 'date' | 'textarea' | 'select' | 'faculty' | 'major'
     required?: boolean
     placeholder?: string
     selectOptions?: string
@@ -490,6 +603,89 @@ const RegistrationFormComponent: React.FC<RegistrationFormProps> = ({
                           </option>
                         ))}
                       </select>
+                    ) : field.type === 'faculty' ? (
+                      <select
+                        id={field.fieldName}
+                        name={field.fieldName}
+                        required={field.required}
+                        value={formData.personalInfo[field.fieldName] || ''}
+                        onChange={(e) => {
+                          const newValue = e.target.value
+                          setFormData((prev) => {
+                            const newPersonalInfo = {
+                              ...prev.personalInfo,
+                              [field.fieldName]: newValue,
+                            }
+
+                            // Reset major field when faculty changes
+                            const majorField = personalFields.find((f) => f.type === 'major')
+                            if (majorField) {
+                              newPersonalInfo[majorField.fieldName] = ''
+                            }
+
+                            return {
+                              ...prev,
+                              personalInfo: newPersonalInfo,
+                            }
+                          })
+                        }}
+                        className="w-full px-3 py-2 border border-neutral-300 dark:border-neutral-600 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-neutral-700 text-neutral-900 dark:text-white"
+                      >
+                        <option value="">Pilih Fakultas</option>
+                        {Object.entries(FACULTY_MAJOR_DATA).map(([value, data]) => (
+                          <option key={value} value={value}>
+                            {data.label}
+                          </option>
+                        ))}
+                      </select>
+                    ) : field.type === 'major' ? (
+                      (() => {
+                        // Find faculty field to get selected faculty
+                        const facultyField = personalFields.find((f) => f.type === 'faculty')
+                        const selectedFaculty = facultyField
+                          ? formData.personalInfo[facultyField.fieldName]
+                          : null
+                        const availableMajors =
+                          selectedFaculty &&
+                          FACULTY_MAJOR_DATA[selectedFaculty as keyof typeof FACULTY_MAJOR_DATA]
+                            ? FACULTY_MAJOR_DATA[selectedFaculty as keyof typeof FACULTY_MAJOR_DATA]
+                                .majors
+                            : []
+                        const isMajorDisabled = !selectedFaculty || availableMajors.length === 0
+
+                        return (
+                          <select
+                            id={field.fieldName}
+                            name={field.fieldName}
+                            required={field.required}
+                            disabled={isMajorDisabled}
+                            value={formData.personalInfo[field.fieldName] || ''}
+                            onChange={(e) =>
+                              setFormData((prev) => ({
+                                ...prev,
+                                personalInfo: {
+                                  ...prev.personalInfo,
+                                  [field.fieldName]: e.target.value,
+                                },
+                              }))
+                            }
+                            className={`w-full px-3 py-2 border border-neutral-300 dark:border-neutral-600 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-neutral-700 text-neutral-900 dark:text-white ${
+                              isMajorDisabled ? 'opacity-50 cursor-not-allowed' : ''
+                            }`}
+                          >
+                            <option value="">
+                              {isMajorDisabled
+                                ? 'Pilih fakultas terlebih dahulu'
+                                : 'Pilih Program Studi'}
+                            </option>
+                            {availableMajors.map((major) => (
+                              <option key={major.value} value={major.value}>
+                                {major.label}
+                              </option>
+                            ))}
+                          </select>
+                        )
+                      })()
                     ) : (
                       <input
                         type={field.type}
@@ -580,17 +776,46 @@ const RegistrationFormComponent: React.FC<RegistrationFormProps> = ({
                       const value = formData.personalInfo[field.fieldName]
                       if (!value) return null
 
+                      const getDisplayValue = () => {
+                        if (field.type === 'select') {
+                          return (
+                            parseSelectOptions(field.selectOptions).find(
+                              (opt) => opt.value === value,
+                            )?.label || value
+                          )
+                        } else if (field.type === 'faculty') {
+                          const facultyData =
+                            FACULTY_MAJOR_DATA[value as keyof typeof FACULTY_MAJOR_DATA]
+                          return facultyData ? facultyData.label : value
+                        } else if (field.type === 'major') {
+                          // Find the faculty field to get the faculty context
+                          const facultyField = personalFields.find((f) => f.type === 'faculty')
+                          const selectedFaculty = facultyField
+                            ? formData.personalInfo[facultyField.fieldName]
+                            : null
+
+                          if (selectedFaculty) {
+                            const facultyData =
+                              FACULTY_MAJOR_DATA[selectedFaculty as keyof typeof FACULTY_MAJOR_DATA]
+                            if (facultyData) {
+                              const majorData = facultyData.majors.find(
+                                (major) => major.value === value,
+                              )
+                              return majorData ? majorData.label : value
+                            }
+                          }
+                          return String(value)
+                        }
+                        return String(value)
+                      }
+
                       return (
                         <div key={field.fieldName}>
                           <dt className="text-sm font-medium text-neutral-500 dark:text-neutral-400">
                             {field.label}
                           </dt>
                           <dd className="text-sm text-neutral-900 dark:text-white mt-1">
-                            {field.type === 'select'
-                              ? parseSelectOptions(field.selectOptions).find(
-                                  (opt) => opt.value === value,
-                                )?.label || value
-                              : String(value)}
+                            {getDisplayValue()}
                           </dd>
                         </div>
                       )
