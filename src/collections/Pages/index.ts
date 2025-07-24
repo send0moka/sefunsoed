@@ -151,6 +151,33 @@ export const Pages: CollectionConfig<'pages'> = {
   hooks: {
     afterChange: [revalidatePage],
     beforeChange: [populatePublishedAt],
+    beforeValidate: [
+      // Debug and fix registration form field types
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      async ({ data }: { data?: any }) => {
+        if (data?.layout && Array.isArray(data.layout)) {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          data.layout.forEach((block: any) => {
+            if (
+              block.blockType === 'registrationForm' &&
+              block.personalFields &&
+              Array.isArray(block.personalFields)
+            ) {
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              block.personalFields.forEach((field: any) => {
+                // Auto-correct field types based on fieldName
+                if (field.fieldName === 'faculty' && field.type !== 'faculty') {
+                  field.type = 'faculty'
+                } else if (field.fieldName === 'major' && field.type !== 'major') {
+                  field.type = 'major'
+                }
+              })
+            }
+          })
+        }
+        return data
+      },
+    ],
     afterDelete: [revalidateDelete],
   },
   versions: {

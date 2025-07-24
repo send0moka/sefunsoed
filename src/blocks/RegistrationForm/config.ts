@@ -153,6 +153,24 @@ export const RegistrationForm: Block = {
             { label: 'Faculty', value: 'faculty' },
             { label: 'Major', value: 'major' },
           ],
+          validate: (value: string | null | undefined) => {
+            if (!value) return 'Field type is required'
+            const validTypes = [
+              'text',
+              'email',
+              'tel',
+              'number',
+              'date',
+              'textarea',
+              'select',
+              'faculty',
+              'major',
+            ]
+            if (!validTypes.includes(value)) {
+              return `Invalid field type: ${value}. Must be one of: ${validTypes.join(', ')}`
+            }
+            return true
+          },
         },
         {
           name: 'required',
