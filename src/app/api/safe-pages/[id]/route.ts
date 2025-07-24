@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getPayload } from 'payload'
 import config from '@payload-config'
 
+// Add timeout configuration for Vercel deployment
+export const maxDuration = 60
+
 // Replacement for problematic PATCH /api/pages/[id] that causes React crashes
 export async function PATCH(request: NextRequest, context: { params: Promise<{ id: string }> }) {
   try {

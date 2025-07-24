@@ -21,4 +21,7 @@ export const generateMetadata = ({ params, searchParams }: Args): Promise<Metada
 const Page = ({ params, searchParams }: Args) =>
   RootPage({ config, params, searchParams, importMap })
 
+// Add timeout configuration for Vercel deployment
+export const maxDuration = 60
+
 export default Page

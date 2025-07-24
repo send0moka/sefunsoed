@@ -1,0 +1,25 @@
+{
+  "functions": {
+    "src/app/(payload)/admin/**": {
+      "maxDuration": 60
+    },
+    "src/app/(payload)/api/**": {
+      "maxDuration": 60
+    },
+    "src/app/api/**": {
+      "maxDuration": 60
+    },
+    "src/app/**/route.ts": {
+      "maxDuration": 60
+    },
+    "src/app/**/route.js": {
+      "maxDuration": 60
+    },
+    "src/app/**/page.tsx": {
+      "maxDuration": 60
+    }
+  },
+  "regions": ["sin1"],
+  "framework": "nextjs",
+  "buildCommand": "next build"
+}

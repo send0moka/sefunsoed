@@ -67,12 +67,13 @@ export default buildConfig({
   db: postgresAdapter({
     pool: {
       connectionString: process.env.DATABASE_URI || '',
-      // Optimized settings for production stability
-      max: process.env.NODE_ENV === 'production' ? 15 : 20, // Increase pool size
-      connectionTimeoutMillis: 30000, // 30 seconds for Vercel cold starts
-      idleTimeoutMillis: 60000, // 60 seconds idle timeout
-      query_timeout: 45000, // 45 second query timeout
-      statement_timeout: 45000, // 45 second statement timeout
+      // Optimized settings for Vercel production stability
+      max: process.env.NODE_ENV === 'production' ? 20 : 15, // More connections for production
+      min: process.env.NODE_ENV === 'production' ? 2 : 1, // Minimum pool size
+      connectionTimeoutMillis: 45000, // 45 seconds for Vercel cold starts
+      idleTimeoutMillis: 120000, // 120 seconds idle timeout (increased)
+      query_timeout: 60000, // 60 second query timeout (increased)
+      statement_timeout: 60000, // 60 second statement timeout (increased)
       // Add production specific settings
       ...(process.env.NODE_ENV === 'production' && {
         ssl: { rejectUnauthorized: false }, // For production SSL

@@ -34,10 +34,7 @@ const nextConfig = {
     ],
   },
   serverExternalPackages: ['payload'],
-  serverRuntimeConfig: {
-    // Increase timeout for API routes
-    maxDuration: 30,
-  },
+  // Remove incorrect serverRuntimeConfig - use vercel.json instead
   webpack: (webpackConfig) => {
     webpackConfig.resolve.extensionAlias = {
       '.cjs': ['.cts', '.cjs'],
