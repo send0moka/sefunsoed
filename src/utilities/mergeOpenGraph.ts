@@ -3,7 +3,7 @@ import { getServerSideURL } from './getURL'
 
 const defaultOpenGraph: Metadata['openGraph'] = {
   type: 'website',
-  description: 'Master English with expert TOEFL prep and intensive courses for academic success!',
+  description: 'Community Organization | Be One Step Forward!',
   images: [
     {
       url: `${getServerSideURL()}/website-template-OG.webp`,
@@ -13,7 +13,7 @@ const defaultOpenGraph: Metadata['openGraph'] = {
     },
   ],
   siteName: 'SEF UNSOED',
-  title: 'SEF UNSOED',
+  title: 'Student English Forum of UNSOED',
   locale: 'id_ID',
 }
 
