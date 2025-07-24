@@ -631,7 +631,7 @@ const RegistrationFormComponent: React.FC<RegistrationFormProps> = ({
                         }}
                         className="w-full px-3 py-2 border border-neutral-300 dark:border-neutral-600 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-neutral-700 text-neutral-900 dark:text-white"
                       >
-                        <option value="">Pilih Fakultas</option>
+                        <option value="">Select Faculty</option>
                         {Object.entries(FACULTY_MAJOR_DATA).map(([value, data]) => (
                           <option key={value} value={value}>
                             {data.label}
@@ -675,8 +675,8 @@ const RegistrationFormComponent: React.FC<RegistrationFormProps> = ({
                           >
                             <option value="">
                               {isMajorDisabled
-                                ? 'Pilih fakultas terlebih dahulu'
-                                : 'Pilih Program Studi'}
+                                ? 'Select a faculty first'
+                                : 'Select Major'}
                             </option>
                             {availableMajors.map((major) => (
                               <option key={major.value} value={major.value}>
