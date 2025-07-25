@@ -262,7 +262,7 @@ export const PodcastBlock: React.FC<PodcastBlockProps> = (props) => {
     <div className="my-16" id={`block-${id}`}>
       <div className="container">
         <h2 className="text-3xl font-bold text-center mb-8">{title}</h2>
-        <div className="max-w-2xl mx-auto bg-white dark:bg-neutral-800 rounded-xl shadow-lg overflow-hidden relative">
+        <div className="max-w-2xl mx-auto bg-white dark:bg-neutral-950 rounded-xl shadow-lg overflow-hidden relative">
           {/* Spotify Icon - Top Right */}
           <div className="absolute top-4 right-4 z-10">
             <Image
@@ -297,13 +297,14 @@ export const PodcastBlock: React.FC<PodcastBlockProps> = (props) => {
               <p className="text-neutral-600 dark:text-neutral-300 mb-4 text-sm">
                 {currentEpisode.description}
               </p>
-                <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-6">
-                Published: {new Date(currentEpisode.publishedDate).toLocaleDateString('en-US', { 
-                  year: 'numeric', 
-                  month: 'short', 
-                  day: 'numeric' 
+              <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-6">
+                Published:{' '}
+                {new Date(currentEpisode.publishedDate).toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'short',
+                  day: 'numeric',
                 })}
-                </p>
+              </p>
 
               {/* Audio Controls */}
               <audio ref={audioRef} src={extractUrl(currentEpisode.audioFile)} preload="metadata" />
@@ -326,7 +327,9 @@ export const PodcastBlock: React.FC<PodcastBlockProps> = (props) => {
                     )}
                   </button>
                   <div className="text-sm text-neutral-600 dark:text-neutral-400 font-mono">
-                    <span className="text-neutral-900 dark:text-white">{formatTime(currentTime)}</span>
+                    <span className="text-neutral-900 dark:text-white">
+                      {formatTime(currentTime)}
+                    </span>
                     <span className="mx-2">/</span>
                     <span>{formatTime(duration)}</span>
                   </div>

@@ -108,7 +108,7 @@ export const PartnershipBlock: React.FC<PartnershipBlockProps> = (props) => {
             return (
               <div
                 key={partner.id || index}
-                className={`group flex items-center justify-center p-6 bg-white dark:bg-neutral-800 rounded-lg shadow-sm border border-neutral-200 dark:border-neutral-700 transition-all duration-300 hover:shadow-md ${
+                className={`group flex items-center justify-center p-6 bg-white dark:bg-neutral-950 rounded-lg shadow-sm border border-neutral-200 dark:border-neutral-700 transition-all duration-300 hover:shadow-md ${
                   partner.website ? 'cursor-pointer' : ''
                 }`}
                 onClick={() => handlePartnerClick(partner)}
@@ -119,7 +119,7 @@ export const PartnershipBlock: React.FC<PartnershipBlockProps> = (props) => {
                     alt={partner.name}
                     width={120}
                     height={60}
-                    className="max-w-full max-h-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300"
+                    className="max-w-full max-h-full object-contain filter neutralscale group-hover:neutralscale-0 transition-all duration-300"
                     onError={(e) => {
                       // Fallback to text if image fails to load
                       const target = e.target as HTMLImageElement

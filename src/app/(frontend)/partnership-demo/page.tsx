@@ -48,7 +48,7 @@ export default function PartnershipDemoPage() {
             Partnership Block Demo
           </h1>
           <p className="text-lg text-neutral-600 dark:text-neutral-400">
-            Demonstrating the Partnership block with grayscale hover effects
+            Demonstrating the Partnership block with neutralscale hover effects
           </p>
         </div>
 

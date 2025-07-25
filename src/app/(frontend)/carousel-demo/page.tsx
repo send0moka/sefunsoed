@@ -43,7 +43,7 @@ const CarouselDemoPage: React.FC = () => {
             Fitur Carousel
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div className="bg-neutral-50 dark:bg-neutral-800 p-6 rounded-lg">
+            <div className="bg-neutral-50 dark:bg-neutral-950 p-6 rounded-lg">
               <h3 className="font-semibold text-neutral-900 dark:text-neutral-100 mb-2">
                 🔄 Auto-Play
               </h3>
@@ -51,7 +51,7 @@ const CarouselDemoPage: React.FC = () => {
                 Berganti slide otomatis setiap 5 detik (dapat dikustomisasi)
               </p>
             </div>
-            <div className="bg-neutral-50 dark:bg-neutral-800 p-6 rounded-lg">
+            <div className="bg-neutral-50 dark:bg-neutral-950 p-6 rounded-lg">
               <h3 className="font-semibold text-neutral-900 dark:text-neutral-100 mb-2">
                 ⏸️ Pause on Hover
               </h3>
@@ -59,7 +59,7 @@ const CarouselDemoPage: React.FC = () => {
                 Auto-play berhenti saat cursor berada di atas carousel
               </p>
             </div>
-            <div className="bg-neutral-50 dark:bg-neutral-800 p-6 rounded-lg">
+            <div className="bg-neutral-50 dark:bg-neutral-950 p-6 rounded-lg">
               <h3 className="font-semibold text-neutral-900 dark:text-neutral-100 mb-2">
                 🔘 Navigation Dots
               </h3>
@@ -67,7 +67,7 @@ const CarouselDemoPage: React.FC = () => {
                 Dots dapat diklik untuk navigasi manual, warna kontras berdasarkan theme
               </p>
             </div>
-            <div className="bg-neutral-50 dark:bg-neutral-800 p-6 rounded-lg">
+            <div className="bg-neutral-50 dark:bg-neutral-950 p-6 rounded-lg">
               <h3 className="font-semibold text-neutral-900 dark:text-neutral-100 mb-2">
                 🖼️ Full Width Design
               </h3>
@@ -75,7 +75,7 @@ const CarouselDemoPage: React.FC = () => {
                 Lebar penuh dengan rounded corners dan object-cover
               </p>
             </div>
-            <div className="bg-neutral-50 dark:bg-neutral-800 p-6 rounded-lg">
+            <div className="bg-neutral-50 dark:bg-neutral-950 p-6 rounded-lg">
               <h3 className="font-semibold text-neutral-900 dark:text-neutral-100 mb-2">
                 📝 Title & Subtitle Overlay
               </h3>
@@ -83,7 +83,7 @@ const CarouselDemoPage: React.FC = () => {
                 Overlay di kiri bawah dengan background opacity 50% yang adaptif theme
               </p>
             </div>
-            <div className="bg-neutral-50 dark:bg-neutral-800 p-6 rounded-lg">
+            <div className="bg-neutral-50 dark:bg-neutral-950 p-6 rounded-lg">
               <h3 className="font-semibold text-neutral-900 dark:text-neutral-100 mb-2">
                 🌓 Dark Theme Support
               </h3>
@@ -95,7 +95,7 @@ const CarouselDemoPage: React.FC = () => {
         </div>
 
         {/* Configuration Example */}
-        <div className="mt-16 bg-neutral-50 dark:bg-neutral-800 p-8 rounded-lg">
+        <div className="mt-16 bg-neutral-50 dark:bg-neutral-950 p-8 rounded-lg">
           <h2 className="text-2xl font-bold text-neutral-900 dark:text-neutral-100 mb-4">
             Cara Penggunaan di CMS
           </h2>

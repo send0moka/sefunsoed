@@ -261,7 +261,7 @@ export const CalendarBlock: React.FC<CalendarBlockProps> = (props) => {
         <h2 className="text-3xl font-bold text-center mb-8">{title}</h2>
 
         {/* Calendar Header Controls */}
-        <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-lg overflow-hidden">
+        <div className="bg-white dark:bg-neutral-950 rounded-xl shadow-lg overflow-hidden">
           <div className="p-6 border-b border-neutral-200 dark:border-neutral-700">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
@@ -320,7 +320,7 @@ export const CalendarBlock: React.FC<CalendarBlockProps> = (props) => {
                     className={`min-h-[120px] p-2 border border-neutral-200 dark:border-neutral-700 rounded-lg ${
                       isTodayCell
                         ? 'bg-blue-50 dark:bg-blue-900/20 border-blue-300 dark:border-blue-600'
-                        : 'bg-white dark:bg-neutral-800'
+                        : 'bg-white dark:bg-neutral-950'
                     } ${!isCurrentMonthCell ? 'opacity-40' : ''}`}
                   >
                     <div
@@ -367,7 +367,7 @@ export const CalendarBlock: React.FC<CalendarBlockProps> = (props) => {
       {/* Event Detail Modal */}
       {isModalOpen && selectedEvent && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+          <div className="bg-white dark:bg-neutral-950 rounded-xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-6">
               {/* Modal Header */}
               <div className="flex items-start justify-between mb-6">

@@ -33,24 +33,26 @@ const FAQItem: React.FC<FAQItemProps> = ({
     switch (layout) {
       case 'cards':
         return {
-          container: 'bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6 mb-4',
-          question: 'text-lg font-semibold text-gray-900 dark:text-white mb-3',
-          answer: 'text-gray-700 dark:text-gray-300 mb-4',
-          relatedSection: 'mt-4 pt-4 border-t border-gray-100 dark:border-gray-700',
+          container:
+            'bg-white dark:bg-neutral-950 rounded-lg shadow-sm border border-neutral-200 dark:border-neutral-700 p-6 mb-4',
+          question: 'text-lg font-semibold text-neutral-900 dark:text-white mb-3',
+          answer: 'text-neutral-700 dark:text-neutral-300 mb-4',
+          relatedSection: 'mt-4 pt-4 border-t border-neutral-100 dark:border-neutral-700',
         }
       case 'accordion': // Legacy support - render as cards but flat
         return {
-          container: 'bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6 mb-4',
-          question: 'text-lg font-semibold text-gray-900 dark:text-white mb-3',
-          answer: 'text-gray-700 dark:text-gray-300 mb-4',
-          relatedSection: 'mt-4 pt-4 border-t border-gray-100 dark:border-gray-700',
+          container:
+            'bg-white dark:bg-neutral-950 rounded-lg shadow-sm border border-neutral-200 dark:border-neutral-700 p-6 mb-4',
+          question: 'text-lg font-semibold text-neutral-900 dark:text-white mb-3',
+          answer: 'text-neutral-700 dark:text-neutral-300 mb-4',
+          relatedSection: 'mt-4 pt-4 border-t border-neutral-100 dark:border-neutral-700',
         }
       default: // list
         return {
-          container: 'border-b border-gray-200 dark:border-gray-700 last:border-b-0 py-6',
-          question: 'text-lg font-semibold text-gray-900 dark:text-white mb-3',
-          answer: 'text-gray-700 dark:text-gray-300 mb-4',
-          relatedSection: 'mt-4 pt-4 border-t border-gray-100 dark:border-gray-700',
+          container: 'border-b border-neutral-200 dark:border-neutral-700 last:border-b-0 py-6',
+          question: 'text-lg font-semibold text-neutral-900 dark:text-white mb-3',
+          answer: 'text-neutral-700 dark:text-neutral-300 mb-4',
+          relatedSection: 'mt-4 pt-4 border-t border-neutral-100 dark:border-neutral-700',
         }
     }
   }
@@ -60,14 +62,14 @@ const FAQItem: React.FC<FAQItemProps> = ({
   return (
     <div className={styles.container}>
       <h3 className={styles.question}>{question}</h3>
-      
+
       <div className={styles.answer}>
         <RichText data={answer} />
       </div>
-      
+
       {showRelatedQuestions && relatedQuestions && relatedQuestions.length > 0 && (
         <div className={styles.relatedSection}>
-          <h4 className="font-medium text-gray-900 dark:text-white mb-2">Related Questions:</h4>
+          <h4 className="font-medium text-neutral-900 dark:text-white mb-2">Related Questions:</h4>
           <ul className="space-y-2">
             {relatedQuestions.map((related, index) => (
               <li key={index}>
@@ -82,7 +84,9 @@ const FAQItem: React.FC<FAQItemProps> = ({
                     <ExternalLink className="h-3 w-3" />
                   </a>
                 ) : (
-                  <span className="text-gray-600 dark:text-gray-400 text-sm">{related.question}</span>
+                  <span className="text-neutral-600 dark:text-neutral-400 text-sm">
+                    {related.question}
+                  </span>
                 )}
               </li>
             ))}
@@ -113,7 +117,7 @@ const TopicFilter: React.FC<TopicFilterProps> = ({
   itemCounts,
 }) => {
   return (
-    <div className="mb-6">
+    <div className="my-6">
       <div className="flex flex-wrap gap-2">
         <button
           onClick={() => onTopicChange('all')}
@@ -121,7 +125,7 @@ const TopicFilter: React.FC<TopicFilterProps> = ({
             'px-4 py-2 rounded-full text-sm font-medium transition-colors',
             selectedTopic === 'all'
               ? 'bg-blue-600 text-white'
-              : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+              : 'bg-neutral-100 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-600',
           )}
         >
           {allTopicsLabel} ({itemCounts.all || 0})
@@ -134,7 +138,7 @@ const TopicFilter: React.FC<TopicFilterProps> = ({
               'px-4 py-2 rounded-full text-sm font-medium transition-colors',
               selectedTopic === topic.slug
                 ? 'bg-blue-600 text-white'
-                : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                : 'bg-neutral-100 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-600',
             )}
             title={topic.description}
           >
@@ -152,20 +156,16 @@ interface SearchBarProps {
   placeholder: string
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({
-  searchTerm,
-  onSearchChange,
-  placeholder,
-}) => {
+const SearchBar: React.FC<SearchBarProps> = ({ searchTerm, onSearchChange, placeholder }) => {
   return (
     <div className="relative">
-      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500 h-4 w-4" />
+      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400 dark:text-neutral-500 h-4 w-4" />
       <input
         type="text"
         value={searchTerm}
         onChange={(e) => onSearchChange(e.target.value)}
         placeholder={placeholder}
-        className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+        className="w-full pl-10 pr-4 py-2 border border-neutral-300 dark:border-neutral-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-neutral-950 text-neutral-900 dark:text-white placeholder-neutral-500 dark:placeholder-neutral-400"
       />
     </div>
   )
@@ -177,11 +177,7 @@ interface PaginationProps {
   onPageChange: (page: number) => void
 }
 
-const Pagination: React.FC<PaginationProps> = ({
-  currentPage,
-  totalPages,
-  onPageChange,
-}) => {
+const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onPageChange }) => {
   if (totalPages <= 1) return null
 
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1)
@@ -191,30 +187,30 @@ const Pagination: React.FC<PaginationProps> = ({
       <button
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
-        className="px-3 py-2 text-sm font-medium text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-l-md hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
+        className="px-3 py-2 text-sm font-medium text-neutral-500 dark:text-neutral-400 bg-white dark:bg-neutral-950 border border-neutral-300 dark:border-neutral-600 rounded-l-md hover:bg-neutral-50 dark:hover:bg-neutral-700 disabled:opacity-50 disabled:cursor-not-allowed"
       >
         Previous
       </button>
-      
+
       {pages.map((page) => (
         <button
           key={page}
           onClick={() => onPageChange(page)}
           className={cn(
-            'px-3 py-2 text-sm font-medium border-t border-b border-r border-gray-300 dark:border-gray-600',
+            'px-3 py-2 text-sm font-medium border-t border-b border-r border-neutral-300 dark:border-neutral-600',
             page === currentPage
               ? 'bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-400 border-blue-500 dark:border-blue-400'
-              : 'bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700'
+              : 'bg-white dark:bg-neutral-950 text-neutral-500 dark:text-neutral-400 hover:bg-neutral-50 dark:hover:bg-neutral-700',
           )}
         >
           {page}
         </button>
       ))}
-      
+
       <button
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
-        className="px-3 py-2 text-sm font-medium text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-r-md hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
+        className="px-3 py-2 text-sm font-medium text-neutral-500 dark:text-neutral-400 bg-white dark:bg-neutral-950 border border-neutral-300 dark:border-neutral-600 rounded-r-md hover:bg-neutral-50 dark:hover:bg-neutral-700 disabled:opacity-50 disabled:cursor-not-allowed"
       >
         Next
       </button>
@@ -242,7 +238,7 @@ export const FAQBlockComponent: React.FC<FAQBlockProps> = ({
   // Auto-generate topics from FAQ items if no topics configured
   const parsedTopics = useMemo(() => {
     // Note: topics field has been removed from config, using only topicsText and auto-generation
-    
+
     // Then try to parse from topicsText JSON
     if (topicsText) {
       try {
@@ -252,7 +248,7 @@ export const FAQBlockComponent: React.FC<FAQBlockProps> = ({
         console.warn('Failed to parse topics JSON:', error)
       }
     }
-    
+
     // Auto-generate topics from FAQ items
     if (faqItems && faqItems.length > 0) {
       const uniqueTopics = new Set<string>()
@@ -261,14 +257,14 @@ export const FAQBlockComponent: React.FC<FAQBlockProps> = ({
           uniqueTopics.add(item.topic.trim())
         }
       })
-      
-      return Array.from(uniqueTopics).map(topicSlug => ({
+
+      return Array.from(uniqueTopics).map((topicSlug) => ({
         name: topicSlug.charAt(0).toUpperCase() + topicSlug.slice(1), // Capitalize first letter
         slug: topicSlug,
-        description: `Pertanyaan terkait ${topicSlug}`
+        description: `Pertanyaan terkait ${topicSlug}`,
       }))
     }
-    
+
     return []
   }, [topicsText, faqItems])
 
@@ -303,12 +299,13 @@ export const FAQBlockComponent: React.FC<FAQBlockProps> = ({
   // Calculate item counts for each topic
   const itemCounts = useMemo(() => {
     const counts: Record<string, number> = { all: faqItems?.length || 0 }
-    
+
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     parsedTopics?.forEach((topic: any) => {
-      counts[topic.slug] = faqItems?.filter((item: FAQItemData) => item.topic === topic.slug).length || 0
+      counts[topic.slug] =
+        faqItems?.filter((item: FAQItemData) => item.topic === topic.slug).length || 0
     })
-    
+
     return counts
   }, [faqItems, parsedTopics])
 
@@ -328,11 +325,9 @@ export const FAQBlockComponent: React.FC<FAQBlockProps> = ({
       {/* Header */}
       <div className="text-center mb-8">
         {title && (
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">{title}</h2>
+          <h2 className="text-3xl font-bold text-neutral-900 dark:text-white mb-2">{title}</h2>
         )}
-        {subtitle && (
-          <p className="text-lg text-gray-600">{subtitle}</p>
-        )}
+        {subtitle && <p className="text-lg text-neutral-600 dark:text-neutral-400">{subtitle}</p>}
       </div>
 
       {/* Search Bar */}
@@ -349,14 +344,14 @@ export const FAQBlockComponent: React.FC<FAQBlockProps> = ({
         <div className="mb-6">
           {/* Debug info - remove in production */}
           {/* {process.env.NODE_ENV === 'development' && (
-            <div className="text-xs text-gray-500 mb-2">
+            <div className="text-xs text-neutral-500 mb-2">
               Debug: enableTopicFilter={String(enableTopicFilter)}, 
               topicsText={topicsText ? 'exists' : 'null'}, 
               parsedTopics={parsedTopics ? parsedTopics.length : 'null'}, 
               faqItems={faqItems ? faqItems.length : 'null'}
             </div>
           )} */}
-          
+
           {parsedTopics && parsedTopics.length > 0 ? (
             <TopicFilter
               topics={parsedTopics}
@@ -366,11 +361,19 @@ export const FAQBlockComponent: React.FC<FAQBlockProps> = ({
               itemCounts={itemCounts}
             />
           ) : (
-            <div className="text-center py-4 text-gray-500 dark:text-gray-400">
+            <div className="text-center py-4 text-neutral-500 dark:text-neutral-400">
               <p>There are no topics configured.</p>
-              <p className="text-sm">Make sure FAQ items have a &apos;topic&apos; field, or enter topics in JSON format.</p>
-              <p className="text-xs mt-2 font-mono bg-gray-100 dark:bg-gray-800 p-2 rounded">
-                Example JSON: [{JSON.stringify({name: "General", slug: "general", description: "General questions"})}]
+              <p className="text-sm">
+                Make sure FAQ items have a &apos;topic&apos; field, or enter topics in JSON format.
+              </p>
+              <p className="text-xs mt-2 font-mono bg-neutral-100 dark:bg-neutral-950 p-2 rounded">
+                Example JSON: [
+                {JSON.stringify({
+                  name: 'General',
+                  slug: 'general',
+                  description: 'General questions',
+                })}
+                ]
               </p>
             </div>
           )}
@@ -378,17 +381,16 @@ export const FAQBlockComponent: React.FC<FAQBlockProps> = ({
       )}
 
       {/* Results Info */}
-      <div className="mb-4 text-sm text-gray-600 dark:text-gray-400">
+      <div className="mb-4 text-sm text-neutral-600 dark:text-neutral-400">
         Showing {paginatedItems.length} of {filteredItems.length} questions
         {searchTerm && ` for "${searchTerm}"`}
-        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-        {selectedTopic !== 'all' && ` in topic "${parsedTopics?.find((t: any) => t.slug === selectedTopic)?.name}"`}
+        {}
+        {selectedTopic !== 'all' &&
+          ` in topic "${parsedTopics?.find((t: any) => t.slug === selectedTopic)?.name}"`}
       </div>
 
       {/* FAQ Items */}
-      <div className={cn(
-        layout === 'list' ? '' : ''
-      )}>
+      <div className={cn(layout === 'list' ? '' : '')}>
         {paginatedItems.length > 0 ? (
           paginatedItems.map((item: FAQItemData, index: number) => (
             <FAQItem
@@ -402,7 +404,7 @@ export const FAQBlockComponent: React.FC<FAQBlockProps> = ({
           ))
         ) : (
           <div className="text-center py-8">
-            <p className="text-gray-500 dark:text-gray-400">
+            <p className="text-neutral-500 dark:text-neutral-400">
               {searchTerm || selectedTopic !== 'all'
                 ? 'No questions found matching your search.'
                 : 'No questions available.'}
@@ -412,11 +414,7 @@ export const FAQBlockComponent: React.FC<FAQBlockProps> = ({
       </div>
 
       {/* Pagination */}
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={setCurrentPage}
-      />
+      <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
     </div>
   )
 }
