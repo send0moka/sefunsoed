@@ -15,6 +15,7 @@ import { PodcastBlock } from '../../blocks/PodcastBlock/config'
 import { CalendarBlock } from '../../blocks/CalendarBlock/config'
 import { PartnershipBlock } from '../../blocks/PartnershipBlock/config'
 import { AccordionPeopleBlock } from '../../blocks/AccordionPeopleBlock/config'
+import { FAQBlock } from '../../blocks/FAQBlock/config'
 import { hero } from '@/heros/config'
 import { slugField } from '@/fields/slug'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
@@ -101,6 +102,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 CalendarBlock,
                 PartnershipBlock,
                 AccordionPeopleBlock,
+                FAQBlock,
               ],
               required: true,
               admin: {

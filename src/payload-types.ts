@@ -301,6 +301,7 @@ export interface Page {
       }
     | PartnershipBlock
     | AccordionPeopleBlock
+    | FAQBlock
   )[];
   meta?: {
     title?: string | null;
@@ -1195,6 +1196,107 @@ export interface AccordionPeopleBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FAQBlock".
+ */
+export interface FAQBlock {
+  /**
+   * Main title for the FAQ section
+   */
+  title?: string | null;
+  /**
+   * Optional subtitle or description for the FAQ section
+   */
+  subtitle?: string | null;
+  /**
+   * Allow users to search through FAQ items
+   */
+  enableSearch?: boolean | null;
+  /**
+   * Placeholder text for the search input
+   */
+  searchPlaceholder?: string | null;
+  /**
+   * Show topic categories for filtering FAQ items
+   */
+  enableTopicFilter?: boolean | null;
+  /**
+   * Label for the "all topics" filter option
+   */
+  allTopicsLabel?: string | null;
+  /**
+   * Enter topics in JSON format. Example: [{"name":"General","slug":"general","description":"General questions"}]
+   */
+  topicsText?: string | null;
+  faqItems?:
+    | {
+        /**
+         * The FAQ question
+         */
+        question: string;
+        /**
+         * The detailed answer to the question
+         */
+        answer: {
+          root: {
+            type: string;
+            children: {
+              type: string;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        };
+        /**
+         * Which topic this FAQ item belongs to (must match a topic slug)
+         */
+        topic: string;
+        /**
+         * Additional keywords to help with search (comma-separated)
+         */
+        keywords?: string | null;
+        /**
+         * Questions related to this FAQ item
+         */
+        relatedQuestions?:
+          | {
+              question: string;
+              /**
+               * Optional link to the related question or page
+               */
+              link?: string | null;
+              id?: string | null;
+            }[]
+          | null;
+        /**
+         * Higher numbers appear first (0 = normal priority)
+         */
+        priority?: number | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Choose how FAQ items are displayed. Card and List styles show all content immediately. Accordion is kept for backward compatibility.
+   */
+  layout?: ('cards' | 'list' | 'accordion') | null;
+  /**
+   * Display related questions for each FAQ item
+   */
+  showRelatedQuestions?: boolean | null;
+  /**
+   * Maximum number of FAQ items to show per page
+   */
+  maxItemsPerPage?: number | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'faqBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "registration-submissions".
  */
 export interface RegistrationSubmission {
@@ -1587,6 +1689,7 @@ export interface PagesSelect<T extends boolean = true> {
             };
         partnershipBlock?: T | PartnershipBlockSelect<T>;
         accordionPeopleBlock?: T | AccordionPeopleBlockSelect<T>;
+        faqBlock?: T | FAQBlockSelect<T>;
       };
   meta?:
     | T
@@ -1856,6 +1959,41 @@ export interface AccordionPeopleBlockSelect<T extends boolean = true> {
             };
         id?: T;
       };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FAQBlock_select".
+ */
+export interface FAQBlockSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  enableSearch?: T;
+  searchPlaceholder?: T;
+  enableTopicFilter?: T;
+  allTopicsLabel?: T;
+  topicsText?: T;
+  faqItems?:
+    | T
+    | {
+        question?: T;
+        answer?: T;
+        topic?: T;
+        keywords?: T;
+        relatedQuestions?:
+          | T
+          | {
+              question?: T;
+              link?: T;
+              id?: T;
+            };
+        priority?: T;
+        id?: T;
+      };
+  layout?: T;
+  showRelatedQuestions?: T;
+  maxItemsPerPage?: T;
   id?: T;
   blockName?: T;
 }
