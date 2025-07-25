@@ -231,7 +231,6 @@ export const FAQBlockComponent: React.FC<FAQBlockProps> = ({
   searchPlaceholder,
   enableTopicFilter,
   allTopicsLabel,
-  topics,
   topicsText,
   faqItems,
   layout,
@@ -244,10 +243,7 @@ export const FAQBlockComponent: React.FC<FAQBlockProps> = ({
 
   // Auto-generate topics from FAQ items if no topics configured
   const parsedTopics = useMemo(() => {
-    // First try to use the original topics array (for backward compatibility)
-    if (topics && topics.length > 0) {
-      return topics
-    }
+    // Note: topics field has been removed from config, using only topicsText and auto-generation
     
     // Then try to parse from topicsText JSON
     if (topicsText) {
@@ -276,7 +272,7 @@ export const FAQBlockComponent: React.FC<FAQBlockProps> = ({
     }
     
     return []
-  }, [topics, topicsText, faqItems])
+  }, [topicsText, faqItems])
 
   // Filter and search FAQ items
   const filteredItems = useMemo(() => {
@@ -357,7 +353,6 @@ export const FAQBlockComponent: React.FC<FAQBlockProps> = ({
           {/* {process.env.NODE_ENV === 'development' && (
             <div className="text-xs text-gray-500 mb-2">
               Debug: enableTopicFilter={String(enableTopicFilter)}, 
-              topics={topics ? topics.length : 'null'}, 
               topicsText={topicsText ? 'exists' : 'null'}, 
               parsedTopics={parsedTopics ? parsedTopics.length : 'null'}, 
               faqItems={faqItems ? faqItems.length : 'null'}
