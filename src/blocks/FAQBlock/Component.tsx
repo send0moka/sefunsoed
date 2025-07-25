@@ -33,24 +33,24 @@ const FAQItem: React.FC<FAQItemProps> = ({
     switch (layout) {
       case 'cards':
         return {
-          container: 'bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-4',
-          question: 'text-lg font-semibold text-gray-900 mb-3',
-          answer: 'text-gray-700 mb-4',
-          relatedSection: 'mt-4 pt-4 border-t border-gray-100',
+          container: 'bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6 mb-4',
+          question: 'text-lg font-semibold text-gray-900 dark:text-white mb-3',
+          answer: 'text-gray-700 dark:text-gray-300 mb-4',
+          relatedSection: 'mt-4 pt-4 border-t border-gray-100 dark:border-gray-700',
         }
       case 'accordion': // Legacy support - render as cards but flat
         return {
-          container: 'bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-4',
-          question: 'text-lg font-semibold text-gray-900 mb-3',
-          answer: 'text-gray-700 mb-4',
-          relatedSection: 'mt-4 pt-4 border-t border-gray-100',
+          container: 'bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6 mb-4',
+          question: 'text-lg font-semibold text-gray-900 dark:text-white mb-3',
+          answer: 'text-gray-700 dark:text-gray-300 mb-4',
+          relatedSection: 'mt-4 pt-4 border-t border-gray-100 dark:border-gray-700',
         }
       default: // list
         return {
-          container: 'border-b border-gray-200 last:border-b-0 py-6',
-          question: 'text-lg font-semibold text-gray-900 mb-3',
-          answer: 'text-gray-700 mb-4',
-          relatedSection: 'mt-4 pt-4 border-t border-gray-100',
+          container: 'border-b border-gray-200 dark:border-gray-700 last:border-b-0 py-6',
+          question: 'text-lg font-semibold text-gray-900 dark:text-white mb-3',
+          answer: 'text-gray-700 dark:text-gray-300 mb-4',
+          relatedSection: 'mt-4 pt-4 border-t border-gray-100 dark:border-gray-700',
         }
     }
   }
@@ -67,14 +67,14 @@ const FAQItem: React.FC<FAQItemProps> = ({
       
       {showRelatedQuestions && relatedQuestions && relatedQuestions.length > 0 && (
         <div className={styles.relatedSection}>
-          <h4 className="font-medium text-gray-900 mb-2">Pertanyaan Terkait:</h4>
+          <h4 className="font-medium text-gray-900 dark:text-white mb-2">Related Questions:</h4>
           <ul className="space-y-2">
             {relatedQuestions.map((related, index) => (
               <li key={index}>
                 {related.link ? (
                   <a
-                    href={related.link}
-                    className="text-blue-600 hover:text-blue-800 flex items-center gap-1 text-sm"
+                    href={related.link || '#'}
+                    className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 text-sm flex items-center gap-1"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -82,7 +82,7 @@ const FAQItem: React.FC<FAQItemProps> = ({
                     <ExternalLink className="h-3 w-3" />
                   </a>
                 ) : (
-                  <span className="text-gray-600 text-sm">{related.question}</span>
+                  <span className="text-gray-600 dark:text-gray-400 text-sm">{related.question}</span>
                 )}
               </li>
             ))}
@@ -121,7 +121,7 @@ const TopicFilter: React.FC<TopicFilterProps> = ({
             'px-4 py-2 rounded-full text-sm font-medium transition-colors',
             selectedTopic === 'all'
               ? 'bg-blue-600 text-white'
-              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
           )}
         >
           {allTopicsLabel} ({itemCounts.all || 0})
@@ -134,7 +134,7 @@ const TopicFilter: React.FC<TopicFilterProps> = ({
               'px-4 py-2 rounded-full text-sm font-medium transition-colors',
               selectedTopic === topic.slug
                 ? 'bg-blue-600 text-white'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
             )}
             title={topic.description}
           >
@@ -158,16 +158,14 @@ const SearchBar: React.FC<SearchBarProps> = ({
   placeholder,
 }) => {
   return (
-    <div className="relative mb-6">
-      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-        <Search className="h-5 w-5 text-gray-400" />
-      </div>
+    <div className="relative">
+      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500 h-4 w-4" />
       <input
         type="text"
         value={searchTerm}
         onChange={(e) => onSearchChange(e.target.value)}
         placeholder={placeholder}
-        className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+        className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
       />
     </div>
   )
@@ -193,9 +191,9 @@ const Pagination: React.FC<PaginationProps> = ({
       <button
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
-        className="px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+        className="px-3 py-2 text-sm font-medium text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-l-md hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        Sebelumnya
+        Previous
       </button>
       
       {pages.map((page) => (
@@ -203,10 +201,10 @@ const Pagination: React.FC<PaginationProps> = ({
           key={page}
           onClick={() => onPageChange(page)}
           className={cn(
-            'px-3 py-2 text-sm font-medium rounded-md',
-            currentPage === page
-              ? 'bg-blue-600 text-white'
-              : 'text-gray-700 bg-white border border-gray-300 hover:bg-gray-50'
+            'px-3 py-2 text-sm font-medium border-t border-b border-r border-gray-300 dark:border-gray-600',
+            page === currentPage
+              ? 'bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-400 border-blue-500 dark:border-blue-400'
+              : 'bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700'
           )}
         >
           {page}
@@ -216,9 +214,9 @@ const Pagination: React.FC<PaginationProps> = ({
       <button
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
-        className="px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+        className="px-3 py-2 text-sm font-medium text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-r-md hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        Selanjutnya
+        Next
       </button>
     </div>
   )
@@ -368,10 +366,10 @@ export const FAQBlockComponent: React.FC<FAQBlockProps> = ({
               itemCounts={itemCounts}
             />
           ) : (
-            <div className="text-center py-4 text-gray-500">
+            <div className="text-center py-4 text-gray-500 dark:text-gray-400">
               <p>There are no topics configured.</p>
               <p className="text-sm">Make sure FAQ items have a &apos;topic&apos; field, or enter topics in JSON format.</p>
-              <p className="text-xs mt-2 font-mono bg-gray-100 p-2 rounded">
+              <p className="text-xs mt-2 font-mono bg-gray-100 dark:bg-gray-800 p-2 rounded">
                 Example JSON: [{JSON.stringify({name: "General", slug: "general", description: "General questions"})}]
               </p>
             </div>
@@ -380,7 +378,7 @@ export const FAQBlockComponent: React.FC<FAQBlockProps> = ({
       )}
 
       {/* Results Info */}
-      <div className="mb-4 text-sm text-gray-600">
+      <div className="mb-4 text-sm text-gray-600 dark:text-gray-400">
         Showing {paginatedItems.length} of {filteredItems.length} questions
         {searchTerm && ` for "${searchTerm}"`}
         {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
@@ -404,7 +402,7 @@ export const FAQBlockComponent: React.FC<FAQBlockProps> = ({
           ))
         ) : (
           <div className="text-center py-8">
-            <p className="text-gray-500">
+            <p className="text-gray-500 dark:text-gray-400">
               {searchTerm || selectedTopic !== 'all'
                 ? 'No questions found matching your search.'
                 : 'No questions available.'}

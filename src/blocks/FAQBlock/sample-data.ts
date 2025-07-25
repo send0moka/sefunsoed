@@ -5,7 +5,7 @@ export const sampleFAQData = {
   enableSearch: true,
   searchPlaceholder: "Search questions...",
   enableTopicFilter: true,
-  allTopicsLabel: "Lihat Semua",
+  allTopicsLabel: "All Topics",
   topics: [
     {
       name: "uStore",
