@@ -7,10 +7,12 @@ import { cn } from '@/utilities/ui'
 import type { FAQBlock as FAQBlockProps } from '@/payload-types'
 
 // Using any for compatibility with Payload generated types
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type FAQItemData = any
 
 interface FAQItemProps {
   question: string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   answer: any // Lexical editor content
   relatedQuestions?: Array<{
     question: string
@@ -308,6 +310,7 @@ export const FAQBlockComponent: React.FC<FAQBlockProps> = ({
   const itemCounts = useMemo(() => {
     const counts: Record<string, number> = { all: faqItems?.length || 0 }
     
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     parsedTopics?.forEach((topic: any) => {
       counts[topic.slug] = faqItems?.filter((item: FAQItemData) => item.topic === topic.slug).length || 0
     })
@@ -372,7 +375,7 @@ export const FAQBlockComponent: React.FC<FAQBlockProps> = ({
           ) : (
             <div className="text-center py-4 text-gray-500">
               <p>There are no topics configured.</p>
-              <p className="text-sm">Make sure FAQ items have a 'topic' field, or enter topics in JSON format.</p>
+              <p className="text-sm">Make sure FAQ items have a &apos;topic&apos; field, or enter topics in JSON format.</p>
               <p className="text-xs mt-2 font-mono bg-gray-100 p-2 rounded">
                 Example JSON: [{JSON.stringify({name: "General", slug: "general", description: "General questions"})}]
               </p>
@@ -385,6 +388,7 @@ export const FAQBlockComponent: React.FC<FAQBlockProps> = ({
       <div className="mb-4 text-sm text-gray-600">
         Showing {paginatedItems.length} of {filteredItems.length} questions
         {searchTerm && ` for "${searchTerm}"`}
+        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
         {selectedTopic !== 'all' && ` in topic "${parsedTopics?.find((t: any) => t.slug === selectedTopic)?.name}"`}
       </div>
 
