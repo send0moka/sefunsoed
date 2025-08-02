@@ -1,60 +1,71 @@
-# SEFUNSOED - Website Template dengan Payload CMS
+# SEFUNSOED - Student English Forum Universitas Jenderal Soedirman
 
-Website template modern yang dibangun menggunakan **Payload CMS** dengan Next.js, dilengkapi fitur-fitur advanced untuk website institusi pendidikan, organisasi, atau perusahaan.
+Website resmi **Student English Forum (SEF) Universitas Jenderal Soedirman** yang dibangun menggunakan **Payload CMS** dengan Next.js. Platform digital modern untuk mendukung aktivitas organisasi, event management, dan pengembangan komunitas mahasiswa dalam bidang bahasa Inggris.
 
-## 🌟 Fitur Utama
+## � Tentang Student English Forum
 
-### 🎯 Core Features
-- **Payload CMS**: Headless CMS dengan admin panel yang powerful
-- **Next.js 15**: Framework React dengan App Router dan TypeScript
-- **PostgreSQL Database**: Database yang robust dengan integrasi Supabase
-- **Responsive Design**: Mobile-first approach dengan Tailwind CSS
-- **SEO Optimized**: Meta tags, sitemap, dan optimasi performance
-- **Dark Mode**: Support tema gelap dan terang
+Student English Forum (SEF) adalah organisasi kemahasiswaan di Universitas Jenderal Soedirman yang fokus pada pengembangan kemampuan bahasa Inggris mahasiswa melalui berbagai program dan kegiatan. Website ini berfungsi sebagai:
+
+- **Portal Informasi** - Berita, pengumuman, dan update kegiatan SEF
+- **Event Management** - Pendaftaran dan pengelolaan acara/workshop
+- **Resource Center** - Materi pembelajaran dan sumber daya bahasa Inggris
+- **Community Hub** - Platform interaksi antar member dan alumni
+- **Portfolio Showcase** - Dokumentasi kegiatan dan pencapaian organisasi
+
+## 🌟 Fitur Website
+
+### 🎯 Fitur Utama Organisasi
+- **Content Management**: Admin panel untuk mengelola konten website
+- **Event System**: Sistem pendaftaran dan pengelolaan event/workshop
+- **Member Portal**: Area khusus untuk member dengan konten eksklusif
+- **Responsive Design**: Tampilan optimal di semua perangkat
+- **SEO Optimized**: Optimisasi untuk mesin pencari
 - **Multi-language**: Support Bahasa Indonesia dan Inggris
+- **Dark Mode**: Tema gelap dan terang
 
-### 📱 Layout Builder Blocks
-Template ini dilengkapi dengan berbagai layout blocks yang dapat dikustomisasi:
+### 📱 Komponen Website
+Website SEF dilengkapi dengan berbagai komponen untuk mendukung aktivitas organisasi:
 
-1. **Timeline Block** - Timeline interaktif dengan berbagai format tanggal dan status
-2. **Accordion Block** - Panel yang dapat dilipat dengan 4 style variant
-3. **Registration Form** - Form pendaftaran multi-step dengan stepper navigation
-4. **Contact Information Panel** - Panel kontak dengan desain card yang menarik
-5. **Plan Layout** - Pricing plan dengan fitur dan tombol aksi
-6. **Calendar Block** - Kalender event dengan integrasi
-7. **Carousel Block** - Carousel gambar responsive
-8. **Podcast Block** - Player podcast dengan controls
-9. **Partnership Block** - Showcase partner dan sponsor
-10. **FAQ Block** - Frequently Asked Questions dengan accordion
-11. **Archive Block** - Archive post dengan filter dan pagination
-12. **Media Block** - Gallery media dengan berbagai layout
-13. **Content Block** - Rich text content dengan styling
-14. **Banner/Hero** - Hero section dengan call-to-action
-15. **Form Builder** - Custom form builder dengan validation
+1. **Timeline Block** - Timeline kegiatan dan sejarah organisasi
+2. **Accordion Block** - FAQ dan informasi program yang dapat dilipat
+3. **Registration Form** - Form pendaftaran member dan event multi-step
+4. **Contact Information Panel** - Informasi kontak pengurus dan divisi
+5. **Plan Layout** - Paket membership dan program pelatihan
+6. **Calendar Block** - Kalender kegiatan dan jadwal event
+7. **Carousel Block** - Gallery foto kegiatan dan dokumentasi
+8. **Podcast Block** - English podcast dan audio learning materials
+9. **Partnership Block** - Showcase sponsor dan partner organisasi
+10. **FAQ Block** - Pertanyaan umum tentang organisasi
+11. **Archive Block** - Arsip artikel dan materi pembelajaran
+12. **Media Block** - Gallery media dan dokumentasi
+13. **Content Block** - Artikel, berita, dan konten pembelajaran
+14. **Banner/Hero** - Hero section untuk promosi event utama
+15. **Form Builder** - Custom form untuk berbagai keperluan organisasi
 
-### 🔧 Advanced Features
-- **Live Preview**: Preview konten secara real-time
-- **Draft Preview**: Preview draft sebelum publish
-- **Access Control**: Role-based permission system
-- **Search Functionality**: Full-text search dengan filter
-- **Category Filter**: Filter post berdasarkan kategori
-- **Media Management**: Upload dan manage media dengan Supabase Storage
-- **Email Integration**: Nodemailer untuk email notifications
-- **Analytics**: Vercel Analytics integration
-- **Error Handling**: Comprehensive error handling dan logging
+### 🔧 Fitur Lanjutan
+- **Live Preview**: Preview konten secara real-time sebelum publish
+- **Draft Preview**: Review konten draft sebelum dipublikasikan
+- **Access Control**: Sistem permission untuk admin, pengurus, dan member
+- **Search Functionality**: Pencarian artikel dan materi pembelajaran
+- **Category Filter**: Filter konten berdasarkan kategori dan topik
+- **Media Management**: Upload dan kelola foto/video kegiatan
+- **Email Integration**: Notifikasi email untuk member dan event
+- **Analytics**: Tracking pengunjung dan engagement website
+- **Member Database**: Database member dengan sistem keanggotaan
 
-## 🚀 Quick Start
+## 🚀 Setup Development
 
 ### Prerequisites
 - Node.js >= 18.20.2
 - pnpm >= 9 (recommended) atau npm
 - PostgreSQL database (atau Supabase)
+- Akses ke repository GitHub
 
-### Development Setup
+### Local Development Setup
 
-1. **Clone dan Install Dependencies**
+1. **Clone Repository**
 ```bash
-git clone <repository-url>
+git clone https://github.com/send0moka/sefunsoed.git
 cd sefunsoed
 cp .env.example .env
 pnpm install
@@ -85,9 +96,11 @@ pnpm dev
 ```
 
 4. **Create Admin User**
-Buka `http://localhost:3000/admin` dan buat user admin pertama.
+Buka `http://localhost:3000/admin` dan buat user admin pertama untuk mengelola website SEF.
 
 ### Production Deployment
+
+Website SEF di-deploy menggunakan Vercel:
 
 1. **Build untuk Production**
 ```bash
@@ -95,16 +108,10 @@ pnpm build
 pnpm start
 ```
 
-2. **Docker Deployment**
-```bash
-docker build -t sefunsoed .
-docker run -p 3000:3000 sefunsoed
-```
-
-3. **Vercel Deployment**
-- Connect repository ke Vercel
-- Configure environment variables
-- Deploy otomatis dari branch main
+2. **Vercel Deployment**
+- Repository terhubung dengan Vercel
+- Environment variables dikonfigurasi untuk production
+- Auto-deploy dari branch main
 
 ## 📚 Struktur Proyek
 
@@ -130,18 +137,18 @@ src/
 └── payload.config.ts      # Payload configuration
 ```
 
-## 🎨 Demo Pages
+## 🎨 Halaman Demo
 
-Template ini menyediakan berbagai demo pages untuk showcase fitur:
+Website menyediakan berbagai halaman demo untuk showcase fitur:
 
-- `/accordion-demo` - Demo accordion layouts
-- `/timeline-demo` - Demo timeline components
-- `/registration-form-demo` - Demo form pendaftaran
-- `/contact-demo` - Demo contact information panel
-- `/plan-layout-demo` - Demo pricing plans
-- `/calendar-demo` - Demo calendar events
-- `/carousel-demo` - Demo image carousel
-- `/podcast-demo` - Demo podcast player
+- `/accordion-demo` - Demo FAQ dan informasi program
+- `/timeline-demo` - Demo timeline sejarah dan kegiatan SEF
+- `/registration-form-demo` - Demo form pendaftaran member/event
+- `/contact-demo` - Demo informasi kontak pengurus
+- `/plan-layout-demo` - Demo paket membership dan program
+- `/calendar-demo` - Demo kalender kegiatan
+- `/carousel-demo` - Demo gallery foto kegiatan
+- `/podcast-demo` - Demo English podcast materials
 
 ## 🧪 Testing
 
@@ -163,54 +170,57 @@ pnpm test:lang      # Language translation tests
 - **API Validation**: Testing validasi data dan error handling
 - **Environment Testing**: Testing konfigurasi environment
 
-## 🗃️ Collections
+## 🗃️ Struktur Konten
 
 ### Pages
-- Layout builder enabled
-- SEO fields
-- Draft preview support
+- Halaman statis (About, Programs, Contact)
+- Layout builder enabled untuk fleksibilitas
+- SEO optimization
 - Multi-language content
 
-### Posts
-- Blog posts dan articles
-- Category taxonomy
-- Related posts
-- Publication workflow
+### Posts  
+- Artikel dan berita SEF
+- Materi pembelajaran bahasa Inggris
+- Dokumentasi kegiatan
+- Kategori berdasarkan topik
 - Multi-language content
 
 ### Users
-- Authentication system
-- Role-based access control
-- Admin panel access
+- Admin: Full access untuk mengelola website
+- Pengurus: Akses untuk manage konten dan event
+- Member: Akses terbatas ke area member
 
 ### Media
-- File upload dengan Supabase Storage
-- Image optimization
-- Multiple sizes support
-- Focal point selection
+- Upload foto dan video kegiatan
+- Gallery dokumentasi SEF
+- Learning materials (audio, PDF)
+- Optimisasi gambar otomatis
 
 ### Categories
-- Nested categories support
-- Taxonomy untuk posts
-- Hierarchy management
+- Program SEF (Speaking, Writing, TOEFL Prep, etc.)
+- Event types (Workshop, Seminar, Competition)
+- Content topics (Grammar, Vocabulary, Tips)
+- Organisasi struktur konten
 
 ### Registration Submissions
-- Custom collection untuk form submissions
-- Structured data storage
-- Admin management interface
+- Data pendaftaran member baru
+- Registrasi event dan workshop
+- Formulir contact dan feedback
+- Admin dashboard untuk management
 ## 🔐 Access Control
 
-- **Public**: Dapat mengakses published content
-- **Users**: Dapat mengakses admin panel dan manage content
-- **Admins**: Full access ke semua fitur
+- **Public**: Pengunjung dapat mengakses konten umum
+- **Member**: Member SEF dapat mengakses konten eksklusif dan area member
+- **Pengurus**: Pengurus dapat mengelola konten, event, dan member
+- **Admin**: Full access untuk semua fitur website dan database
 
-## 🌐 Internationalization
+## 🌐 Multi-language Support
 
-Support untuk multi-language dengan:
-- Field untuk konten Bahasa Indonesia dan Inggris
-- Language switcher di frontend
-- Context provider untuk language state
-- Dynamic content rendering
+Website mendukung dua bahasa:
+- **Bahasa Indonesia** - Untuk audience lokal dan mahasiswa Unsoed
+- **English** - Untuk konten pembelajaran dan international visitors
+- Language switcher di setiap halaman
+- Dynamic content rendering berdasarkan preferensi bahasa
 
 ## 🎯 SEO & Performance
 
@@ -292,51 +302,62 @@ SMTP_PASS=your_smtp_password
 
 ## 📝 Contributing
 
+Untuk berkontribusi pada website SEF:
+
 1. Fork repository
-2. Create feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to branch (`git push origin feature/AmazingFeature`)
-5. Open Pull Request
+2. Create feature branch (`git checkout -b feature/NewFeature`)
+3. Commit perubahan (`git commit -m 'Add NewFeature for SEF'`)
+4. Push ke branch (`git push origin feature/NewFeature`)
+5. Buat Pull Request
+
+### Guidelines untuk Kontributor
+- Ikuti coding standards yang ada
+- Test fitur sebelum submit PR
+- Update dokumentasi jika diperlukan
+- Koordinasi dengan pengurus SEF untuk perubahan besar
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+Website ini dibuat khusus untuk Student English Forum Universitas Jenderal Soedirman. Kode tersedia di bawah MIT License untuk keperluan pembelajaran.
 
-## 🤝 Support
+## 🤝 Support & Contact
 
-Jika ada pertanyaan atau masalah:
-- Buat issue di GitHub repository
-- Hubungi tim development
-- Lihat dokumentasi lengkap di folder docs
+Untuk pertanyaan teknis atau dukungan:
+- **Email**: sefunsoed@gmail.com
+- **Instagram**: @sefunsoed
+- **GitHub Issues**: Untuk bug reports dan feature requests
+- **SEF Pengurus**: Hubungi pengurus SEF untuk akses admin
 
-## 🎯 Roadmap
+## 🎯 Development Roadmap
 
 ### Phase 1 (Completed ✅)
-- [x] Basic Payload CMS setup
-- [x] Timeline block implementation
-- [x] Accordion block implementation
-- [x] Registration form implementation
-- [x] Contact information panel
-- [x] Multi-language support
-- [x] Category filtering
+- [x] Basic website setup dengan Payload CMS
+- [x] Timeline untuk sejarah dan kegiatan SEF
+- [x] Accordion untuk FAQ dan program info
+- [x] Registration form untuk member dan event
+- [x] Contact panel untuk informasi pengurus
+- [x] Multi-language support (ID/EN)
+- [x] Category system untuk konten
 
 ### Phase 2 (In Progress 🚧)
-- [ ] Advanced user roles
-- [ ] Email notification system
-- [ ] Payment integration
-- [ ] Advanced analytics
+- [ ] Member portal dengan login system
+- [ ] Email notification untuk event registration
+- [ ] Payment integration untuk membership fee
+- [ ] Advanced analytics dan reporting
 - [ ] Mobile app integration
+- [ ] Learning management system
 
 ### Phase 3 (Planned 📋)
-- [ ] Multi-tenant support
-- [ ] Advanced workflow management
-- [ ] Real-time collaboration
-- [ ] Advanced reporting
-- [ ] API documentation
+- [ ] Alumni network platform
+- [ ] Online TOEFL simulation system
+- [ ] Real-time chat untuk member
+- [ ] Advanced course management
+- [ ] Certificate generation system
+- [ ] API untuk integrasi dengan sistem kampus
 
 ---
 
-**Dibuat dengan ❤️ untuk komunitas pendidikan Indonesia**
+**Dibuat dengan ❤️ untuk Student English Forum Universitas Jenderal Soedirman**
 
 
 
