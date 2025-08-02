@@ -1,6 +1,7 @@
 import type { Block } from 'payload'
 
 import {
+  AlignFeature,
   FixedToolbarFeature,
   HeadingFeature,
   InlineToolbarFeature,
@@ -72,7 +73,8 @@ export const FAQBlock: Block = {
       label: 'FAQ Topics (JSON Format)',
       admin: {
         condition: (data) => data.enableTopicFilter,
-        description: 'Enter topics in JSON format. Example: [{"name":"General","slug":"general","description":"General questions"}]',
+        description:
+          'Enter topics in JSON format. Example: [{"name":"General","slug":"general","description":"General questions"}]',
         placeholder: '[{"name":"General","slug":"general","description":"General questions"}]',
       },
     },
@@ -104,6 +106,7 @@ export const FAQBlock: Block = {
               return [
                 ...rootFeatures,
                 HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
+                AlignFeature(),
                 FixedToolbarFeature(),
                 InlineToolbarFeature(),
               ]
@@ -186,7 +189,8 @@ export const FAQBlock: Block = {
         },
       ],
       admin: {
-        description: 'Choose how FAQ items are displayed. Card and List styles show all content immediately. Accordion is kept for backward compatibility.',
+        description:
+          'Choose how FAQ items are displayed. Card and List styles show all content immediately. Accordion is kept for backward compatibility.',
       },
     },
     {

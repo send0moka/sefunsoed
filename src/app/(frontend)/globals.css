@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Import Rich Text Alignment Styles */
+@import '../../styles/richtext-alignment.css';
+
 @layer base {
   h1,
   h2,

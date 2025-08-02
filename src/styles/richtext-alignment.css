@@ -1,0 +1,74 @@
+/* Rich Text Editor Alignment Styles */
+
+/* Alignment classes untuk rich text content */
+.payload-richtext [data-align="left"],
+.payload-richtext .text-left {
+  text-align: left;
+}
+
+.payload-richtext [data-align="center"],
+.payload-richtext .text-center {
+  text-align: center;
+}
+
+.payload-richtext [data-align="right"],
+.payload-richtext .text-right {
+  text-align: right;
+}
+
+.payload-richtext [data-align="justify"],
+.payload-richtext .text-justify {
+  text-align: justify;
+}
+
+/* Ensure paragraphs and headings respect alignment */
+.payload-richtext p[data-align],
+.payload-richtext h1[data-align],
+.payload-richtext h2[data-align],
+.payload-richtext h3[data-align],
+.payload-richtext h4[data-align],
+.payload-richtext h5[data-align],
+.payload-richtext h6[data-align] {
+  text-align: inherit;
+}
+
+/* Support for Lexical's format property */
+.payload-richtext [data-lexical-format="left"] {
+  text-align: left;
+}
+
+.payload-richtext [data-lexical-format="center"] {
+  text-align: center;
+}
+
+.payload-richtext [data-lexical-format="right"] {
+  text-align: right;
+}
+
+.payload-richtext [data-lexical-format="justify"] {
+  text-align: justify;
+}
+
+/* Style alignment for different element types */
+.payload-richtext div[style*="text-align"],
+.payload-richtext p[style*="text-align"],
+.payload-richtext h1[style*="text-align"],
+.payload-richtext h2[style*="text-align"],
+.payload-richtext h3[style*="text-align"],
+.payload-richtext h4[style*="text-align"],
+.payload-richtext h5[style*="text-align"],
+.payload-richtext h6[style*="text-align"] {
+  /* Inline styles will override these naturally */
+}
+
+/* Ensure that alignment works with prose styling */
+.payload-richtext.prose div,
+.payload-richtext.prose p,
+.payload-richtext.prose h1,
+.payload-richtext.prose h2,
+.payload-richtext.prose h3,
+.payload-richtext.prose h4,
+.payload-richtext.prose h5,
+.payload-richtext.prose h6 {
+  text-align: inherit;
+}

@@ -1,6 +1,7 @@
 import type { Block } from 'payload'
 
 import {
+  AlignFeature,
   FixedToolbarFeature,
   HeadingFeature,
   InlineToolbarFeature,
@@ -66,6 +67,7 @@ export const RegistrationForm: Block = {
               return [
                 ...rootFeatures,
                 HeadingFeature({ enabledHeadingSizes: ['h4', 'h5', 'h6'] }),
+                AlignFeature(),
                 FixedToolbarFeature(),
                 InlineToolbarFeature(),
               ]
@@ -207,6 +209,7 @@ export const RegistrationForm: Block = {
           return [
             ...rootFeatures,
             HeadingFeature({ enabledHeadingSizes: ['h3', 'h4', 'h5', 'h6'] }),
+            AlignFeature(),
             FixedToolbarFeature(),
             InlineToolbarFeature(),
           ]
@@ -234,6 +237,7 @@ export const RegistrationForm: Block = {
           return [
             ...rootFeatures,
             HeadingFeature({ enabledHeadingSizes: ['h3', 'h4', 'h5', 'h6'] }),
+            AlignFeature(),
             FixedToolbarFeature(),
             InlineToolbarFeature(),
           ]

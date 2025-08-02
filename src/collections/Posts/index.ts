@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
 import {
+  AlignFeature,
   BlocksFeature,
   FixedToolbarFeature,
   HeadingFeature,
@@ -105,6 +106,7 @@ export const Posts: CollectionConfig<'posts'> = {
                     BlocksFeature({
                       blocks: [Banner, Code, MediaBlock, Timeline, Accordion, RegistrationForm],
                     }),
+                    AlignFeature(),
                     FixedToolbarFeature(),
                     InlineToolbarFeature(),
                     HorizontalRuleFeature(),
@@ -125,6 +127,7 @@ export const Posts: CollectionConfig<'posts'> = {
                     BlocksFeature({
                       blocks: [Banner, Code, MediaBlock, Timeline, Accordion, RegistrationForm],
                     }),
+                    AlignFeature(),
                     FixedToolbarFeature(),
                     InlineToolbarFeature(),
                     HorizontalRuleFeature(),

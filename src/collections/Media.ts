@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
 import {
+  AlignFeature,
   FixedToolbarFeature,
   InlineToolbarFeature,
   lexicalEditor,
@@ -53,7 +54,7 @@ export const Media: CollectionConfig = {
       type: 'richText',
       editor: lexicalEditor({
         features: ({ rootFeatures }) => {
-          return [...rootFeatures, FixedToolbarFeature(), InlineToolbarFeature()]
+          return [...rootFeatures, AlignFeature(), FixedToolbarFeature(), InlineToolbarFeature()]
         },
       }),
     },

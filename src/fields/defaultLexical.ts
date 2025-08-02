@@ -1,5 +1,6 @@
 import type { TextFieldSingleValidation } from 'payload'
 import {
+  AlignFeature,
   BoldFeature,
   ItalicFeature,
   LinkFeature,
@@ -15,6 +16,7 @@ export const defaultLexical = lexicalEditor({
     UnderlineFeature(),
     BoldFeature(),
     ItalicFeature(),
+    AlignFeature(),
     LinkFeature({
       enabledCollections: ['pages', 'posts'],
       fields: ({ defaultFields }) => {
