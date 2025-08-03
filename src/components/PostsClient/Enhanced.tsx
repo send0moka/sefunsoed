@@ -2,13 +2,14 @@
 import { CollectionArchive } from '@/components/CollectionArchive'
 import { CategoryFilter } from '@/components/CategoryFilter/Enhanced'
 import { cn } from '@/utilities/ui'
+import { extractTextFromRichText } from '@/utilities/extractTextFromRichText'
 import React, { useState, useMemo } from 'react'
 import { SortAsc, SortDesc, Calendar, Grid, List } from 'lucide-react'
 
 import type { Category, Post } from '@/payload-types'
 
 export type PostsClientProps = {
-  posts: Pick<Post, 'id' | 'title' | 'slug' | 'categories' | 'meta' | 'publishedAt'>[]
+  posts: Pick<Post, 'id' | 'title' | 'title_id' | 'slug' | 'categories' | 'meta' | 'publishedAt'>[]
   categories: Pick<Category, 'id' | 'title' | 'slug'>[]
 }
 
@@ -55,9 +56,17 @@ export const PostsClientEnhanced: React.FC<PostsClientProps> = ({ posts, categor
         case 'oldest':
           return new Date(a.publishedAt || 0).getTime() - new Date(b.publishedAt || 0).getTime()
         case 'title-asc':
-          return a.title.localeCompare(b.title)
+          const titleA =
+            extractTextFromRichText(a.title) || extractTextFromRichText(a.title_id) || ''
+          const titleB =
+            extractTextFromRichText(b.title) || extractTextFromRichText(b.title_id) || ''
+          return titleA.localeCompare(titleB)
         case 'title-desc':
-          return b.title.localeCompare(a.title)
+          const titleA2 =
+            extractTextFromRichText(a.title) || extractTextFromRichText(a.title_id) || ''
+          const titleB2 =
+            extractTextFromRichText(b.title) || extractTextFromRichText(b.title_id) || ''
+          return titleB2.localeCompare(titleA2)
         default:
           return 0
       }

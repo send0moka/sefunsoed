@@ -75,15 +75,43 @@ export const Posts: CollectionConfig<'posts'> = {
   fields: [
     {
       name: 'title',
-      type: 'text',
+      type: 'richText',
       required: true,
       label: 'Title (English)',
+      editor: lexicalEditor({
+        features: ({ rootFeatures }) => {
+          return [
+            ...rootFeatures,
+            HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
+            AlignFeature(),
+            FixedToolbarFeature(),
+            InlineToolbarFeature(),
+          ]
+        },
+      }),
+      admin: {
+        description: 'Rich text title for English content - supports formatting and alignment',
+      },
     },
     {
       name: 'title_id',
-      type: 'text',
+      type: 'richText',
       required: false,
       label: 'Title (Indonesian)',
+      editor: lexicalEditor({
+        features: ({ rootFeatures }) => {
+          return [
+            ...rootFeatures,
+            HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
+            AlignFeature(),
+            FixedToolbarFeature(),
+            InlineToolbarFeature(),
+          ]
+        },
+      }),
+      admin: {
+        description: 'Rich text title for Indonesian content - supports formatting and alignment',
+      },
     },
     {
       type: 'tabs',

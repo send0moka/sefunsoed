@@ -8,6 +8,7 @@ import type { Post } from '@/payload-types'
 import { Media } from '@/components/Media'
 import { formatAuthors } from '@/utilities/formatAuthors'
 import { useLanguage } from '@/providers/LanguageProvider'
+import { LanguageAwareTitle } from '@/components/LanguageAwareTitle'
 import '/node_modules/flag-icons/css/flag-icons.min.css'
 
 export const PostHero: React.FC<{
@@ -21,12 +22,9 @@ export const PostHero: React.FC<{
 
   const [isDropdownOpen, setIsDropdownOpen] = React.useState(false)
 
-  // Get current title based on selected language
-  const currentTitle = language === 'en' ? title : title_id
-
   return (
     <div className="relative -mt-[10.4rem] flex items-center min-h-screen">
-      <div className="container z-10 relative lg:grid lg:grid-cols-[1fr_48rem_1fr] text-white pb-8">
+      <div className="container z-10 relative text-white pb-8">
         <div className="col-span-1 col-start-1 md:col-start-2 md:col-span-2">
           <div className="mb-6 text-sm uppercase">
             {categories?.map((category, index) => {
@@ -49,7 +47,14 @@ export const PostHero: React.FC<{
           </div>
 
           <div className="">
-            <h1 className="mb-6 text-3xl font-semibold md:text-5xl lg:text-6xl">{currentTitle}</h1>
+            <LanguageAwareTitle
+              englishTitle={title}
+              indonesianTitle={title_id}
+              className="mb-6 text-3xl font-semibold md:text-5xl lg:text-6xl"
+              as="h1"
+              enableGutter={false}
+              fallbackText="Untitled Post"
+            />
           </div>
 
           <div className="flex flex-col gap-4 md:flex-row md:gap-16">

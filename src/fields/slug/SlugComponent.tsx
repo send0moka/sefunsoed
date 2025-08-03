@@ -5,6 +5,7 @@ import { TextFieldClientProps } from 'payload'
 import { useField, Button, TextInput, FieldLabel, useFormFields, useForm } from '@payloadcms/ui'
 
 import { formatSlug } from './formatSlug'
+import { extractTextFromRichText } from '@/utilities/extractTextFromRichText'
 import './index.scss'
 
 type SlugComponentProps = {
@@ -37,7 +38,15 @@ export const SlugComponent: React.FC<SlugComponentProps> = ({
 
   // The value of the field we're listening to for the slug
   const targetFieldValue = useFormFields(([fields]) => {
-    return fields[fieldToUse]?.value as string
+    const fieldValue = fields[fieldToUse]?.value
+
+    // Handle rich text object
+    if (fieldValue && typeof fieldValue === 'object') {
+      return extractTextFromRichText(fieldValue)
+    }
+
+    // Handle string (legacy support)
+    return fieldValue as string
   })
 
   useEffect(() => {

@@ -7,7 +7,7 @@ import React, { useState, useMemo } from 'react'
 import type { Category, Post } from '@/payload-types'
 
 export type PostsClientProps = {
-  posts: Pick<Post, 'id' | 'title' | 'slug' | 'categories' | 'meta'>[]
+  posts: Pick<Post, 'id' | 'title' | 'title_id' | 'slug' | 'categories' | 'meta'>[]
   categories: Pick<Category, 'id' | 'title' | 'slug'>[]
 }
 

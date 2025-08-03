@@ -1,4 +1,5 @@
 import { BeforeSync, DocToSync } from '@payloadcms/plugin-search/types'
+import { extractPostTitle } from '@/utilities/extractTextFromRichText'
 
 export const beforeSyncWithSearch: BeforeSync = async ({ req, originalDoc, searchDoc }) => {
   const {
@@ -7,12 +8,15 @@ export const beforeSyncWithSearch: BeforeSync = async ({ req, originalDoc, searc
 
   const { slug, id, categories, title, meta } = originalDoc
 
+  // Extract plain text from rich text title for search indexing
+  const plainTextTitle = collection === 'posts' ? extractPostTitle(originalDoc) : title
+
   const modifiedDoc: DocToSync = {
     ...searchDoc,
     slug,
     meta: {
       ...meta,
-      title: meta?.title || title,
+      title: meta?.title || plainTextTitle,
       image: meta?.image?.id || meta?.image,
       description: meta?.description,
     },

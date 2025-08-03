@@ -18,8 +18,16 @@ import { beforeSyncWithSearch } from '@/search/beforeSync'
 
 import { Page, Post } from '@/payload-types'
 import { getServerSideURL } from '@/utilities/getURL'
+import { extractPostTitle } from '@/utilities/extractTextFromRichText'
 
 const generateTitle: GenerateTitle<Post | Page> = ({ doc }) => {
+  if (doc && 'title' in doc && doc.title) {
+    // For Post with rich text title
+    const title = extractPostTitle(doc as Post)
+    return title ? `${title} | Payload Website Template` : 'Payload Website Template'
+  }
+
+  // For Page or other documents with string title
   return doc?.title ? `${doc.title} | Payload Website Template` : 'Payload Website Template'
 }
 

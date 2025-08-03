@@ -324,8 +324,42 @@ export interface Page {
  */
 export interface Post {
   id: number;
-  title: string;
-  title_id?: string | null;
+  /**
+   * Rich text title for English content - supports formatting and alignment
+   */
+  title: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  /**
+   * Rich text title for Indonesian content - supports formatting and alignment
+   */
+  title_id?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   heroImage?: (number | null) | Media;
   content: {
     root: {

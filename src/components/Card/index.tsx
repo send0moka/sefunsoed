@@ -7,8 +7,10 @@ import React, { Fragment } from 'react'
 import type { Post } from '@/payload-types'
 
 import { Media } from '@/components/Media'
+import { LanguageAwareTitle } from '@/components/LanguageAwareTitle'
+import { extractTextFromRichText } from '@/utilities/extractTextFromRichText'
 
-export type CardPostData = Pick<Post, 'slug' | 'categories' | 'meta' | 'title'>
+export type CardPostData = Pick<Post, 'slug' | 'categories' | 'meta' | 'title' | 'title_id'>
 
 export const Card: React.FC<{
   alignItems?: 'center'
@@ -21,11 +23,15 @@ export const Card: React.FC<{
   const { card, link } = useClickableCard({})
   const { className, doc, relationTo, showCategories, title: titleFromProps } = props
 
-  const { slug, categories, meta, title } = doc || {}
+  const { slug, categories, meta, title, title_id } = doc || {}
   const { description, image: metaImage } = meta || {}
 
   const hasCategories = categories && Array.isArray(categories) && categories.length > 0
-  const titleToUse = titleFromProps || title
+  const titleToUse =
+    titleFromProps ||
+    extractTextFromRichText(title) ||
+    extractTextFromRichText(title_id) ||
+    'Untitled Post'
   const sanitizedDescription = description?.replace(/\s/g, ' ') // replace non-breaking space with white space
   const href = `/${relationTo}/${slug}`
 
