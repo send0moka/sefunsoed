@@ -9,7 +9,10 @@ import type { Post } from '@/payload-types'
 import { Media } from '@/components/Media'
 import { extractTextFromRichText } from '@/utilities/extractTextFromRichText'
 
-export type CardPostData = Pick<Post, 'slug' | 'categories' | 'meta' | 'title' | 'title_id'>
+export type CardPostData = Pick<
+  Post,
+  'slug' | 'categories' | 'meta' | 'title' | 'title_id' | 'heroImage'
+>
 
 // Additional type for search results where title is a string
 export type CardSearchData = {
@@ -28,6 +31,7 @@ export type CardSearchData = {
   }
   title?: string | null
   title_id?: never // search results don't have title_id
+  heroImage?: never // search results don't have heroImage
 }
 
 export const Card: React.FC<{
@@ -41,8 +45,11 @@ export const Card: React.FC<{
   const { card, link } = useClickableCard({})
   const { className, doc, relationTo, showCategories, title: titleFromProps } = props
 
-  const { slug, categories, meta, title, title_id } = doc || {}
+  const { slug, categories, meta, title, title_id, heroImage } = doc || {}
   const { description, image: metaImage } = meta || {}
+
+  // Use heroImage if metaImage is not available
+  const imageToUse = metaImage || heroImage
 
   const hasCategories = categories && Array.isArray(categories) && categories.length > 0
 
@@ -64,8 +71,10 @@ export const Card: React.FC<{
       ref={card.ref}
     >
       <div className="relative w-full ">
-        {!metaImage && <div className="">No image</div>}
-        {metaImage && typeof metaImage !== 'string' && <Media resource={metaImage} size="33vw" />}
+        {!imageToUse && <div className="">No image</div>}
+        {imageToUse && typeof imageToUse !== 'string' && (
+          <Media resource={imageToUse} size="33vw" />
+        )}
       </div>
       <div className="p-4">
         {showCategories && hasCategories && (
