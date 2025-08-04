@@ -2481,6 +2481,18 @@ export interface Header {
  */
 export interface Footer {
   id: number;
+  /**
+   * Upload logo image for the footer (optional, will use default logo if not set)
+   */
+  logo?: (number | null) | Media;
+  /**
+   * Choose the size of the logo in the footer
+   */
+  logoSize?: ('small' | 'medium' | 'large') | null;
+  /**
+   * Enable/disable theme switcher in footer
+   */
+  showThemeSelector?: boolean | null;
   navItems?:
     | {
         link: {
@@ -2537,6 +2549,9 @@ export interface HeaderSelect<T extends boolean = true> {
  * via the `definition` "footer_select".
  */
 export interface FooterSelect<T extends boolean = true> {
+  logo?: T;
+  logoSize?: T;
+  showThemeSelector?: T;
   navItems?:
     | T
     | {

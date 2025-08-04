@@ -10,6 +10,49 @@ export const Footer: GlobalConfig = {
   },
   fields: [
     {
+      name: 'logo',
+      type: 'upload',
+      relationTo: 'media',
+      label: 'Footer Logo',
+      admin: {
+        description:
+          'Upload logo image for the footer (optional, will use default logo if not set)',
+      },
+    },
+    {
+      name: 'logoSize',
+      type: 'select',
+      label: 'Logo Size',
+      defaultValue: 'medium',
+      options: [
+        {
+          label: 'Small (32px height)',
+          value: 'small',
+        },
+        {
+          label: 'Medium (40px height)',
+          value: 'medium',
+        },
+        {
+          label: 'Large (48px height)',
+          value: 'large',
+        },
+      ],
+      admin: {
+        description: 'Choose the size of the logo in the footer',
+        condition: (data) => data.logo,
+      },
+    },
+    {
+      name: 'showThemeSelector',
+      type: 'checkbox',
+      label: 'Show Theme Selector',
+      defaultValue: true,
+      admin: {
+        description: 'Enable/disable theme switcher in footer',
+      },
+    },
+    {
       name: 'navItems',
       type: 'array',
       fields: [
