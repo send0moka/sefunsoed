@@ -6,22 +6,18 @@ import type { Post } from '@/payload-types'
 
 import { Media } from '@/components/Media'
 import { formatAuthors } from '@/utilities/formatAuthors'
-import { useLanguage } from '@/providers/LanguageProvider'
 import { LanguageAwareTitle } from '@/components/LanguageAwareTitle'
 import { ShareButtons } from '@/components/ShareButtons'
 import { extractTextFromRichText } from '@/utilities/extractTextFromRichText'
-import '/node_modules/flag-icons/css/flag-icons.min.css'
 
 export const PostHero: React.FC<{
   post: Post
 }> = ({ post }) => {
   const { categories, heroImage, populatedAuthors, publishedAt, title, title_id, slug } = post
-  const { language, setLanguage } = useLanguage()
 
   const hasAuthors =
     populatedAuthors && populatedAuthors.length > 0 && formatAuthors(populatedAuthors) !== ''
 
-  const [isDropdownOpen, setIsDropdownOpen] = React.useState(false)
   const [currentUrl, setCurrentUrl] = React.useState('')
 
   // Effect to set the correct URL after component mounts
@@ -106,58 +102,6 @@ export const PostHero: React.FC<{
               </time>
             </div>
           )}
-          {/* button switch en/id */}
-          <div className="flex flex-col gap-1">
-            <p className="text-sm text-neutral-600 dark:text-white/60">Language</p>
-            <div className="relative">
-              <button
-                className="flex items-center gap-2 text-neutral-900"
-                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-              >
-                {language === 'en' ? (
-                  <span className="fi fi-gb"></span>
-                ) : (
-                  <span className="fi fi-id"></span>
-                )}
-                <svg
-                  className={`w-4 h-4 transition-transform text-neutral-900 dark:text-white ${isDropdownOpen ? 'rotate-180' : ''}`}
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M19 9l-7 7-7-7"
-                  />
-                </svg>
-              </button>
-
-              {isDropdownOpen && (
-                <div className="absolute left-0 mt-1 overflow-hidden border rounded-md top-full bg-white dark:bg-neutral-900 border-neutral-200 dark:border-neutral-700 shadow-lg">
-                  <button
-                    className="flex items-center w-full gap-2 px-3 py-2 transition-colors hover:bg-neutral-100"
-                    onClick={() => {
-                      setLanguage('en')
-                      setIsDropdownOpen(false)
-                    }}
-                  >
-                    <span className="fi fi-gb"></span>
-                  </button>
-                  <button
-                    className="flex items-center w-full gap-2 px-3 py-2 transition-colors hover:bg-neutral-100"
-                    onClick={() => {
-                      setLanguage('id')
-                      setIsDropdownOpen(false)
-                    }}
-                  >
-                    <span className="fi fi-id"></span>
-                  </button>
-                </div>
-              )}
-            </div>
-          </div>
         </div>
         {heroImage && typeof heroImage !== 'string' && (
           <Media resource={heroImage} imgClassName="w-full h-auto rounded-xl" />

@@ -1,5 +1,6 @@
 'use client'
 import { useHeaderTheme } from '@/providers/HeaderTheme'
+import { useTheme } from '@/providers/Theme'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
@@ -17,6 +18,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
   /* Storing the value in a useState to avoid hydration errors */
   const [theme, setTheme] = useState<string | null>(null)
   const { headerTheme, setHeaderTheme } = useHeaderTheme()
+  const { theme: mainTheme } = useTheme()
   const pathname = usePathname()
 
   useEffect(() => {
@@ -25,9 +27,11 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
   }, [pathname])
 
   useEffect(() => {
-    if (headerTheme && headerTheme !== theme) setTheme(headerTheme)
+    // Use headerTheme if available, otherwise use mainTheme
+    const themeToUse = headerTheme || mainTheme
+    if (themeToUse && themeToUse !== theme) setTheme(themeToUse)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [headerTheme])
+  }, [headerTheme, mainTheme])
 
   return (
     <header className="container relative z-20   " {...(theme ? { 'data-theme': theme } : {})}>

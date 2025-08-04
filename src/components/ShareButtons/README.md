@@ -90,7 +90,7 @@ Anda dapat mengcustomize tampilan dengan menambahkan `className`:
 <ShareButtons
   url={url}
   title={title}
-  className="bg-gray-100 p-4 rounded-lg"
+  className="bg-neutral-100 p-4 rounded-lg"
 />
 ```
 

@@ -7,6 +7,7 @@ import type { Header as HeaderType } from '@/payload-types'
 import { CMSLink } from '@/components/Link'
 import Link from 'next/link'
 import { SearchIcon, Menu, X } from 'lucide-react'
+import { LanguageSwitcher } from '@/components/LanguageSwitcher'
 
 export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
   const navItems = data?.navItems || []
@@ -50,6 +51,7 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
           <span className="sr-only">Search</span>
           <SearchIcon className="w-5 text-primary" />
         </Link>
+        <LanguageSwitcher />
       </nav>
 
       {/* Mobile Navigation */}
@@ -82,6 +84,9 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
                 <SearchIcon className="w-5" />
                 <span>Search</span>
               </Link>
+              <div className="py-2">
+                <LanguageSwitcher showLabel={true} />
+              </div>
             </nav>
           </div>
         )}

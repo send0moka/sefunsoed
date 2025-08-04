@@ -81,7 +81,7 @@ export default function ShareButtonsDemo() {
                     Gmail - Buat email draft
                   </li>
                   <li className="flex items-center gap-2">
-                    <span className="w-2 h-2 bg-gray-500 rounded-full"></span>
+                    <span className="w-2 h-2 bg-neutral-500 rounded-full"></span>
                     Copy Link - Copy URL ke clipboard
                   </li>
                 </ul>

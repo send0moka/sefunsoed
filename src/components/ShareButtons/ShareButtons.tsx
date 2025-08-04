@@ -93,21 +93,21 @@ export const ShareButtons: React.FC<ShareButtonsProps> = ({
           <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" />
         </svg>
       ),
-      color: copied ? 'text-green-600 hover:bg-green-50' : 'text-gray-600 hover:bg-gray-50',
+      color: copied ? 'text-green-600 hover:bg-green-50' : 'text-neutral-600 hover:bg-neutral-50',
       action: handleCopyLink,
     },
   ]
 
   return (
     <div className={cn('flex flex-col gap-3', className)}>
-      <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Share this post</p>
+      <p className="text-sm font-medium text-neutral-600 dark:text-neutral-400">Share this post</p>
       <div className="flex gap-2">
         {shareButtons.map((button) => (
           <button
             key={button.name}
             onClick={button.action}
             className={cn(
-              'flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 transition-all duration-200 hover:scale-105',
+              'flex items-center gap-2 px-3 py-2 rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 transition-all duration-200 hover:scale-105',
               button.color,
             )}
             title={button.name === 'Copy Link' && copied ? 'Copied!' : `Share on ${button.name}`}
