@@ -8,6 +8,8 @@ import { Media } from '@/components/Media'
 import { formatAuthors } from '@/utilities/formatAuthors'
 import { useLanguage } from '@/providers/LanguageProvider'
 import { LanguageAwareTitle } from '@/components/LanguageAwareTitle'
+import { ShareButtons } from '@/components/ShareButtons'
+import { extractTextFromRichText } from '@/utilities/extractTextFromRichText'
 import '/node_modules/flag-icons/css/flag-icons.min.css'
 
 export const PostHero: React.FC<{
@@ -21,8 +23,14 @@ export const PostHero: React.FC<{
 
   const [isDropdownOpen, setIsDropdownOpen] = React.useState(false)
 
+  // Get current URL and title for sharing
+  const currentUrl = typeof window !== 'undefined' ? window.location.href : ''
+  const postTitle =
+    typeof title === 'string' ? title : extractTextFromRichText(title) || 'Untitled Post'
+  const postDescription = post.meta?.description || ''
+
   return (
-    <div className="container py-8">
+    <div className="container">
       <div className="max-w-[48rem] mx-auto">
         <div className="mb-6 text-sm uppercase w-fit py-1 px-2 bg-neutral-600 text-white">
           {categories?.map((category, index) => {
@@ -55,14 +63,14 @@ export const PostHero: React.FC<{
           />
         </div>
 
-        
-
         <div className="flex flex-col mb-4 gap-4 md:flex-row md:gap-16">
           {hasAuthors && (
             <div className="flex flex-col gap-4">
               <div className="flex flex-col gap-1">
                 <p className="text-sm text-neutral-600 dark:text-white/60">Author</p>
-                <p className="text-neutral-900 dark:text-white">{formatAuthors(populatedAuthors)}</p>
+                <p className="text-neutral-900 dark:text-white">
+                  {formatAuthors(populatedAuthors)}
+                </p>
               </div>
             </div>
           )}
@@ -70,10 +78,10 @@ export const PostHero: React.FC<{
             <div className="flex flex-col gap-1">
               <p className="text-sm text-neutral-600 dark:text-white/60">Date Published</p>
               <time dateTime={publishedAt} className="text-neutral-900 dark:text-white">
-                {new Date(publishedAt).toLocaleDateString('en-GB', { 
-                  day: 'numeric', 
-                  month: 'long', 
-                  year: 'numeric' 
+                {new Date(publishedAt).toLocaleDateString('en-GB', {
+                  day: 'numeric',
+                  month: 'long',
+                  year: 'numeric',
                 })}
               </time>
             </div>
@@ -132,10 +140,12 @@ export const PostHero: React.FC<{
           </div>
         </div>
         {heroImage && typeof heroImage !== 'string' && (
-
-            <Media resource={heroImage} imgClassName="w-full h-auto rounded-xl" />
-
+          <Media resource={heroImage} imgClassName="w-full h-auto rounded-xl" />
         )}
+        <div className="mt-6">
+          <ShareButtons url={currentUrl} title={postTitle} description={postDescription} />
+        </div>
+        
       </div>
     </div>
   )
