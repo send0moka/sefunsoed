@@ -24,7 +24,7 @@ export const PostHero: React.FC<{
   return (
     <div className="container py-8">
       <div className="max-w-[48rem] mx-auto">
-        <div className="mb-6 text-sm uppercase text-neutral-600">
+        <div className="mb-6 text-sm uppercase w-fit py-1 px-2 bg-neutral-600 text-white">
           {categories?.map((category, index) => {
             if (typeof category === 'object' && category !== null) {
               const { title: categoryTitle } = category
