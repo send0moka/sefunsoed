@@ -15,16 +15,36 @@ import '/node_modules/flag-icons/css/flag-icons.min.css'
 export const PostHero: React.FC<{
   post: Post
 }> = ({ post }) => {
-  const { categories, heroImage, populatedAuthors, publishedAt, title, title_id } = post
+  const { categories, heroImage, populatedAuthors, publishedAt, title, title_id, slug } = post
   const { language, setLanguage } = useLanguage()
 
   const hasAuthors =
     populatedAuthors && populatedAuthors.length > 0 && formatAuthors(populatedAuthors) !== ''
 
   const [isDropdownOpen, setIsDropdownOpen] = React.useState(false)
+  const [currentUrl, setCurrentUrl] = React.useState('')
 
-  // Get current URL and title for sharing
-  const currentUrl = typeof window !== 'undefined' ? window.location.href : ''
+  // Effect to set the correct URL after component mounts
+  React.useEffect(() => {
+    if (typeof window !== 'undefined' && slug) {
+      // Construct the full URL using current domain and post slug
+      const protocol = window.location.protocol
+      const host = window.location.host
+      const fullUrl = `${protocol}//${host}/posts/${slug}`
+
+      // Debug log for production troubleshooting
+      console.log('PostHero URL Debug:', {
+        slug,
+        protocol,
+        host,
+        fullUrl,
+        currentLocation: window.location.href,
+      })
+
+      setCurrentUrl(fullUrl)
+    }
+  }, [slug])
+
   const postTitle =
     typeof title === 'string' ? title : extractTextFromRichText(title) || 'Untitled Post'
   const postDescription = post.meta?.description || ''
@@ -142,10 +162,11 @@ export const PostHero: React.FC<{
         {heroImage && typeof heroImage !== 'string' && (
           <Media resource={heroImage} imgClassName="w-full h-auto rounded-xl" />
         )}
-        <div className="mt-6">
-          <ShareButtons url={currentUrl} title={postTitle} description={postDescription} />
-        </div>
-        
+        {currentUrl && (
+          <div className="mt-6">
+            <ShareButtons url={currentUrl} title={postTitle} description={postDescription} />
+          </div>
+        )}
       </div>
     </div>
   )
