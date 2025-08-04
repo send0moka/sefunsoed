@@ -97,6 +97,14 @@ export const FAQBlock: Block = {
           },
         },
         {
+          name: 'question_id',
+          type: 'text',
+          label: 'Question (Indonesian)',
+          admin: {
+            description: 'Versi bahasa Indonesia dari pertanyaan FAQ',
+          },
+        },
+        {
           name: 'answer',
           type: 'richText',
           label: 'Answer',
@@ -114,6 +122,25 @@ export const FAQBlock: Block = {
           }),
           admin: {
             description: 'The detailed answer to the question',
+          },
+        },
+        {
+          name: 'answer_id',
+          type: 'richText',
+          label: 'Answer (Indonesian)',
+          editor: lexicalEditor({
+            features: ({ rootFeatures }) => {
+              return [
+                ...rootFeatures,
+                HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
+                AlignFeature(),
+                FixedToolbarFeature(),
+                InlineToolbarFeature(),
+              ]
+            },
+          }),
+          admin: {
+            description: 'Versi bahasa Indonesia dari jawaban FAQ',
           },
         },
         {

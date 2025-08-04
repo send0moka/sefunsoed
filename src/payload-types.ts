@@ -1268,6 +1268,10 @@ export interface FAQBlock {
          */
         question: string;
         /**
+         * Versi bahasa Indonesia dari pertanyaan FAQ
+         */
+        question_id?: string | null;
+        /**
          * The detailed answer to the question
          */
         answer: {
@@ -1285,6 +1289,24 @@ export interface FAQBlock {
           };
           [k: string]: unknown;
         };
+        /**
+         * Versi bahasa Indonesia dari jawaban FAQ
+         */
+        answer_id?: {
+          root: {
+            type: string;
+            children: {
+              type: string;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
         /**
          * Which topic this FAQ item belongs to (must match a topic slug)
          */
@@ -2012,7 +2034,9 @@ export interface FAQBlockSelect<T extends boolean = true> {
     | T
     | {
         question?: T;
+        question_id?: T;
         answer?: T;
+        answer_id?: T;
         topic?: T;
         keywords?: T;
         relatedQuestions?:

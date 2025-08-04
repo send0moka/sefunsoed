@@ -2,6 +2,7 @@
 import React, { useState, useMemo } from 'react'
 import { Search, ExternalLink } from 'lucide-react'
 import RichText from '@/components/RichText'
+import { useLanguage } from '@/providers/LanguageProvider'
 import { cn } from '@/utilities/ui'
 
 import type { FAQBlock as FAQBlockProps } from '@/payload-types'
@@ -12,8 +13,11 @@ type FAQItemData = any
 
 interface FAQItemProps {
   question: string
+  questionId?: string // Indonesian question
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   answer: any // Lexical editor content
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  answerId?: any // Indonesian answer (Lexical editor content)
   relatedQuestions?: Array<{
     question: string
     link?: string
@@ -24,11 +28,18 @@ interface FAQItemProps {
 
 const FAQItem: React.FC<FAQItemProps> = ({
   question,
+  questionId,
   answer,
+  answerId,
   relatedQuestions,
   layout,
   showRelatedQuestions,
 }) => {
+  const { language } = useLanguage()
+
+  // Choose content based on language
+  const currentQuestion = language === 'en' ? question : questionId || question
+  const currentAnswer = language === 'en' ? answer : answerId || answer
   const getLayoutStyles = () => {
     switch (layout) {
       case 'cards':
@@ -61,10 +72,10 @@ const FAQItem: React.FC<FAQItemProps> = ({
 
   return (
     <div className={styles.container}>
-      <h3 className={styles.question}>{question}</h3>
+      <h3 className={styles.question}>{currentQuestion}</h3>
 
       <div className={styles.answer}>
-        <RichText data={answer} />
+        <RichText data={currentAnswer} />
       </div>
 
       {showRelatedQuestions && relatedQuestions && relatedQuestions.length > 0 && (
@@ -282,8 +293,9 @@ export const FAQBlockComponent: React.FC<FAQBlockProps> = ({
       const searchLower = searchTerm.toLowerCase()
       filtered = filtered.filter((item: FAQItemData) => {
         const questionMatch = item.question?.toLowerCase().includes(searchLower)
+        const questionIdMatch = item.question_id?.toLowerCase().includes(searchLower)
         const keywordsMatch = item.keywords?.toLowerCase().includes(searchLower)
-        return questionMatch || keywordsMatch
+        return questionMatch || questionIdMatch || keywordsMatch
       })
     }
 
@@ -386,7 +398,7 @@ export const FAQBlockComponent: React.FC<FAQBlockProps> = ({
         {searchTerm && ` for "${searchTerm}"`}
         {}
         {selectedTopic !== 'all' &&
-          ` in topic "${parsedTopics?.find((t: any) => t.slug === selectedTopic)?.name}"`}
+          ` in topic "${parsedTopics?.find((t: { slug: string; name: string }) => t.slug === selectedTopic)?.name}"`}
       </div>
 
       {/* FAQ Items */}
@@ -396,7 +408,9 @@ export const FAQBlockComponent: React.FC<FAQBlockProps> = ({
             <FAQItem
               key={startIndex + index}
               question={item.question || ''}
+              questionId={item.question_id}
               answer={item.answer}
+              answerId={item.answer_id}
               relatedQuestions={item.relatedQuestions}
               layout={layout || 'cards'}
               showRelatedQuestions={showRelatedQuestions || false}
