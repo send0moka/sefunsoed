@@ -10,7 +10,35 @@ export const post3: (args: PostArgs) => RequiredDataFromCollectionSlug<'posts'> 
     slug: 'dollar-and-sense-the-financial-forecast',
     _status: 'published',
     authors: [author],
-    title_id: 'Dollar dan Akal Sehat: Prediksi Keuangan',
+    title_id: {
+      root: {
+        type: 'root',
+        children: [
+          {
+            type: 'paragraph',
+            children: [
+              {
+                type: 'text',
+                detail: 0,
+                format: 0,
+                mode: 'normal',
+                style: '',
+                text: 'Dollar dan Akal Sehat: Prediksi Keuangan',
+                version: 1,
+              },
+            ],
+            direction: 'ltr',
+            format: '',
+            indent: 0,
+            version: 1,
+          },
+        ],
+        direction: 'ltr',
+        format: '',
+        indent: 0,
+        version: 1,
+      },
+    },
     content: {
       root: {
         type: 'root',
@@ -312,6 +340,34 @@ export const post3: (args: PostArgs) => RequiredDataFromCollectionSlug<'posts'> 
       title: 'Dollar and Sense: The Financial Forecast',
     },
     relatedPosts: [], // this is populated by the seed script
-    title: 'Dollar and Sense: The Financial Forecast',
+    title: {
+      root: {
+        type: 'root',
+        children: [
+          {
+            type: 'paragraph',
+            children: [
+              {
+                type: 'text',
+                detail: 0,
+                format: 0,
+                mode: 'normal',
+                style: '',
+                text: 'Dollar and Sense: The Financial Forecast',
+                version: 1,
+              },
+            ],
+            direction: 'ltr',
+            format: '',
+            indent: 0,
+            version: 1,
+          },
+        ],
+        direction: 'ltr',
+        format: '',
+        indent: 0,
+        version: 1,
+      },
+    },
   }
 }

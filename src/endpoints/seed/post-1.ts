@@ -16,7 +16,35 @@ export const post1: (args: PostArgs) => RequiredDataFromCollectionSlug<'posts'> 
     slug: 'digital-horizons',
     _status: 'published',
     authors: [author],
-    title_id: 'Digital Horizons: Menjembatani Kesenjangan Teknologi',
+    title_id: {
+      root: {
+        type: 'root',
+        children: [
+          {
+            type: 'paragraph',
+            children: [
+              {
+                type: 'text',
+                detail: 0,
+                format: 0,
+                mode: 'normal',
+                style: '',
+                text: 'Digital Horizons: Menjembatani Kesenjangan Teknologi',
+                version: 1,
+              },
+            ],
+            direction: 'ltr',
+            format: '',
+            indent: 0,
+            version: 1,
+          },
+        ],
+        direction: 'ltr',
+        format: '',
+        indent: 0,
+        version: 1,
+      },
+    },
     content: {
       root: {
         type: 'root',
@@ -359,6 +387,34 @@ export const post1: (args: PostArgs) => RequiredDataFromCollectionSlug<'posts'> 
       title: 'Digital Horizons: A Glimpse into Tomorrow',
     },
     relatedPosts: [], // this is populated by the seed script
-    title: 'Digital Horizons: A Glimpse into Tomorrow',
+    title: {
+      root: {
+        type: 'root',
+        children: [
+          {
+            type: 'paragraph',
+            children: [
+              {
+                type: 'text',
+                detail: 0,
+                format: 0,
+                mode: 'normal',
+                style: '',
+                text: 'Digital Horizons: A Glimpse into Tomorrow',
+                version: 1,
+              },
+            ],
+            direction: 'ltr',
+            format: '',
+            indent: 0,
+            version: 1,
+          },
+        ],
+        direction: 'ltr',
+        format: '',
+        indent: 0,
+        version: 1,
+      },
+    },
   }
 }

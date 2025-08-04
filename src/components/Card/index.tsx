@@ -7,15 +7,33 @@ import React, { Fragment } from 'react'
 import type { Post } from '@/payload-types'
 
 import { Media } from '@/components/Media'
-import { LanguageAwareTitle } from '@/components/LanguageAwareTitle'
 import { extractTextFromRichText } from '@/utilities/extractTextFromRichText'
 
 export type CardPostData = Pick<Post, 'slug' | 'categories' | 'meta' | 'title' | 'title_id'>
 
+// Additional type for search results where title is a string
+export type CardSearchData = {
+  id: number
+  slug?: string | null
+  categories?: Array<{
+    relationTo?: string | null
+    categoryID?: string | null
+    title?: string | null
+    id?: string | null
+  }> | null
+  meta?: {
+    title?: string | null
+    description?: string | null
+    image?: number | null
+  }
+  title?: string | null
+  title_id?: never // search results don't have title_id
+}
+
 export const Card: React.FC<{
   alignItems?: 'center'
   className?: string
-  doc?: CardPostData
+  doc?: CardPostData | CardSearchData
   relationTo?: 'posts'
   showCategories?: boolean
   title?: string
@@ -27,9 +45,11 @@ export const Card: React.FC<{
   const { description, image: metaImage } = meta || {}
 
   const hasCategories = categories && Array.isArray(categories) && categories.length > 0
+
+  // Handle both string titles (from search) and rich text titles (from posts)
   const titleToUse =
     titleFromProps ||
-    extractTextFromRichText(title) ||
+    (typeof title === 'string' ? title : extractTextFromRichText(title)) ||
     extractTextFromRichText(title_id) ||
     'Untitled Post'
   const sanitizedDescription = description?.replace(/\s/g, ' ') // replace non-breaking space with white space
