@@ -2432,6 +2432,22 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  */
 export interface Header {
   id: number;
+  /**
+   * Upload logo image for the header
+   */
+  logo?: (number | null) | Media;
+  /**
+   * Choose the size of the logo in the header
+   */
+  logoSize?: ('small' | 'medium' | 'large') | null;
+  /**
+   * Enable/disable search functionality in header
+   */
+  showSearch?: boolean | null;
+  /**
+   * Enable/disable language switcher in header
+   */
+  showLanguageSwitcher?: boolean | null;
   navItems?:
     | {
         link: {
@@ -2449,6 +2465,10 @@ export interface Header {
           url?: string | null;
           label: string;
         };
+        /**
+         * Indonesian version of the navigation label
+         */
+        labelIndonesian?: string | null;
         id?: string | null;
       }[]
     | null;
@@ -2489,6 +2509,10 @@ export interface Footer {
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
+  logo?: T;
+  logoSize?: T;
+  showSearch?: T;
+  showLanguageSwitcher?: T;
   navItems?:
     | T
     | {
@@ -2501,6 +2525,7 @@ export interface HeaderSelect<T extends boolean = true> {
               url?: T;
               label?: T;
             };
+        labelIndonesian?: T;
         id?: T;
       };
   updatedAt?: T;
